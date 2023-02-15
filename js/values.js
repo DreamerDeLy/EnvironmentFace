@@ -151,6 +151,13 @@ var sensors_descriptions = {
 	"RadKit": "Dosimeter module by BeeGreen",
 }
 
+var units_replace = {
+	// "C": "°C", // Looks not centred
+	"Rh": "%",
+	"ug/m3": "µg/m³",
+	"uR/h": "μR/h"
+}
+
 var display_mode = "last"; // or "send"
 
 var button_last = getE("v_last");
@@ -234,6 +241,7 @@ function evenHandler() {
 
 		console.log(by_sensor);
 
+		// Clear values container
 		var table = getE("values-table");
 		var child = table.lastElementChild; 
         while (child) {
@@ -242,6 +250,9 @@ function evenHandler() {
         }
 
 		Object.keys(by_sensor).forEach(e => {
+			
+			// Skip system values
+			if (e == "system") return;
 
 			// Sensor panel
 			var s = createE("div");
@@ -290,7 +301,11 @@ function evenHandler() {
 
 				// Type
 				var t = createE("small");
-				t.innerHTML = e["unit"];
+
+				var unit = e["unit"];
+				if (units_replace[unit] != null) unit = units_replace[unit];
+
+				t.innerHTML = unit;
 				v.appendChild(t);
 
 				// Add to values container
