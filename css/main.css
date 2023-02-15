@@ -306,6 +306,10 @@ body {
 	font-weight: bold;
 }
 
+.values > .level-0 {
+	background-color: #2d555e;
+}
+
 .values > .level-1 {
 	background-color: #345920;
 }
@@ -315,7 +319,15 @@ body {
 }
 
 .values > .level-3 {
+	background-color: #614a19;
+}
+
+.values > .level-4 {
 	background-color: #5c2b29;
+}
+
+.values > .level-5 {
+	background-color: #42275e;
 }
 
 .city {

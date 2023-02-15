@@ -1,0 +1,29 @@
+{
+	"id": "esp32-083AF2A6AFA8",
+	"version": "SAPPHIRE-SP-7",
+	"age": "6",
+	"key": "fb229e5e19a558ca4d7cdf55507965da",
+	"variables": [
+		{ "type": "dg", "unit": "ppm", "sensor": "ZE03-DG", "value": "0.02" },
+		{ "type": "o3", "unit": "ppb", "sensor": "ZE25-O3", "value": "20.00" },
+		{ "type": "no2", "unit": "ppb", "sensor": "ZE12-NO2", "value": "33.50" },
+		{ "type": "pm25", "unit": "ug/m3", "sensor": "SDS011", "value": "62.6" },
+		{ "type": "pm10", "unit": "ug/m3", "sensor": "SDS011", "value": "106.9" },
+		{ "type": "temperature", "unit": "C", "sensor": "AHTx0", "value": "20.09" },
+		{ "type": "humidity", "unit": "Rh", "sensor": "AHTx0", "value": "43.21" },
+		{ "type": "temperature", "unit": "C", "sensor": "BMP280", "value": "20.70" },
+		{ "type": "pressure", "unit": "Pa", "sensor": "BMP280", "value": "98999.88" },
+		{ "type": "tvoc", "unit": "ppb", "sensor": "MICS-VZ-89TE", "value": "569.67" },
+		{ "type": "co2", "unit": "ppm", "sensor": "MICS-VZ-89TE", "value": "1000.87" },
+		{ "type": "radiation", "unit": "uR/h", "sensor": "RadKit", "value": "9.27" },
+		{ "type": "signal", "unit": "dBm", "sensor": "system", "value": "-46" },
+		{ "type": "signal-quality", "unit": "%", "sensor": "system", "value": "100" },
+		{ "type": "accumulator-voltage", "unit": "v", "sensor": "system", "value": "10.36" },
+		{ "type": "co2", "unit": "ppm", "sensor": "MH-Z1x", "value": "1737" },
+		{ "type": "so2", "unit": "ppm", "sensor": "ZE03-SO2", "value": "0.00" },
+		{ "type": "co", "unit": "ppm", "sensor": "ZE07-CO", "value": "3.60" },
+		{ "type": "ch2o", "unit": "ppb", "sensor": "ZE08-CH2O", "value": "984.00" },
+		{ "type": "online", "unit": "s", "sensor": "system", "value": "372" },
+		{ "type": "datetime", "unit": "", "sensor": "system", "value": "2022-02-11 12:41:14" }
+	]
+}

@@ -1,0 +1,32 @@
+{
+	"id": "229", 
+	"version":"1.2.3", 
+	"key":"57c4d2ac4b27dfb988ed50d7d7f74dc1", 
+	"time-to-send": 10,
+	"age": 1,
+	"variables": 
+	[
+		{"type":"pm10",			"unit":"ug/m3",	"sensor":"SDS011", 		"value":10.0},
+		{"type":"pm25",			"unit":"ug/m3",	"sensor":"SDS011", 		"value":45.0},
+
+		{"type":"temperature",	"unit":"C",		"sensor":"BME280", 		"value":25.00},
+		{"type":"humidity",		"unit":"RH",	"sensor":"BME280", 		"value":50.00},
+		{"type":"pressure",		"unit":"Pa",	"sensor":"BME280", 		"value":100000.00},
+
+		{"type":"co2",			"unit":"ppm",	"sensor":"MH-Z1X", 		"value":1100},
+		{"type":"ch2o",			"unit":"ppb",	"sensor":"ZE08-CH2O", 	"value":50},
+		{"type":"radiation",	"unit":"uR/h",	"sensor":"RadKit", 		"value":30},
+
+		{"type":"nh3",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.013},
+		{"type":"co",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.024},
+		{"type":"no2",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.095},
+
+		{"type":"no2",			"unit":"ppb",	"sensor":"ZE12-NO2",	"value": 101},
+
+		{"type": "tvoc",		"unit": "ppb",	"sensor":"MICS-VZ-89TE","value": "532.75"},
+		{"type": "co2", 		"unit": "ppm", 	"sensor":"MICS-VZ-89TE","value": "1280.35"},
+
+		{"type":"online",		"unit":"s",		"sensor":"system", 		"value":61},
+		{"type":"age",			"unit":"",		"sensor":"system", 		"value":1}
+	]
+}
