@@ -135,6 +135,22 @@ var values_palette = [
 	// }
 ]
 
+var sensors_descriptions = {
+	"SDS011": "High quality optical PM sensor",
+	"MH-Z1x": "NDIR infrared CO<sub>2</sub> sensor",
+	"ZE03-": "Electrochemical sensor for high concentrations",
+	"ZE07-": "Electrochemical sensor",
+	"ZE08-CH2O": "Electrochemical formaldehyde sensor",
+	"ZE12-": "High-precision electrochemical sensor",
+	"ZE25-O3": "Electrochemical O<sub>3</sub> sensor",
+	"AHT": "Meteorological sensor",
+	"BMP": "BOSCH meteorological sensor",
+	"BME": "BOSCH meteorological sensor",
+	"MICS-VZ-89TE": "Metal-oxide VOCs sensor",
+	"MICS-6814": "Metal-oxide CO, NO2, NH3 sensor",
+	"RadKit": "Dosimeter module by BeeGreen",
+}
+
 var display_mode = "last"; // or "send"
 
 var button_last = getE("v_last");
@@ -238,7 +254,13 @@ function evenHandler() {
 
 			// Sensor description
 			var n = createE("small");
-			n.innerHTML = e;
+
+			var description = e;
+			for (const [key, value] of Object.entries(sensors_descriptions)) {
+				if (e.startsWith(key)) description = value;
+			}
+
+			n.innerHTML = description;
 			s.appendChild(n);
 			
 			// Values container
