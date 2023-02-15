@@ -78,13 +78,56 @@ function getFile(adr, callback, timeout, method, onTimeout, onError){
 function parseData(fileStr)
 {
 	console.log("parse data");
-	var dataJson = JSON.parse(fileStr);
+
+	try {
+		var dataJson = JSON.parse(fileStr);
+	} catch (error) {
+		console.error("info parse");
+		return;
+	}
+	
 	var elements = document.querySelectorAll("[data-replace]");
 
 	for (i = 0; i < elements.length; i++) 
 	{
 		var element = elements[i];
 		element.innerHTML = convertLineBreaks(esc(dataJson[element.getAttribute("data-replace")]));
+	}
+
+	var si = getE("status-icons");
+
+	if (dataJson["wifi-status"] != null)
+	{
+		// let w = getE("wifi_s");
+		// w.src = "images/wifi_" + dataJson["wifi-status"] + ".svg";
+		// if(dataJson["wifi-status"] != "off") w.classList.remove("off");
+
+		const i = document.createElement('img');
+		i.src = "images/wifi_" + dataJson["wifi-status"] + ".svg";
+
+		if (dataJson["wifi-status"] == "off") i.classList.add("off");
+		
+		si.appendChild(i);
+	}
+	
+	if (dataJson["ap-status"] != null)
+	{
+		const i = document.createElement('img');
+		i.src = "images/ap.svg";
+		
+		if (dataJson["ap-status"] == "off") i.classList.add("off");
+		
+		si.appendChild(i);
+	}
+
+	if (dataJson["ethernet-status"] != null)
+	{
+		const i = document.createElement('img');
+		i.src = "images/ethernet.svg";
+
+		if (dataJson["ethernet-status"] == "off") i.classList.add("off");
+
+		si.appendChild(i);
 	}
 
 	// if (typeof load !== 'undefined') load();
