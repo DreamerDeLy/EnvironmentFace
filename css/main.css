@@ -306,45 +306,48 @@ body {
 	font-weight: bold;
 }
 
-.values > .level-0 {
-	background-color: #2d555e;
+.level-0 {
+	background-color: #2d555e !important; 
 }
 
-.values > .level-1 {
-	background-color: #345920;
+.level-1 {
+	background-color: #345920 !important; 
 }
 
-.values > .level-2 {
-	background-color: #635d19;
+.level-2 {
+	background-color: #635d19 !important; 
 }
 
-.values > .level-3 {
-	background-color: #614a19;
+.level-3 {
+	background-color: #614a19 !important; 
 }
 
-.values > .level-4 {
-	background-color: #5c2b29;
+.level-4 {
+	background-color: #5c2b29 !important; 
 }
 
-.values > .level-5 {
-	background-color: #42275e;
+.level-5 {
+	background-color: #42275e !important; 
 }
 
 .city {
 	background-color: black;
-	padding: 1em;
+	/* padding: 1em; */
 	border-radius: 0.5em;
 	margin-bottom: 1em;
 
 	display: flex;
 }
 
-.city > div {
+.city > .weather {
+	flex-grow: 2;
+
+	margin: 1em;
 	display: flex;
 	flex-direction: row;
 }
 
-.city > div > div {
+.city > .weather > div {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -353,5 +356,20 @@ body {
 .city > img {
 	width: 3em;
 	filter: invert(100%);
-	margin-right: 1em;
+	/* margin-right: 1em; */
+	margin-left: 1em;
+}
+
+.city > .aqi {
+	margin: 0.5em;
+	border-radius: 0.5em;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background-color: var(--color-a-2);
+
+	padding: 0.5em;
 }
