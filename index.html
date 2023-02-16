@@ -84,16 +84,16 @@
 
 		<div class="content">
 
-			<div class="city">
-				<img src="images/weather/02.svg">
+			<div id="city" class="hide">
+				<img id="weather_icon" src="images/weather/02.svg">
 				<div class="weather">
 					<div>
-						<span>17°C • 85%</span>
-						<small>Ivano-Frankivsk</small>
+						<span><span id="weather_temperature">-</span>°C <span id="weather_humidity">-</span>%</span>
+						<small id="weather_city">-</small>
 					</div>
 				</div>
-				<div class="aqi level-3">
-					<span>69</span>
+				<div id="city_aqi" class="hide">
+					<span id="aqi">-</span>
 					<small>AQI in your city</small>
 				</div>
 			</div>
@@ -182,5 +182,6 @@
 
 	<script src="js/main.js"></script>
 	<script src="js/values.js"></script>
+	<script src="js/weather_and_aqi.js"></script>
 </body>
 </html>

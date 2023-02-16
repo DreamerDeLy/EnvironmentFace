@@ -1,0 +1,36 @@
+{
+    "key": true,
+    "id": "1212",
+    "station": {
+        "cityName": "-",
+        "stationName": "TestEnv",
+        "localName": "\u0432\u0443\u043b. \u0425\u043e\u0442\u043a\u0435\u0432\u0438\u0447\u0430 44\/3",
+        "aqi": 38.155444,
+        "timestamp": "2021-05-01 20:40:20"
+    },
+    "ao": {
+        "long_name": "\u0406\u0432\u0430\u043d\u043e-\u0424\u0440\u0430\u043d\u043a\u0456\u0432\u0441\u044c\u043a",
+        "short_name": "\u0406\u0432\u0430\u043d\u043e-\u0424\u0440\u0430\u043d\u043a\u0456\u0432\u0441\u044c\u043a",
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/2\/27\/Ivano-Frankivsk_COA.png",
+        "aqi": 23.100445,
+        "timestamp": "2021-05-01 20:40:53"
+    },
+    "weather": {
+        "current": {
+            "name": "\u0406\u0432\u0430\u043d\u043e-\u0424\u0440\u0430\u043d\u043a\u0456\u0432\u0441\u044c\u043a",
+            "temp": "18.95",
+            "humidity": "59",
+            "pressure": "1010",
+            "speed": "1",
+            "deg": "110",
+            "timestamp": "2021-05-01 20:40:01"
+        },
+        "forecast": {
+            "day": 15.21,
+            "night": 16.6,
+            "pop": 0.88,
+            "icon": "10d",
+            "timestamp": "2021-05-01 20:38:17"
+        }
+    }
+}

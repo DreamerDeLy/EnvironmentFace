@@ -23,6 +23,10 @@ body {
 	background-color: rgb(30, 30, 30);
 }
 
+.hide {
+	display: none !important;
+}
+
 .wrapper {
 	height: 100%;
 	width: 100%;
@@ -330,7 +334,7 @@ body {
 	background-color: #42275e !important; 
 }
 
-.city {
+#city {
 	background-color: black;
 	/* padding: 1em; */
 	border-radius: 0.5em;
@@ -339,7 +343,7 @@ body {
 	display: flex;
 }
 
-.city > .weather {
+#city > .weather {
 	flex-grow: 2;
 
 	margin: 1em;
@@ -347,22 +351,28 @@ body {
 	flex-direction: row;
 }
 
-.city > .weather > div {
+#city > .weather > div {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-.city > img {
+#city > .weather > div > span > span {
+	font-weight: bold;
+}
+
+#city > img {
 	width: 3em;
 	filter: invert(100%);
 	/* margin-right: 1em; */
 	margin-left: 1em;
 }
 
-.city > .aqi {
+#city > #city_aqi {
 	margin: 0.5em;
 	border-radius: 0.5em;
+
+	text-align: center;
 
 	display: flex;
 	flex-direction: column;
@@ -372,4 +382,8 @@ body {
 	background-color: var(--color-a-2);
 
 	padding: 0.5em;
+}
+
+#city > #city_aqi > span {
+	font-weight: bold;
 }
