@@ -3,7 +3,7 @@
 
 Frontend for new interface of EnvironmentOS. 
 
-In fact, this is already the third variation of the EnvironmentOS interface. The basis of the frontend is a set of static files that will be stored in the flash memory of the device. Pages become dynamic thanks to JS scripts that upload data via XMLHttpRequest. The server responds with JSON files containing various data. In this version of the frontend, I plan to make the entire interface one-page. Thus, all necessary resources will be downloaded only once when opening the page and the user will not have to wait for downloads.
+In fact, this is already the third variation of the EnvironmentOS interface. The basis of the frontend is a set of static files that will be stored in the flash memory of the device. Pages become dynamic thanks to JS scripts that download data via XMLHttpRequest. The server responds with JSON files containing various data. In this version of the frontend, I plan to make the entire interface one-page. Thus, all necessary resources will be downloaded only once when opening the page and the user will not have to wait for downloads.
 
 ![](screenshot_1.png)
 
