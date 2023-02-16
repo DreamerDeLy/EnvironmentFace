@@ -61,6 +61,8 @@ body {
 	align-items: center;
     align-content: center;
     justify-content: flex-start;
+
+	user-select: none;
 }
 
 .header > div > .header-text {
@@ -142,6 +144,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	user-select: none;
 }
 
 .menu > span {
@@ -230,6 +234,8 @@ body {
 	flex-direction: row;
 
 	padding: 0.4em;
+
+	user-select: none;
 }
 
 .tabs > span {
@@ -269,6 +275,8 @@ body {
 	border-radius: 0.5em;
 
 	text-align: center;
+
+	user-select: none;
 }
 
 .sensor > div:first-child {
@@ -341,6 +349,8 @@ body {
 	margin-bottom: 1em;
 
 	display: flex;
+
+	user-select: none;
 }
 
 #city > .weather {
