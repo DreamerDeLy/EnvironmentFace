@@ -9,7 +9,7 @@ function getEc(name){
 
 function hideLoading() {
 	setTimeout(() => { getE("loading").style.opacity = "0"; }, 1000)
-	setTimeout(() => { getE("loading").style.display = "none"; }, 3000)
+	setTimeout(() => { getE("loading").style.display = "none"; }, 1500)
 }
 
 function esc(str) {
