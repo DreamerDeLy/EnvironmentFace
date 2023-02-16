@@ -6,8 +6,8 @@
 	"age": 1,
 	"variables": 
 	[
-		{"type":"pm10",			"unit":"ug/m3",	"sensor":"SDS011", 		"value":10.0},
-		{"type":"pm25",			"unit":"ug/m3",	"sensor":"SDS011", 		"value":45.0},
+		{"type":"pm25",			"unit":"ug/m3",	"sensor":"SDS011", 		"value":22.0},
+		{"type":"pm10",			"unit":"ug/m3",	"sensor":"SDS011", 		"value":45.6},
 
 		{"type":"temperature",	"unit":"C",		"sensor":"BME280", 		"value":25.00},
 		{"type":"humidity",		"unit":"Rh",	"sensor":"BME280", 		"value":50.00},

@@ -137,12 +137,12 @@ var values_palette = [
 
 var sensors_descriptions = {
 	"SDS011": "High quality optical PM sensor",
-	"MH-Z1x": "NDIR infrared CO<sub>2</sub> sensor",
+	"MH-Z1x": "NDIR infrared CO2 sensor",
 	"ZE03-": "Electrochemical sensor for high concentrations",
 	"ZE07-": "Electrochemical sensor",
 	"ZE08-CH2O": "Electrochemical formaldehyde sensor",
 	"ZE12-": "High-precision electrochemical sensor",
-	"ZE25-O3": "Electrochemical O<sub>3</sub> sensor",
+	"ZE25-O3": "Electrochemical O3 sensor",
 	"AHT": "Meteorological sensor",
 	"BMP": "BOSCH meteorological sensor",
 	"BME": "BOSCH meteorological sensor",
@@ -156,6 +156,16 @@ var units_replace = {
 	"Rh": "%",
 	"ug/m3": "µg/m³",
 	"uR/h": "μR/h"
+}
+
+var types_replace = {
+	"pm10": "PM10",
+	"pm25": "PM2.5",
+	"pm1": "PM1",
+	"temperature": "Temperature",
+	"humidity": "Humidity",
+	"pressure": "Pressure",
+	"radiation": "Radiation",
 }
 
 var display_mode = "last"; // or "send"
@@ -239,8 +249,6 @@ function evenHandler() {
 			return group;
 		}, {});
 
-		console.log(by_sensor);
-
 		// Clear values container
 		var table = getE("values-table");
 		var child = table.lastElementChild; 
@@ -291,7 +299,15 @@ function evenHandler() {
 
 				// Type
 				var t = createE("small");
-				t.innerHTML = e["type"];
+
+				var type = e["type"]
+				if (types_replace[type] != null) {
+					type = types_replace[type];
+				} else {
+					type = type.toUpperCase();
+				}
+
+				t.innerHTML = type;
 				v.appendChild(t);
 
 				// Value
