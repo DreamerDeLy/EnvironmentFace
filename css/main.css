@@ -430,6 +430,8 @@ body {
 	flex-direction: column;
 	justify-content: center;
 
+	user-select: none;
+
 	/* margin-left: 0.5em; */
 }
 
@@ -453,6 +455,8 @@ body {
 	margin-bottom: 1em;
 
 	user-select: none;
+
+	transition: max-height 0.15s ease-out;
 }
 
 .box-panel > .h {
@@ -503,4 +507,65 @@ body {
 
 #station_info > div > code:hover {
 	background-color: var(--color-a-3);
+}
+
+.checkbox {
+	display: flex;
+	flex-direction: row;
+
+	margin-bottom: 0.2em;
+}
+
+input[type="checkbox"] {
+	appearance: none;
+	background-color: rgb(50, 50, 50);
+	margin: 0;
+	font: inherit;
+	width: 1.15em;
+	height: 1.15em;
+	border: 0.11em solid white;
+	border-radius: 0.15em;
+	transform: translateY(-0.06em);
+
+	margin-right: 0.3em;
+
+	display: grid;
+	place-content: center;
+}
+
+input[type="checkbox"]::before {
+	content: " ";
+	display: inline-block;
+    box-sizing: border-box;
+	width: 0.65em;
+	height: 0.65em;
+	transform: scale(0.8);
+	opacity: 0%;
+	transition: 100ms transform ease-in-out;
+	transition: 100ms opacity ease-in-out;
+	/* box-shadow: inset 1em 1em red; */
+
+	background-color: white;
+}
+
+input[type="checkbox"]:checked::before {
+	transform: scale(1);
+	opacity: 100%;
+}
+
+.text-box {
+	box-sizing: border-box;
+
+	color: white; 
+	background-color: var(--color-a-3);
+
+	width: 100%;
+	padding: 0.25em;
+
+	margin: 0.25em 0em 0.25em;
+
+	border: 0.11em solid white;
+	border-radius: 0.15em;
+
+	font-family: inherit;
 }
