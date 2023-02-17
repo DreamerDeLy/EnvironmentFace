@@ -8,12 +8,12 @@
 	"working-time": 721,
 	"station-name": "AirFresh Max",
 	"station-details": "Outdoor air-monitoring station",
-	
+
 	"sensors-status": {
 		"SDS011": "1",
 		"BME280": "0",
 		"MICS-6814": "1",
-		"ZE08-CH2O": "1",
+		"ZE08-CH2O": "2",
 		"ZE12A-NO2": "0",
 		"MICS-VZ-89-TE": "1"
 	}

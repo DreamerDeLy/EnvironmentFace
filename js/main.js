@@ -1,10 +1,6 @@
 
-function getE(name){
+function getE(name) {
 	return document.getElementById(name);
-}
-
-function getEc(name){
-	return document.getElementsByClassName(name);
 }
 
 function hideLoading() {
@@ -139,7 +135,8 @@ function parseData(fileStr)
 
 		var status_colors = {
 			"0": "level-4",
-			"1": "level-1"
+			"1": "level-1",
+			"2": "level-3",
 		}
 
 		s.classList.add(status_colors[value]);

@@ -21,6 +21,9 @@ body {
 	font-family: "Roboto", Helvetica, Arial, sans-serif;
 
 	background-color: rgb(30, 30, 30);
+
+	/* overflow-y: overlay; */
+	overflow-y: scroll;
 }
 
 .hide {
@@ -407,6 +410,8 @@ body {
 }
 
 .station {
+	box-sizing: border-box;
+
 	width: 100%;
 	padding: 0.5em;
 
