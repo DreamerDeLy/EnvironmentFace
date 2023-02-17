@@ -83,77 +83,43 @@
 		</div>
 
 		<div class="content">
+			<div id="values_page" class="">
+				<div id="city" class="panel hide">
+					<img id="weather_icon" src="images/weather/02.svg">
+					<div class="weather">
+						<div>
+							<span><span id="weather_temperature">-</span>°C <span id="weather_humidity">-</span>%</span>
+							<small id="weather_city">-</small>
+						</div>
+					</div>
+					<div id="city_aqi" class="hide">
+						<span id="aqi">-</span>
+						<small>AQI in your city</small>
+					</div>
+				</div>
+	
+				<div id="values_content">
+					<div class="panel tabs">
+						<span id="v_last" class="selected">Realtime</span>
+						<span id="v_send">Average</span>
+					</div>
+		
+					<div id="values_table">
+						<span>Loading...</span>
+					</div>
+				</div>
+			</div>
 
-			<div id="city" class="hide">
-				<img id="weather_icon" src="images/weather/02.svg">
-				<div class="weather">
+			<div id="info_page" class="hide">
+				<div class="panel station">
+					<img src="images/cube-solid.svg">
 					<div>
-						<span><span id="weather_temperature">-</span>°C <span id="weather_humidity">-</span>%</span>
-						<small id="weather_city">-</small>
-					</div>
-				</div>
-				<div id="city_aqi" class="hide">
-					<span id="aqi">-</span>
-					<small>AQI in your city</small>
-				</div>
-			</div>
-
-			<div class="tabs">
-				<span id="v_last" class="selected">Realtime</span>
-				<span id="v_send">Average</span>
-			</div>
-
-			<div id="values-table">
-				<!-- <div class="sensor">
-					<div>SDS011</div>
-					<small>High quality PM sensor</small>
-					<div class="values">
-						<div class="level-2">
-							<small>PM25</small>
-							<div>25.67</div>
-							<small>µg/m³</small>
-						</div>
-						<div class="level-1">
-							<small>PM10</small>
-							<div>52.02</div>
-							<small>µg/m³</small>
-						</div>
+						<span>Station name</span>
+						<small>Station details</small>
 					</div>
 				</div>
 
-				<div class="sensor">
-					<div>BME280</div>
-					<small>Meteorological sensor</small>
-					<div class="values">
-						<div>
-							<small>Temperature</small>
-							<div>14</div>
-							<small>°C</small>
-						</div>
-						<div>
-							<small>Humidity</small>
-							<div>90</div>
-							<small>%</small>
-						</div>
-						<div>
-							<small>Pressure</small>
-							<div>97898</div>
-							<small>Pa</small>
-						</div>
-					</div>
-				</div>
-
-				<div class="sensor">
-					<div>ZE12A-NO2</div>
-					<small>Professional electrochemical sensor</small>
-					<div class="values">
-						<div class="level-3">
-							<small>NO2</small>
-							<div>145</div>
-							<small>ppb</small>
-						</div>
-					</div>
-				</div> -->
+				
 			</div>
 
 			<br/>
@@ -165,8 +131,8 @@
 		<div class="menu">
 			<span>
 				<div>
-					<img src="images/map-location-dot-solid.svg">
-					<span>Map</span>
+					<img src="images/cube-solid.svg">
+					<span>Station</span>
 				</div>
 				<div class="selected">
 					<img src="images/house-solid.svg">
@@ -182,6 +148,7 @@
 
 	<script src="js/main.js"></script>
 	<script src="js/values.js"></script>
+	<script src="js/settings.js"></script>
 	<script src="js/weather_and_aqi.js"></script>
 </body>
 </html>

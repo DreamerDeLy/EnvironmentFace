@@ -110,7 +110,6 @@ body {
 	opacity: 0.4;
 }
 
-
 .content {
 	flex: 1 0 auto;
 	box-sizing: border-box;
@@ -123,6 +122,10 @@ body {
 	color: white;
 }
 
+.panel {
+	background-color: black;
+	border-radius: 0.5em;
+}
 
 .menu {
 	box-sizing: border-box;
@@ -225,9 +228,6 @@ body {
 
 
 .tabs {
-	background-color: black;
-	border-radius: 0.5em;
-
 	margin-bottom: 0.5em;
 
 	display: flex;
@@ -265,14 +265,10 @@ body {
 
 
 .sensor {
-	background-color: black;
-
 	/* padding: 0.5em; */
 	padding: 0.5em 0.25em 0.25em;
 
 	margin-bottom: 0.5em;
-
-	border-radius: 0.5em;
 
 	text-align: center;
 
@@ -343,9 +339,7 @@ body {
 }
 
 #city {
-	background-color: black;
 	/* padding: 1em; */
-	border-radius: 0.5em;
 	margin-bottom: 1em;
 
 	display: flex;
@@ -396,4 +390,40 @@ body {
 
 #city > #city_aqi > span {
 	font-weight: bold;
+}
+
+#settings_content > div {
+	background-color: black;
+	border-radius: 0.5em;
+	padding: 0.5em;
+}
+
+.station {
+	width: 100%;
+	padding: 0.5em;
+
+	display: flex;
+	flex-direction: row;
+}
+
+.station > div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	/* margin-left: 0.5em; */
+}
+
+.station > div > span {
+	font-size: x-large;
+	margin-bottom: 0.2em;
+}
+
+.station > img {
+	filter: invert(100%);
+	width: 4em;
+    height: 4em;
+
+	margin: 1em;
+	/* margin-left: 1.5em; */
 }

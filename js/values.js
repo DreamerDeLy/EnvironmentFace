@@ -250,7 +250,7 @@ function evenHandler() {
 		}, {});
 
 		// Clear values container
-		var table = getE("values-table");
+		var table = getE("values_table");
 		var child = table.lastElementChild; 
         while (child) {
             table.removeChild(child);
@@ -264,6 +264,7 @@ function evenHandler() {
 
 			// Sensor panel
 			var s = createE("div");
+			s.classList.add("panel");
 			s.classList.add("sensor");
 
 			// Sensor name
