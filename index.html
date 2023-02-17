@@ -72,7 +72,7 @@
 				<img src="images/logo-white.svg">
 				<div class="header-text">
 					<span>EcoCity</span>
-					<small>ID: <span data-replace="id">AAFF0088EE</span></small>
+					<small>ID: <span style="user-select:text;" data-replace="id">AAFF0088EE</span></small>
 				</div>
 				<div id="status-icons">
 					<!-- <img id="wifi_s" src="images/wifi_off.svg" class="off"> -->
@@ -119,7 +119,16 @@
 					</div>
 				</div>
 
-				<div class="sensors-panel panel">
+				<div class="box-panel panel">
+					<div class="h">Station info</div>
+					<div id="station_info">
+						<div>Version: <code data-replace="software-version">-</code></div>
+						<div>ID: <code data-replace="id">-</code></div>
+						<div>MAC: <code data-replace="mac">-</code></div>
+					</div>
+				</div>
+
+				<div class="sensors-panel box-panel panel">
 					<div class="h">Available sensors</div>
 					<div id="sensors_list">
 					</div>

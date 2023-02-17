@@ -3,6 +3,7 @@ function getE(name) {
 	return document.getElementById(name);
 }
 
+// Hide loading screen
 function hideLoading() {
 	setTimeout(() => { getE("loading").style.opacity = "0"; }, 1000)
 	setTimeout(() => { getE("loading").style.display = "none"; }, 1500)
@@ -175,6 +176,20 @@ function menuSetOnClick() {
 
 menuSetOnClick();
 
+console.log(getE("station_info").childNodes);
+
+getE("station_info").childNodes.forEach(n => {
+	if (n.lastChild != null)
+	{
+		n.lastChild.onclick = (e) => {
+			// Copy the text inside the text field
+			navigator.clipboard.writeText(e.srcElement.innerText);
+			window.alert("Copied to clipboard!");
+		}
+	}
+})
+
+// Set buttons selected property according to current page
 function menuStatusSet(page)
 {
 	menu_items.forEach(e => {
@@ -189,6 +204,7 @@ function menuStatusSet(page)
 	})
 }
 
+// Change first letter of string to uppercase
 function firstLetterHigh(string)
 {
 	return string[0].toUpperCase() + string.substring(1);
@@ -232,17 +248,24 @@ function changePage(page) {
 
 function detectPage()
 {
-
+	// Get URL parameters
 	const urlParams = new URLSearchParams(window.location.search);
 
+	// Get 'page' parameter
 	if (urlParams.has("page"))
 	{
 		changePage(urlParams.get("page"));
+	}
+	else if (urlParams.entries.length == 0)
+	{
+		// If there is no parameters, change page to home
+		changePage("home")
 	}
 }
 
 detectPage();
 
+// Hide loading screen when DOM processing by JS finished
 window.addEventListener('DOMContentLoaded', (event) => {
 	console.log('DOM fully loaded and parsed');
 	hideLoading();
