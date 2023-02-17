@@ -162,4 +162,50 @@ getFile("/data/info.json",
 	}
 );
 
-hideLoading();
+var page = "home"
+
+function menuButtons() {
+	var menu_items = [
+		getE("m_station"),
+		getE("m_home"),
+		getE("m_settings")
+	]
+
+	menu_items.forEach(e => {
+		e.onclick = () => {
+			page = (e.id).toString().substring(2);
+			console.log("set page to " + page);
+
+			menu_items.forEach(a => {a.classList.remove("selected");})
+			e.classList.add("selected");
+
+			changePage();
+		}
+	})
+}
+
+function changePage() {
+	var pages = [
+		getE("home_page"),
+		getE("station_page"),
+		getE("settings_page")
+	]
+
+	pages.forEach(e => {
+		if (e.id == (page + "_page")) 
+		{
+			e.classList.remove("hide");
+		}
+		else
+		{
+			e.classList.add("hide");
+		}
+	})
+}
+
+menuButtons();
+
+window.addEventListener('DOMContentLoaded', (event) => {
+	console.log('DOM fully loaded and parsed');
+	hideLoading();
+});

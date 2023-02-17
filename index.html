@@ -83,7 +83,7 @@
 		</div>
 
 		<div class="content">
-			<div id="values_page" class="">
+			<div id="home_page" class="">
 				<div id="city" class="panel hide">
 					<img id="weather_icon" src="images/weather/02.svg">
 					<div class="weather">
@@ -110,7 +110,7 @@
 				</div>
 			</div>
 
-			<div id="info_page" class="hide">
+			<div id="station_page" class="hide">
 				<div class="panel station">
 					<img src="images/cube-solid.svg">
 					<div>
@@ -126,6 +126,10 @@
 				</div>
 			</div>
 
+			<div id="settings_page" class="hide">
+
+			</div>
+
 			<br/>
 			<br/>
 			<br/>
@@ -133,16 +137,16 @@
 		</div>
 	
 		<div class="menu">
-			<span>
-				<div>
+			<span id="menu_list">
+				<div id="m_station">
 					<img src="images/cube-solid.svg">
 					<span>Station</span>
 				</div>
-				<div class="selected">
+				<div id="m_home" class="selected">
 					<img src="images/house-solid.svg">
 					<span>Home</span>
 				</div>
-				<div>
+				<div id="m_settings">
 					<img src="images/gear-solid.svg">
 					<span>Settings</span>
 				</div>
@@ -152,7 +156,6 @@
 
 	<script src="js/main.js"></script>
 	<script src="js/values.js"></script>
-	<script src="js/settings.js"></script>
 	<script src="js/weather_and_aqi.js"></script>
 </body>
 </html>

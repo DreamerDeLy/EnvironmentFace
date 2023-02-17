@@ -157,15 +157,20 @@ body {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	align-items: stretch;
 
 	/* padding: 0.5em 0.25em 0.5em 0.25em; */
 	padding: 0.25em;
 
 	width: 100%;
 	max-width: 40em;
+
+	height: 100%;
 }
 
 .menu > span > div {
+	box-sizing: border-box;
+
 	width: 100%;
 	max-width: 15em;
 
@@ -198,8 +203,8 @@ body {
 
 	filter: invert(100%);
 
-	transition: width 0.2s ease-in-out;
-	transition: height 0.3s ease-in-out;
+	transition: width 0.15s ease-out;
+	transition: height 0.15s ease-out;
 }
 
 .menu > span > .selected {
@@ -209,6 +214,9 @@ body {
 .menu > span > .selected > img {
 	width: 2em;
     height: 2em;
+
+	transition: width 0.15s ease-in;
+	transition: height 0.15s ease-in;
 }
 
 
