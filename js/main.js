@@ -130,6 +130,24 @@ function parseData(fileStr)
 		si.appendChild(i);
 	}
 
+	var sl = getE("sensors_list");
+
+	console.log(dataJson["sensors-status"]);
+
+	for (const [key, value] of Object.entries(dataJson["sensors-status"])) {
+		var s = document.createElement("span");
+
+		var status_colors = {
+			"0": "level-4",
+			"1": "level-1"
+		}
+
+		s.classList.add(status_colors[value]);
+
+		s.innerHTML = key;
+		sl.appendChild(s)	
+	}
+
 	// if (typeof load !== 'undefined') load();
 }
 

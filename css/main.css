@@ -404,6 +404,8 @@ body {
 
 	display: flex;
 	flex-direction: row;
+
+	margin-bottom: 1em;
 }
 
 .station > div {
@@ -415,8 +417,9 @@ body {
 }
 
 .station > div > span {
-	font-size: x-large;
-	margin-bottom: 0.2em;
+	font-size: xx-large;
+	font-weight: 100;
+	margin-bottom: 0em;
 }
 
 .station > img {
@@ -426,4 +429,31 @@ body {
 
 	margin: 1em;
 	/* margin-left: 1.5em; */
+}
+
+.sensors-panel {
+	padding: 1em;
+	padding-bottom: 0.75em;
+}
+
+.sensors-panel > .h {
+	/* font-weight: bold; */
+	font-size: larger;
+	margin-bottom: 0.5em;
+}
+
+#sensors_list {
+	margin-top: 0em;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#sensors_list > span {
+	border-radius: 0.5em;
+	background-color: var(--color-a-3); 
+	padding: 0.25em;
+	/* line-height: 1.8em; */
+	margin-right: 0.2em;
+	margin-bottom: 0.25em;
 }
