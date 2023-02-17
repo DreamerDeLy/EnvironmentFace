@@ -159,35 +159,58 @@ getFile("/data/info.json",
 	}
 );
 
-var page = "home"
+var menu_items = [
+	getE("m_station"),
+	getE("m_home"),
+	getE("m_settings")
+]
 
-function menuButtons() {
-	var menu_items = [
-		getE("m_station"),
-		getE("m_home"),
-		getE("m_settings")
-	]
-
+function menuSetOnClick() {
 	menu_items.forEach(e => {
 		e.onclick = () => {
-			page = (e.id).toString().substring(2);
-			console.log("set page to " + page);
-
-			menu_items.forEach(a => {a.classList.remove("selected");})
-			e.classList.add("selected");
-
-			changePage();
+			changePage((e.id).toString().substring(2));
 		}
 	})
 }
 
-function changePage() {
+menuSetOnClick();
+
+function menuStatusSet(page)
+{
+	menu_items.forEach(e => {
+		if (e.id == "m_" + page)
+		{
+			e.classList.add("selected");
+		}
+		else
+		{
+			e.classList.remove("selected");
+		}
+	})
+}
+
+function firstLetterHigh(string)
+{
+	return string[0].toUpperCase() + string.substring(1);
+}
+
+function changePage(page) {
 	var pages = [
 		getE("home_page"),
 		getE("station_page"),
 		getE("settings_page")
 	]
 
+	// Check if page exist
+	if (pages.find(e => { return e.id == (page + "_page") }) == undefined)
+	{
+		console.warn("page \"" + page + "\" does not exist");
+		changePage("home");
+		return;
+	}
+	
+	// Show page
+	console.log("set page to " + page);
 	pages.forEach(e => {
 		if (e.id == (page + "_page")) 
 		{
@@ -198,9 +221,27 @@ function changePage() {
 			e.classList.add("hide");
 		}
 	})
+
+	// Set address bar 
+	history.replaceState(null, "", window.location.origin + "?page=" + page);
+	document.title = firstLetterHigh(page) + " | EnvOS";
+
+	// Set active menu button
+	menuStatusSet(page);
 }
 
-menuButtons();
+function detectPage()
+{
+
+	const urlParams = new URLSearchParams(window.location.search);
+
+	if (urlParams.has("page"))
+	{
+		changePage(urlParams.get("page"));
+	}
+}
+
+detectPage();
 
 window.addEventListener('DOMContentLoaded', (event) => {
 	console.log('DOM fully loaded and parsed');
