@@ -295,6 +295,10 @@ function addSettingsUnsavedCheck() {
 
 addSettingsUnsavedCheck();
 
+getE("save_settings").onclick = (e) => {
+	document.forms["settings_form"].submit();
+}
+
 // Hide loading screen when DOM processing by JS finished
 window.addEventListener('DOMContentLoaded', (event) => {
 	console.log('DOM fully loaded and parsed');
