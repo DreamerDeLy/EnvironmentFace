@@ -282,10 +282,9 @@ function detectPage()
 detectPage();
 
 var settings_unsaved = false;
+var settings_inputs = document.getElementsByTagName("input");
 
 function addSettingsUnsavedCheck() {
-	var settings_inputs = document.getElementsByTagName("input");
-
 	for (let i of settings_inputs) {
 		i.onchange = (e) => {
 			settings_unsaved = true;
@@ -295,8 +294,51 @@ function addSettingsUnsavedCheck() {
 
 addSettingsUnsavedCheck();
 
+// Save settings
 getE("save_settings").onclick = (e) => {
-	document.forms["settings_form"].submit();
+	var new_settings = {};
+
+	for (let i of settings_inputs)
+	{
+		if (i.type == "checkbox") 
+		{
+			new_settings[i.name] = i.checked;
+		}
+		else if (i.type == "text" || i.type == "password")
+		{
+			new_settings[i.name] = i.value;
+		}
+	}
+
+	console.log("New settings");
+	console.log(new_settings);
+
+	var url = window.location.origin + "/settings";
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url);
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			console.log(xhr.status + "\n" + xhr.responseText);
+			
+			if (xhr.status >= 200 && xhr.status < 300)
+			{
+				window.alert("Settings saved successfully!");
+				settings_unsaved = false;
+			}
+			else
+			{
+				window.alert("ERROR: Settings NOT SAVED due to error!");
+			}
+		}
+	};
+
+	console.log("Sending new settings to " + url);
+
+	xhr.send(new_settings);
 }
 
 // Hide loading screen when DOM processing by JS finished
