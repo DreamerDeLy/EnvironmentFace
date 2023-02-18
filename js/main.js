@@ -176,8 +176,6 @@ function menuSetOnClick() {
 
 menuSetOnClick();
 
-console.log(getE("station_info").childNodes);
-
 getE("station_info").childNodes.forEach(n => {
 	if (n.lastChild != null)
 	{
@@ -210,6 +208,8 @@ function firstLetterHigh(string)
 	return string[0].toUpperCase() + string.substring(1);
 }
 
+var current_page;
+
 function changePage(page) {
 	var pages = [
 		getE("home_page"),
@@ -224,6 +224,22 @@ function changePage(page) {
 		changePage("home");
 		return;
 	}
+
+	// Check if there is unsaved changes on settings page
+	if (current_page == "settings" && settings_unsaved)
+	{
+		if (!confirm("Current settings are not saved. Are you sure you want to leave the page?")) 
+		{
+			// Scroll to save button
+			getE("save_settings").scrollIntoView();
+
+			// Cancel page change
+			return;
+		}
+	}
+
+	// Update current page
+	current_page = page;
 	
 	// Show page
 	console.log("set page to " + page);
@@ -264,6 +280,20 @@ function detectPage()
 }
 
 detectPage();
+
+var settings_unsaved = false;
+
+function addSettingsUnsavedCheck() {
+	var settings_inputs = document.getElementsByTagName("input");
+
+	for (let i of settings_inputs) {
+		i.onchange = (e) => {
+			settings_unsaved = true;
+		}
+	}
+}
+
+addSettingsUnsavedCheck();
 
 // Hide loading screen when DOM processing by JS finished
 window.addEventListener('DOMContentLoaded', (event) => {

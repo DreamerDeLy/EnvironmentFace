@@ -437,7 +437,7 @@ body {
 
 .station > div > span {
 	font-size: xx-large;
-	font-weight: 100;
+	font-weight: 300;
 	margin-bottom: 0em;
 }
 
@@ -568,4 +568,43 @@ input[type="checkbox"]:checked::before {
 	border-radius: 0.15em;
 
 	font-family: inherit;
+}
+
+.save-panel {
+	padding: 0.5em 1em 0.5em;
+}
+
+.save-panel > div {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+    align-items: center;
+}
+
+.save-panel > div > span {
+	font-size: larger;
+}
+
+button {
+	background-color: var(--color-a-1);
+	font-size: medium;
+	padding: 0.5em;
+	border-radius: 0.5em;
+	color: white;
+	border: 1px solid white;
+
+	padding: 0.5em 2em 0.5em;
+
+	transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+	/* border: 1px solid white; */
+	
+	background-color: var(--color-a-3);
+}
+
+button:active {
+	color: black;
+	background-color: white;
 }
