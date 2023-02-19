@@ -1,0 +1,11 @@
+{
+	"wifi_connect": false,
+	"wlan_ssid": "DIR-300",
+	"wlan_pass": "12345678",
+	"www_basicauth_enabled": true,
+	"www_user": "User-1",
+	"www_pass": "",
+	"overage_alerts": false,
+	"lcd_backlight": true,
+	"lcd_auto_backlight": false
+}

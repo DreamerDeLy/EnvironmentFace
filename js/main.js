@@ -238,6 +238,12 @@ function changePage(page) {
 		}
 	}
 
+	// Load settings to settings inputs
+	if (page == "settings")
+	{
+		loadSettings();
+	}
+
 	// Update current page
 	current_page = page;
 	
@@ -339,6 +345,44 @@ getE("save_settings").onclick = (e) => {
 	console.log("Sending new settings to " + url);
 
 	xhr.send(new_settings);
+}
+
+function loadSettings()
+{
+	getFile("/data/settings.json",
+		loadSettingsFromJSON,
+		2000,
+		"GET",
+		function () {
+			getFile("/data/settings.json", loadSettingsFromJSON);
+		}, function () {
+			getFile("/data/settings.json", loadSettingsFromJSON);
+		}
+	);
+}
+
+function loadSettingsFromJSON(settings_json)
+{
+	let settings = JSON.parse(settings_json);
+
+	console.log("Loading current settings...");
+	console.log(settings);
+
+	for (let i of settings_inputs)
+	{
+		var s = settings[i.name];
+
+		if (s != null) {
+			if (i.type == "checkbox")
+			{
+				i.checked = s;
+			}
+			else
+			{
+				i.value = s;
+			}
+		}
+	}
 }
 
 // Hide loading screen when DOM processing by JS finished
