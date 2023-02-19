@@ -294,6 +294,7 @@ function addSettingsUnsavedCheck() {
 	for (let i of settings_inputs) {
 		i.onchange = (e) => {
 			settings_unsaved = true;
+			if (i.getAttribute("master") != null) setAllDependents(i, i.checked);
 		}
 	}
 }
@@ -376,12 +377,26 @@ function loadSettingsFromJSON(settings_json)
 			if (i.type == "checkbox")
 			{
 				i.checked = s;
+
+				if (i.getAttribute("master") != null) setAllDependents(i, i.checked);
 			}
 			else
 			{
 				i.value = s;
 			}
 		}
+	}
+}
+
+function setAllDependents(e, state)
+{
+	var p = e.parentNode;
+
+	var s = p.nextElementSibling;
+	while (s) {
+		s.disabled = !state;
+
+		s = s.nextElementSibling;
 	}
 }
 
