@@ -242,6 +242,7 @@ function changePage(page) {
 	if (page == "settings")
 	{
 		loadSettings();
+		settings_unsaved = false;
 	}
 
 	// Update current page
