@@ -467,6 +467,17 @@ body {
 	margin-bottom: 0.5em;
 }
 
+/* Full width table */
+.fw-table {
+	width: 100%;
+	border: 0px solid white;
+	padding: 0px;
+}
+
+.fw-table > td > input {
+	margin: 0px;
+}
+
 .sensors-panel {
 	padding-bottom: 0.75em;
 }

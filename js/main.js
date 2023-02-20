@@ -413,12 +413,15 @@ loadSettings();
 // Setup all inputs that depends on `e`
 function setAllDependents(e, state)
 {
-	var p = e.parentNode;
+	var p = e.parentNode.parentNode;
+	var matches = document.querySelectorAll("input");
 
-	var s = p.nextElementSibling;
-	while (s) {
-		s.disabled = !state;
-		s = s.nextElementSibling;
+	for (let m of matches)
+	{
+		if (p.contains(m) && m != e)
+		{
+			m.disabled = !state;
+		}
 	}
 }
 

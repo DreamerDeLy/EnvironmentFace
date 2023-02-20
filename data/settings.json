@@ -5,5 +5,27 @@
 	"www_basicauth_enabled": true,
 	"www_user": "User-1",
 	"www_pass": "",
-	"overage_alerts": true
+	"overage_alerts": true,
+	"lcd_backlight": false,
+	"lcd_auto_backlight": true,
+
+	"send2mqtt": false,
+	"send2custom": true,
+	"send2influx": false,
+
+	"host_custom": "192.168.1.10",
+	"url_custom": "/data.php",
+	"port_custom": 80,
+	"user_custom": "",
+	"pass_custom": "",
+
+	"host_mqtt": "192.168.1.10",
+	"port_mqtt": 1883,
+	"user_mqtt": "",
+	"pass_mqtt": "",
+
+	"url_influx": "",
+	"token_influx": "",
+	"org_influx": "",
+	"bucket_influx": ""
 }
