@@ -5,7 +5,5 @@
 	"www_basicauth_enabled": true,
 	"www_user": "User-1",
 	"www_pass": "",
-	"overage_alerts": false,
-	"lcd_backlight": true,
-	"lcd_auto_backlight": false
+	"overage_alerts": true
 }

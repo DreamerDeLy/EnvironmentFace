@@ -3,12 +3,6 @@ function getE(name) {
 	return document.getElementById(name);
 }
 
-// Hide loading screen
-function hideLoading() {
-	setTimeout(() => { getE("loading").style.opacity = "0"; }, 1000)
-	setTimeout(() => { getE("loading").style.display = "none"; }, 1500)
-}
-
 function esc(str) {
 	if(str){
 		return str.toString()
@@ -80,31 +74,28 @@ function parseData(fileStr)
 		var dataJson = JSON.parse(fileStr);
 	} catch (error) {
 		console.error("info parse");
+		window.alert("ERROR: Failed to load data!");
 		return;
 	}
 	
 	var elements = document.querySelectorAll("[data-replace]");
 
-	for (i = 0; i < elements.length; i++) 
+	for (let e of elements)
 	{
-		var element = elements[i];
-		element.innerHTML = convertLineBreaks(esc(dataJson[element.getAttribute("data-replace")]));
+		// Replace placeholder with actual data
+		e.innerHTML = convertLineBreaks(esc(dataJson[e.getAttribute("data-replace")]));
 	}
 
-	var si = getE("status-icons");
+	var status_icons = getE("status-icons");
 
 	if (dataJson["wifi-status"] != null)
 	{
-		// let w = getE("wifi_s");
-		// w.src = "images/wifi_" + dataJson["wifi-status"] + ".svg";
-		// if(dataJson["wifi-status"] != "off") w.classList.remove("off");
-
 		const i = document.createElement('img');
 		i.src = "images/wifi_" + dataJson["wifi-status"] + ".svg";
 
 		if (dataJson["wifi-status"] == "off") i.classList.add("off");
 		
-		si.appendChild(i);
+		status_icons.appendChild(i);
 	}
 	
 	if (dataJson["ap-status"] != null)
@@ -114,7 +105,7 @@ function parseData(fileStr)
 		
 		if (dataJson["ap-status"] == "off") i.classList.add("off");
 		
-		si.appendChild(i);
+		status_icons.appendChild(i);
 	}
 
 	if (dataJson["ethernet-status"] != null)
@@ -124,10 +115,10 @@ function parseData(fileStr)
 
 		if (dataJson["ethernet-status"] == "off") i.classList.add("off");
 
-		si.appendChild(i);
+		status_icons.appendChild(i);
 	}
 
-	var sl = getE("sensors_list");
+	var sensors_list = getE("sensors_list");
 
 	console.log(dataJson["sensors-status"]);
 
@@ -143,12 +134,11 @@ function parseData(fileStr)
 		s.classList.add(status_colors[value]);
 
 		s.innerHTML = key;
-		sl.appendChild(s)	
+		sensors_list.appendChild(s)	
 	}
-
-	// if (typeof load !== 'undefined') load();
 }
 
+// Load data
 getFile("/data/info.json",
 	parseData,
 	2000,
@@ -160,12 +150,14 @@ getFile("/data/info.json",
 	}
 );
 
+// Menu buttons
 var menu_items = [
 	getE("m_station"),
 	getE("m_home"),
 	getE("m_settings")
 ]
 
+// Menu buttons onclick
 function menuSetOnClick() {
 	menu_items.forEach(e => {
 		e.onclick = () => {
@@ -176,6 +168,7 @@ function menuSetOnClick() {
 
 menuSetOnClick();
 
+// Add copying to clipboard for station info elements
 getE("station_info").childNodes.forEach(n => {
 	if (n.lastChild != null)
 	{
@@ -291,6 +284,7 @@ detectPage();
 var settings_unsaved = false;
 var settings_inputs = document.getElementsByTagName("input");
 
+// Check id there is unsaved changes in inputs
 function addSettingsUnsavedCheck() {
 	for (let i of settings_inputs) {
 		i.onchange = (e) => {
@@ -330,7 +324,7 @@ getE("save_settings").onclick = (e) => {
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
-			console.log(xhr.status + "\n" + xhr.responseText);
+			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"");
 			
 			if (xhr.status >= 200 && xhr.status < 300)
 			{
@@ -349,6 +343,7 @@ getE("save_settings").onclick = (e) => {
 	xhr.send(new_settings);
 }
 
+// Load current settings and setup inputs
 function loadSettings()
 {
 	getFile("/data/settings.json",
@@ -363,32 +358,56 @@ function loadSettings()
 	);
 }
 
+// Load settings from JSON and setup inputs
 function loadSettingsFromJSON(settings_json)
 {
-	let settings = JSON.parse(settings_json);
+	try {
+		var settings = JSON.parse(settings_json);
+	} catch (error) {
+		console.error("settings parse");
+		window.alert("ERROR: Settings loading error!");
+
+		changePage("home");
+		return;
+	}
 
 	console.log("Loading current settings...");
 	console.log(settings);
 
 	for (let i of settings_inputs)
 	{
+		// Get setting
 		var s = settings[i.name];
 
-		if (s != null) {
+		// If setting exist
+		if (s != null) 
+		{
 			if (i.type == "checkbox")
 			{
+				// Set checked status
 				i.checked = s;
 
+				// Set `disable` status of all dependent inputs
 				if (i.getAttribute("master") != null) setAllDependents(i, i.checked);
 			}
 			else
 			{
+				// Set text
 				i.value = s;
 			}
+		}
+		else
+		{
+			// Hide settings that isn't exist in settings
+			i.parentNode.style = "display: none;"
 		}
 	}
 }
 
+// Load settings first time
+loadSettings();
+
+// Setup all inputs that depends on `e`
 function setAllDependents(e, state)
 {
 	var p = e.parentNode;
@@ -396,9 +415,15 @@ function setAllDependents(e, state)
 	var s = p.nextElementSibling;
 	while (s) {
 		s.disabled = !state;
-
 		s = s.nextElementSibling;
 	}
+}
+
+
+// Hide loading screen
+function hideLoading() {
+	setTimeout(() => { getE("loading").style.opacity = "0"; }, 1000)
+	setTimeout(() => { getE("loading").style.display = "none"; }, 1500)
 }
 
 // Hide loading screen when DOM processing by JS finished

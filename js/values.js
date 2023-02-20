@@ -242,6 +242,7 @@ function evenHandler() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
 		var obj = JSON.parse(xhr.responseText);
 
+		// Group values by sensor
 		var by_sensor = obj["variables"].reduce((group, value) => {
 			const { sensor } = value;
 			group[sensor] = group[sensor] ?? [];
