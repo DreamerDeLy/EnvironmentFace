@@ -210,6 +210,9 @@ function changePage(page) {
 		getE("settings_page")
 	]
 
+	// No need in changing page
+	if (current_page == page) return;
+
 	// Check if page exist
 	if (pages.find(e => { return e.id == (page + "_page") }) == undefined)
 	{
