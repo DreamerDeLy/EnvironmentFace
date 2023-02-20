@@ -1,70 +1,4 @@
-
-function getE(name) {
-	return document.getElementById(name);
-}
-
-function esc(str) {
-	if(str){
-		return str.toString()
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/\"/g, '&quot;')
-			.replace(/\'/g, '&#39;')
-			.replace(/\//g, '&#x2F;');
-	}
-	return "";
-}
-
-function convertLineBreaks(str){
-	if(str){
-		str = str.toString();
-		str = str.replace(/(?:\r\n|\r|\n)/g,'<br>');
-		return str;
-	}
-	return "";
-}
-
-function getFile(adr, callback, timeout, method, onTimeout, onError){
-	/* fallback stuff */
-	if(adr === undefined) return;
-	if(callback === undefined) callback = function(){};
-	if(timeout === undefined) timeout = 8000; 
-	if(method === undefined) method = "GET";
-	if(onTimeout === undefined) {
-		onTimeout = function(){
-			console.error("ERROR: timeout loading file "+adr);
-		};
-	}
-	if(onError === undefined){
-		onError = function(){
-			console.error("ERROR: loading file: "+adr);
-		};
-	}
-	
-	/* create request */
-	var request = new XMLHttpRequest();
-	
-	/* set parameter for request */
-	request.open(method, encodeURI(adr), true);
-	request.timeout = timeout;
-	request.ontimeout = onTimeout;
-    request.onerror = onError;
-	request.overrideMimeType("application/json");
-	
-	request.onreadystatechange = function() {
-		if(this.readyState == 4){
-			if(this.status == 200){
-				callback(this.responseText);
-			}
-		}
-	};
-	
-	/* send request */
-	request.send();
-	
-	console.log("getFile: " + adr);
-}
+import * as u from "./utils.js";
 
 function parseData(fileStr)
 {
@@ -83,10 +17,10 @@ function parseData(fileStr)
 	for (let e of elements)
 	{
 		// Replace placeholder with actual data
-		e.innerHTML = convertLineBreaks(esc(dataJson[e.getAttribute("data-replace")]));
+		e.innerHTML = u.convertLineBreaks(u.esc(dataJson[e.getAttribute("data-replace")]));
 	}
 
-	var status_icons = getE("status-icons");
+	var status_icons = u.getE("status-icons");
 
 	if (dataJson["wifi-status"] != null)
 	{
@@ -118,7 +52,7 @@ function parseData(fileStr)
 		status_icons.appendChild(i);
 	}
 
-	var sensors_list = getE("sensors_list");
+	var sensors_list = u.getE("sensors_list");
 
 	console.log(dataJson["sensors-status"]);
 
@@ -139,22 +73,22 @@ function parseData(fileStr)
 }
 
 // Load data
-getFile("/data/info.json",
+u.getFile("/data/info.json",
 	parseData,
 	2000,
 	"GET",
 	function () {
-		getFile("/data/info.json", parseData);
+		u.getFile("/data/info.json", parseData);
 	}, function () {
-		getFile("/data/info.json", parseData);
+		u.getFile("/data/info.json", parseData);
 	}
 );
 
 // Menu buttons
 var menu_items = [
-	getE("m_station"),
-	getE("m_home"),
-	getE("m_settings")
+	u.getE("m_station"),
+	u.getE("m_home"),
+	u.getE("m_settings")
 ]
 
 // Menu buttons onclick
@@ -169,7 +103,7 @@ function menuSetOnClick() {
 menuSetOnClick();
 
 // Add copying to clipboard for station info elements
-getE("station_info").childNodes.forEach(n => {
+u.getE("station_info").childNodes.forEach(n => {
 	if (n.lastChild != null)
 	{
 		n.lastChild.onclick = (e) => {
@@ -205,9 +139,9 @@ var current_page;
 
 function changePage(page) {
 	var pages = [
-		getE("home_page"),
-		getE("station_page"),
-		getE("settings_page")
+		u.getE("home_page"),
+		u.getE("station_page"),
+		u.getE("settings_page")
 	]
 
 	// No need in changing page
@@ -227,7 +161,7 @@ function changePage(page) {
 		if (!confirm("Current settings are not saved. Are you sure you want to leave the page?")) 
 		{
 			// Scroll to save button
-			getE("save_settings").scrollIntoView();
+			u.getE("save_settings").scrollIntoView();
 
 			// Cancel page change
 			return;
@@ -300,7 +234,7 @@ function addSettingsUnsavedCheck() {
 addSettingsUnsavedCheck();
 
 // Save settings
-getE("save_settings").onclick = (e) => {
+u.getE("save_settings").onclick = (e) => {
 	var new_settings = {};
 
 	for (let i of settings_inputs)
@@ -349,14 +283,14 @@ getE("save_settings").onclick = (e) => {
 // Load current settings and setup inputs
 function loadSettings()
 {
-	getFile("/data/settings.json",
+	u.getFile("/data/settings.json",
 		loadSettingsFromJSON,
 		2000,
 		"GET",
 		function () {
-			getFile("/data/settings.json", loadSettingsFromJSON);
+			u.getFile("/data/settings.json", loadSettingsFromJSON);
 		}, function () {
-			getFile("/data/settings.json", loadSettingsFromJSON);
+			u.getFile("/data/settings.json", loadSettingsFromJSON);
 		}
 	);
 }
@@ -428,8 +362,8 @@ function setAllDependents(e, state)
 
 // Hide loading screen
 function hideLoading() {
-	setTimeout(() => { getE("loading").style.opacity = "0"; }, 1000)
-	setTimeout(() => { getE("loading").style.display = "none"; }, 1500)
+	setTimeout(() => { u.getE("loading").style.opacity = "0"; }, 1000)
+	setTimeout(() => { u.getE("loading").style.display = "none"; }, 1500)
 }
 
 // Hide loading screen when DOM processing by JS finished

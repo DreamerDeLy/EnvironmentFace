@@ -1,6 +1,4 @@
-function getE(name){
-	return document.getElementById(name);
-}
+import * as u from "./utils.js";
 
 var values_palette = [
 	{
@@ -170,8 +168,8 @@ var types_replace = {
 
 var display_mode = "last"; // or "send"
 
-var button_last = getE("v_last");
-var button_send = getE("v_send");
+var button_last = u.getE("v_last");
+var button_send = u.getE("v_send");
 
 button_last.onclick = () => {
 	display_mode = "last";
@@ -189,7 +187,7 @@ button_send.onclick = () => {
 
 var xhr = null;
 
-getXmlHttpRequestObject = function () {
+function getXmlHttpRequestObject() {
 	if (!xhr) {
 		// Create a new XMLHttpRequest object 
 		xhr = new XMLHttpRequest();
@@ -197,7 +195,7 @@ getXmlHttpRequestObject = function () {
 	return xhr;
 };
 
-updateLiveData = function () {
+function updateLiveData() {
 	var now = new Date();
 	var file_name = display_mode;
 	// Date string is appended as a query with live data 
@@ -251,7 +249,7 @@ function evenHandler() {
 		}, {});
 
 		// Clear values container
-		var table = getE("values_table");
+		var table = u.getE("values_table");
 		var child = table.lastElementChild; 
         while (child) {
             table.removeChild(child);
