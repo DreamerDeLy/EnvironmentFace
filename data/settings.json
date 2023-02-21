@@ -27,5 +27,28 @@
 	"url_influx": "",
 	"token_influx": "",
 	"org_influx": "",
-	"bucket_influx": ""
+	"bucket_influx": "",
+	"system": {
+		"mics_a0": 1234,
+		"mics_a1": 12345,
+		"mics_a2": 123456,
+		"coefficients": [
+			{
+				"sensor": "ZE25-O3",
+				"type": "o3",
+				"unit": "ppb",
+				"coef_type": "lin",
+				"a": 1,
+				"b": -20
+			},
+			{
+				"sensor": "SDS011",
+				"type": "pm10",
+				"unit": "ug/m3",
+				"coef_type": "exp",
+				"a": 2,
+				"b": 0.2
+			}
+		]
+	}
 }

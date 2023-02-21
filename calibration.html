@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="images/logo-white.svg" type="image/svg">
+
+	<title>Calibration | EnvOS</title>
+
+	<style>
+	body {
+		width: 100%;
+		height: 100%;
+
+		min-width: 300px;
+		margin: 0px;
+		font-family: "Roboto", Helvetica, Arial, sans-serif;
+
+		background-color: black;
+
+		color: white;
+	}
+
+	.content {
+		max-width: 30em;
+		/* background-color: aqua; */
+		margin-left: auto;
+		margin-right: auto;
+
+		width: 100%;
+	}
+
+	.block {
+		border: 1px solid white;
+		border-radius: 0.5em;
+
+		padding: 0.5em;
+		margin-bottom: 1em;
+
+		background-color: #303030;
+	}
+
+	.block > h3 {
+		margin-bottom: 0.5em;
+		margin-top: 0.2em;
+	}
+
+	.table {
+		width: 100%;
+	}
+
+	.table > tbody > tr > td > input {
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	.table > tbody > tr > td > select {
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	.table-f > tbody > tr > td > span {
+		font-family: monospace;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="content">
+		<h1>Calibration menu</h1>
+
+		<div class="block">
+			<h3>MICS</h3>
+
+			<table class="table">
+				<tr>
+					<td>A0 (NH3)</td>
+					<td>
+						<input class="text-box" type="number" name="mics_a0" maxlength="5" />
+					</td>
+				</tr>
+				<tr>
+					<td>A1 (CO)</td>
+					<td>
+						<input class="text-box" type="number" name="mics_a1" maxlength="5" />
+					</td>
+				</tr>
+				<tr>
+					<td>A2 (NO2)</td>
+					<td>
+						<input class="text-box" type="number" name="mics_a2" maxlength="5" />
+					</td>
+				</tr>
+			</table><br/>
+			
+			<button id="apply_mics">Apply</button>&nbsp;<span>Applied!</span><br/><br/>
+
+			<span><b>Current values:</b></span>
+			<div style="margin-top: 0.5em;">
+				<div>NH3: <span id="value_nh3">-</span>ppm</div>
+				<div>CO: <span id="value_co">-</span>ppm</div>
+				<div>NO2: <span if="value_no2">-</span>ppm</div>
+			</div>
+		</div>
+
+		<div class="block">
+			<h3>Coefficients</h3>
+
+			<span><b>Add new</b></span>
+			<table class="table">
+				<tr>
+					<td>
+						<select name="sensor" id="sensor">
+							<!--  -->
+						</select>
+					</td>
+					<td>
+						<input type="text" name="type" id="type" placeholder="type">
+					</td>
+					<td>
+						<input type="text" name="unit" id="unit" placeholder="unit">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select name="coef_type" id="coef_type">
+							<option>lin</option>
+							<option>pow</option>
+							<option>exp</option>
+							<option>log</option>
+						</select>
+					</td>
+					<td>
+						<input type="text" name="a" id="a" placeholder="a"></td>
+					</td>
+					<td>
+						<input type="text" name="b" id="b" placeholder="b"></td>
+					</td>
+				</tr>
+			</table>
+			
+			<span id="coef_formula" style="font-family: monospace;">formula</span><br/><br/>
+			
+			<button id="apply_coef">Apply</button>&nbsp;<span>Applied!</span><br/><br/>
+			
+			<span><b>Value:</b></span>
+			<div style="margin-top: 0.5em;">
+				Before: <span id="val_before">-</span> | After: <b id="val_after">-</b> | <span id="val_unit">-</span>
+			</div>
+		</div>
+		
+		<div class="block">
+			<h3>Current coefficients</h3>
+			<table class="table-f">
+				<tbody id="current_coefs">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<script type="module" src="js/utils.js"></script>
+	<script type="module" src="js/calibration.js"></script>
+</body>
+</html>
