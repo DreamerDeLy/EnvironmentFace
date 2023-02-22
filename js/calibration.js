@@ -152,24 +152,50 @@ function showMessage(button, msg, error = false) {
 	setTimeout(()=>{
 		m.style = "";
 		m.innerText = "...";
-	}, 2000);
+	}, 3000);
 }
 
 // Apply coefficient 
 u.getE("apply_coef").onclick = (e) => {
+	// Create coefficient 
 	var c = {
 		"sensor": u.getE("sensor").value,
 		"type": u.getE("type").value,
 		"unit": u.getE("unit").value,
-		"coef_type": "lin",
-		"a": u.getE("a").value,
-		"b": u.getE("b").value
+		"coef_type": u.getE("coef_type").value,
+		"a": parseFloat(u.getE("a").value),
+		"b": parseFloat(u.getE("b").value)
 	};
 
+	
 	console.log("coef applying")
 	console.log(c);
 
-	settings.system.coefficients.push(c);
+	// Check if coefficient valid (doesn't have empty fields)
+	if (Object.values(c).findIndex(v => v == ""))
+	{
+		showMessage(e.srcElement, "Invalid coefficient!", /* error: */ true);
+		return;
+	}
+
+	// Reference to coefficients list
+	var coefs = settings.system.coefficients;
+
+	// Check if same coefficient already exist
+	if (coefs.findIndex(e => { JSON.stringify(e) === JSON.stringify(c) }) >= 0)
+	{
+		showMessage(e.srcElement, "Coefficient already exist!");
+		return;
+	}
+
+	// Check if contains same coefficient with different settings
+	var i = coefs.findIndex(e => { e.sensor == c.sensor && e.type == c.type && e.unit == c.unit });
+
+	// Delete existing coefficient
+	if (i >= 0) coefs.splice(i, 1); 
+
+	// Add coefficient to settings
+	coefs.push(c);
 
 	// Save settings
 	if (u.saveSettings(settings))
