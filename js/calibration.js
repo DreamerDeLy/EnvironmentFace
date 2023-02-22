@@ -126,6 +126,10 @@ function parseSettings(json) {
 		t.appendChild(tr);
 	}
 
+	// MICS calibration values
+	u.getE("mics_a0").value = settings.system.mics_a0;
+	u.getE("mics_a1").value = settings.system.mics_a1;
+	u.getE("mics_a2").value = settings.system.mics_a2;
 }
 
 function createSensorOption(n, selected = false)
@@ -136,17 +140,23 @@ function createSensorOption(n, selected = false)
 	u.getE("sensor").appendChild(o);
 }
 
-function parseSensors(json) {
+function parseInfo(json) {
 	var data = JSON.parse(json);
+
+	// Create sensors select options
 	for (const [key, value] of Object.entries(data["sensors-status"]))
 	{
 		createSensorOption(key);
 	}
+
+	// Fill info 
+	u.getE("id").innerText = data["id"];
+	u.getE("version").innerText = data["software-version"];
 }
 
 // Load info data
 u.getFile("/data/info.json",
-	parseSensors,
+	parseInfo,
 	2000,
 	"GET",
 	function () {
