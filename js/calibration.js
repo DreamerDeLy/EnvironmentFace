@@ -140,6 +140,22 @@ u.getFile("/data/info.json",
 	}
 );
 
+// Show button message
+function showMessage(button, msg, error = false) {
+	var m = button.nextElementSibling;
+
+	// Set mesage
+	m.style = error ? "color: red;" : "";
+	m.innerText = msg;
+
+	// Clear message text
+	setTimeout(()=>{
+		m.style = "";
+		m.innerText = "...";
+	}, 2000);
+}
+
+// Apply coefficient 
 u.getE("apply_coef").onclick = (e) => {
 	var c = {
 		"sensor": u.getE("sensor").value,
@@ -155,16 +171,17 @@ u.getE("apply_coef").onclick = (e) => {
 
 	settings.system.coefficients.push(c);
 
+	// Save settings
 	if (u.saveSettings(settings))
 	{
-		e.srcElement.nextElementSibling.style = "";
-		e.srcElement.nextElementSibling.innerText = "Applied!"
+		showMessage(e.srcElement, "Applied!");
+		
 	}
 	else
 	{
-		e.srcElement.nextElementSibling.style = "color: red;";
-		e.srcElement.nextElementSibling.innerText = "error!"
+		showMessage(e.srcElement, "Error!", /* error: */ true);
 	}
 
+	// Reload settings
 	loadSettings();
 }
