@@ -175,17 +175,19 @@ button_last.onclick = () => {
 	display_mode = "last";
 	button_last.classList.add("selected");
 	button_send.classList.remove("selected");
-	getLiveValues();
+	u.getLiveData(updateValues, display_mode);
 }
 
 button_send.onclick = () => {
 	display_mode = "send";
 	button_send.classList.add("selected");
 	button_last.classList.remove("selected");
-	getLiveValues();
+	u.getLiveData(updateValues, display_mode);
 }
 
 u.getLiveData(updateValues, display_mode);
+
+setInterval(()=>{ u.getLiveData(updateValues, display_mode); }, 1000);
 
 function findLevel(value)
 {
