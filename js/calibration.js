@@ -34,6 +34,9 @@ function parseSettings(json) {
 	console.log("parsing settings");
 	console.log(settings);
 
+	// Fill settings JSON
+	u.getE("settings_json").innerHTML = JSON.stringify(settings, null, "  ");
+
 	// Table with coefficients
 	var t = u.getE("current_coefs");
 
