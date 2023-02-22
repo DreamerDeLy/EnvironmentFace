@@ -1,24 +1,28 @@
 import * as u from "./utils.js";
 
-// Load data
-u.getFile("/data/settings.json",
-	parseSettings,
-	2000,
-	"GET",
-	function () {
-		u.getFile("/data/settings.json", parseSettings);
-	}, function () {
-		u.getFile("/data/settings.json", parseSettings);
-	}
-);
+// Load settings
+function loadSettings() {
+	u.getFile("/data/settings.json",
+		parseSettings,
+		2000,
+		"GET",
+		function () {
+			u.getFile("/data/settings.json", parseSettings);
+		}, function () {
+			u.getFile("/data/settings.json", parseSettings);
+		}
+	);
+}
+
+loadSettings();
 
 function coefToString(t, a, b) {
 	switch (t) 
 	{
-		case "lin": return (a + " * x + " + b);
-		case "exp": return (a + " * e^(" + b + " * x)");
-		case "log": return (a + " * ln(x) + " + b);
-		case "pow": return (a + " * x^" + b);
+		case "lin": return (a + " * <b>value</b> + " + b);
+		case "exp": return (a + " * e^(" + b + " * <b>value</b>)");
+		case "log": return (a + " * ln(<b>value</b>) + " + b);
+		case "pow": return (a + " * <b>value</b>^" + b);
 		default: return "<error>"
 	}
 }
@@ -27,16 +31,23 @@ var settings = { };
 
 function parseSettings(json) {
 	settings = JSON.parse(json);
-
 	console.log(settings);
+
+	// Table with coefficients
 	var t = u.getE("current_coefs");
 
+	// Clear table
+	var child = t.lastElementChild; 
+    while (child) {
+        t.removeChild(child);
+        child = t.lastElementChild;
+    }
+
+	// List of coefficirnts
 	var coefficients = settings.system.coefficients;
 
 	for (let c of coefficients)
 	{
-		// console.log(c);
-
 		var td_label = document.createElement("td");
 		var td_edit = document.createElement("td");
 		var td_remove = document.createElement("td");
@@ -47,37 +58,29 @@ function parseSettings(json) {
 		b_edit.innerText = "Edit";
 
 		b_edit.onclick = (e) => {
-			console.log("set coef");
+			console.log("edit coef");
 			console.log(c);
 
-			var options = document.getElementsByTagName("option");
+			u.getE("coef_type").value = c.coef_type;
 
-			var sensor_selected = false;
-			for (let o of options)
-			{
-				if (u.getE("coef_type").contains(o))
-				{
-					if (o.innerText == c.coef_type) o.setAttribute("selected", "selected");
-					else o.removeAttribute("selected");
-				}
-				else if (u.getE("sensor").contains(o))
-				{
-					if (o.innerText == c.sensor) {
-						o.setAttribute("selected", "selected");
-						sensor_selected = true;
-					}
-					else o.removeAttribute("selected");
-				}
-			}
+			var sensor_select = u.getE("sensor");
 
-			if (!sensor_selected)
+			// If option doesn't exist
+			if (Array.from(sensor_select.options).findIndex(e => {return e.innerText==c.sensor}) == -1)
 			{
+				// Add new option
 				createSensorOption(c.sensor, /* selected: */ true);
 			}
 
+			sensor_select.value = c.sensor;
 			
 			u.getE("type").value = c.type;
 			u.getE("unit").value = c.unit;
+
+			u.getE("a").value = c.a;
+			u.getE("b").value = c.b;
+
+			u.getE("coef_formula").innerHTML = coefToString(c.coef_type, c.a, c.b);
 		}
 
 		var b_remove = document.createElement("button");
@@ -95,7 +98,7 @@ function parseSettings(json) {
 			coefficients.splice(i, 1);
 		}
 
-		td_label.innerText = c.sensor + " " + c.type + " " + c.unit + " | " + coefToString(c.coef_type, c.a, c.b);
+		td_label.innerHTML = c.sensor + " " + c.type + " " + c.unit + " | " + coefToString(c.coef_type, c.a, c.b);
 		td_label.style = "font-family: monospace; width: 100%;"
 		td_edit.appendChild(b_edit);
 		td_remove.appendChild(b_remove);
@@ -125,7 +128,7 @@ function parseSensors(json) {
 	}
 }
 
-// Load data
+// Load info data
 u.getFile("/data/info.json",
 	parseSensors,
 	2000,
@@ -136,3 +139,32 @@ u.getFile("/data/info.json",
 		u.getFile("/data/info.json", parseSettings);
 	}
 );
+
+u.getE("apply_coef").onclick = (e) => {
+	var c = {
+		"sensor": u.getE("sensor").value,
+		"type": u.getE("type").value,
+		"unit": u.getE("unit").value,
+		"coef_type": "lin",
+		"a": u.getE("a").value,
+		"b": u.getE("b").value
+	};
+
+	console.log("coef applying")
+	console.log(c);
+
+	settings.system.coefficients.push(c);
+
+	if (u.saveSettings(settings))
+	{
+		e.srcElement.nextElementSibling.style = "";
+		e.srcElement.nextElementSibling.innerText = "Applied!"
+	}
+	else
+	{
+		e.srcElement.nextElementSibling.style = "color: red;";
+		e.srcElement.nextElementSibling.innerText = "error!"
+	}
+
+	loadSettings();
+}
