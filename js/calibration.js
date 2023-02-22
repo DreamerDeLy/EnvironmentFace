@@ -16,21 +16,46 @@ function loadSettings() {
 
 loadSettings();
 
+// Coefficient formula to string
 function coefToString(t, a, b) {
+	if (a == "") a = "a";
+	if (b == "") b = "b";
+
 	switch (t) 
 	{
-		case "lin": return (a + " * <b>value</b> + " + b);
+		case "lin": return (a + " * <b>value</b> + (" + b + ")");
 		case "exp": return (a + " * e^(" + b + " * <b>value</b>)");
-		case "log": return (a + " * ln(<b>value</b>) + " + b);
-		case "pow": return (a + " * <b>value</b>^" + b);
+		case "log": return (a + " * ln(<b>value</b>) + (" + b + ")");
+		case "pow": return (a + " * <b>value</b>^(" + b + ")");
 		default: return "<error>"
 	}
 }
 
 var settings = { };
 
+// Update formula text on input
+u.getE("coef_type").oninput = updateFormula;
+u.getE("a").oninput = updateFormula;
+u.getE("b").oninput = updateFormula;
+
+function updateFormula() {
+	u.getE("coef_formula").innerHTML = coefToString(
+		u.getE("coef_type").value, 
+		u.getE("a").value, 
+		u.getE("b").value
+	);
+}
+
+updateFormula();
+
 function parseSettings(json) {
-	settings = JSON.parse(json);
+	try {
+		settings = JSON.parse(json);
+	} catch {
+		window.alert("ERROR: Settings JSON parsing!");
+		return;
+	}
+
 	console.log("parsing settings");
 	console.log(settings);
 
