@@ -65,3 +65,32 @@ export function getFile(adr, callback, timeout, method, onTimeout, onError){
 	
 	console.log("getFile: " + adr);
 }
+
+export function saveSettings(json) 
+{
+	var url = window.location.origin + "/settings";
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url);
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"");
+			
+			if (xhr.status >= 200 && xhr.status < 300)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	};
+
+	console.log("Sending new settings to " + url);
+
+	xhr.send(json);
+}

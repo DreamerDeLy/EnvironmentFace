@@ -252,32 +252,15 @@ u.getE("save_settings").onclick = (e) => {
 	console.log("New settings");
 	console.log(new_settings);
 
-	var url = window.location.origin + "/settings";
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url);
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.setRequestHeader("Content-Type", "application/json");
-
-	xhr.onreadystatechange = () => {
-		if (xhr.readyState === 4) {
-			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"");
-			
-			if (xhr.status >= 200 && xhr.status < 300)
-			{
-				window.alert("Settings saved successfully!");
-				settings_unsaved = false;
-			}
-			else
-			{
-				window.alert("ERROR: Settings NOT SAVED due to error!");
-			}
-		}
-	};
-
-	console.log("Sending new settings to " + url);
-
-	xhr.send(new_settings);
+	if (u.saveSettings(new_settings))
+	{
+		window.alert("Settings saved successfully!");
+		settings_unsaved = false;
+	}
+	else
+	{
+		window.alert("ERROR: Settings NOT SAVED due to error!");
+	}
 }
 
 // Load current settings and setup inputs
