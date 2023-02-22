@@ -175,42 +175,17 @@ button_last.onclick = () => {
 	display_mode = "last";
 	button_last.classList.add("selected");
 	button_send.classList.remove("selected");
-	updateLiveData();
+	getLiveValues();
 }
 
 button_send.onclick = () => {
 	display_mode = "send";
 	button_send.classList.add("selected");
 	button_last.classList.remove("selected");
-	updateLiveData();
+	getLiveValues();
 }
 
-var xhr = null;
-
-function getXmlHttpRequestObject() {
-	if (!xhr) {
-		// Create a new XMLHttpRequest object 
-		xhr = new XMLHttpRequest();
-	}
-	return xhr;
-};
-
-function updateLiveData() {
-	var now = new Date();
-	var file_name = display_mode;
-	// Date string is appended as a query with live data 
-	// for not to use the cached version
-	var url = 'data/' + file_name + '.json?' + now.getTime();
-	console.log(url);
-	xhr = getXmlHttpRequestObject();
-	xhr.onreadystatechange = evenHandler;
-	// asynchronous requests
-	xhr.open("GET", url, true);
-	// Send the request over the network
-	xhr.send(null);
-};
-
-updateLiveData();
+u.getLiveData(updateValues, display_mode);
 
 function findLevel(value)
 {
@@ -235,131 +210,101 @@ function createE(e)
 	return document.createElement(e);
 }
 
-function evenHandler() {
-	// Check response is ready or not
-	if (xhr.readyState == 4 && xhr.status == 200) {
-		var obj = JSON.parse(xhr.responseText);
+function updateValues(json) {
+	var obj = JSON.parse(json);
 
-		// Group values by sensor
-		var by_sensor = obj["variables"].reduce((group, value) => {
-			const { sensor } = value;
-			group[sensor] = group[sensor] ?? [];
-			group[sensor].push(value);
-			return group;
-		}, {});
+	// Group values by sensor
+	var by_sensor = obj["variables"].reduce((group, value) => {
+		const { sensor } = value;
+		group[sensor] = group[sensor] ?? [];
+		group[sensor].push(value);
+		return group;
+	}, {});
 
-		// Clear values container
-		var table = u.getE("values_table");
-		var child = table.lastElementChild; 
-        while (child) {
-            table.removeChild(child);
-            child = table.lastElementChild;
-        }
+	// Clear values container
+	var table = u.getE("values_table");
+	var child = table.lastElementChild; 
+	while (child) {
+		table.removeChild(child);
+		child = table.lastElementChild;
+	}
 
-		Object.keys(by_sensor).forEach(e => {
-			
-			// Skip system values
-			if (e == "system") return;
+	Object.keys(by_sensor).forEach(e => {
+		
+		// Skip system values
+		if (e == "system") return;
 
-			// Sensor panel
-			var s = createE("div");
-			s.classList.add("panel");
-			s.classList.add("sensor");
+		// Sensor panel
+		var s = createE("div");
+		s.classList.add("panel");
+		s.classList.add("sensor");
 
-			// Sensor name
-			var n = createE("div");
-			n.innerHTML = e;
-			s.appendChild(n);
+		// Sensor name
+		var n = createE("div");
+		n.innerHTML = e;
+		s.appendChild(n);
 
-			// Sensor description
-			var n = createE("small");
+		// Sensor description
+		var n = createE("small");
 
-			var description = e;
-			for (const [key, value] of Object.entries(sensors_descriptions)) {
-				if (e.startsWith(key)) description = value;
+		var description = e;
+		for (const [key, value] of Object.entries(sensors_descriptions)) {
+			if (e.startsWith(key)) description = value;
+		}
+
+		n.innerHTML = description;
+		s.appendChild(n);
+		
+		// Values container
+		var vs = createE("div");
+		vs.classList.add("values");
+
+		// console.log(by_sensor[e]);
+		by_sensor[e].forEach(e => {
+
+			var v = createE("div");
+
+			var level = findLevel(e);
+			if (level != undefined)
+			{
+				v.classList.add("level-" + level);
 			}
 
-			n.innerHTML = description;
-			s.appendChild(n);
-			
-			// Values container
-			var vs = createE("div");
-			vs.classList.add("values");
+			// Type
+			var t = createE("small");
 
-			// console.log(by_sensor[e]);
-			by_sensor[e].forEach(e => {
+			var type = e["type"]
+			if (types_replace[type] != null) {
+				type = types_replace[type];
+			} else {
+				type = type.toUpperCase();
+			}
 
-				var v = createE("div");
+			t.innerHTML = type;
+			v.appendChild(t);
 
-				var level = findLevel(e);
-				if (level != undefined)
-				{
-					v.classList.add("level-" + level);
-				}
+			// Value
+			var t = createE("div");
+			t.innerHTML = e["value"];
+			v.appendChild(t);
 
-				// Type
-				var t = createE("small");
+			// Type
+			var t = createE("small");
 
-				var type = e["type"]
-				if (types_replace[type] != null) {
-					type = types_replace[type];
-				} else {
-					type = type.toUpperCase();
-				}
+			var unit = e["unit"];
+			if (units_replace[unit] != null) unit = units_replace[unit];
 
-				t.innerHTML = type;
-				v.appendChild(t);
+			t.innerHTML = unit;
+			v.appendChild(t);
 
-				// Value
-				var t = createE("div");
-				t.innerHTML = e["value"];
-				v.appendChild(t);
-
-				// Type
-				var t = createE("small");
-
-				var unit = e["unit"];
-				if (units_replace[unit] != null) unit = units_replace[unit];
-
-				t.innerHTML = unit;
-				v.appendChild(t);
-
-				// Add to values container
-				vs.appendChild(v);
-			})
-
-			// Add values container
-			s.appendChild(vs);
-
-			table.appendChild(s);
-			
+			// Add to values container
+			vs.appendChild(v);
 		})
 
+		// Add values container
+		s.appendChild(vs);
+
+		table.appendChild(s);
 		
-
-		try 
-		{
-			
-
-			// if (obj["variables"].length > 0) 
-			// {
-			// 	for (var i = 0; i < obj["variables"].length; i++) 
-			// 	{
-			// 		var val_obj = obj["variables"][i];
-			// 		var sensor_value = val_obj["value"];
-	
-			// 		var color = findColor(sensor_value);
-
-			// 		var sensor_d = createE("div");
-			// 	}
-
-
-			// }
-		}
-		catch
-		{
-			console.error("live data parse");
-			return;
-		}
-	}
+	})
 }

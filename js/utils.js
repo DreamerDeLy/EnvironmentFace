@@ -94,3 +94,36 @@ export function saveSettings(json)
 
 	xhr.send(json);
 }
+
+var xhr = null;
+
+function getXmlHttpRequestObject() {
+	if (!xhr) {
+		// Create a new XMLHttpRequest object 
+		xhr = new XMLHttpRequest();
+	}
+	return xhr;
+};
+
+export function getLiveData(event_handler, file_name) {
+	var now = new Date();
+
+	// Date string is appended as a query with live data 
+	// for not to use the cached version
+	var url = 'data/' + file_name + '.json?' + now.getTime();
+
+	console.log("getting live data from: " + url);
+
+	xhr = getXmlHttpRequestObject();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			event_handler(xhr.responseText);
+		} else {
+			console.error("ERROR: request failed");
+			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\n");
+		}
+	};
+
+	xhr.open("GET", url, true);
+	xhr.send(null);
+};
