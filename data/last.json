@@ -17,9 +17,9 @@
 		{"type":"ch2o",			"unit":"ppb",	"sensor":"ZE08-CH2O", 	"value":50},
 		{"type":"radiation",	"unit":"uR/h",	"sensor":"RadKit", 		"value":30},
 
-		{"type":"nh3",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.013},
-		{"type":"co",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.024},
-		{"type":"no2",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.095},
+		{"type":"nh3",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.013568},
+		{"type":"co",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.224651},
+		{"type":"no2",			"unit":"ppm",	"sensor":"MICS-6814",	"value":0.095342},
 
 		{"type":"no2",			"unit":"ppb",	"sensor":"ZE12-NO2",	"value": 101},
 

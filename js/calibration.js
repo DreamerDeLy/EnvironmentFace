@@ -255,7 +255,6 @@ u.getE("apply_coef").onclick = (e) => {
 	if (u.saveSettings(settings))
 	{
 		showMessage(e.srcElement, "Applied!");
-		
 	}
 	else
 	{
@@ -265,3 +264,78 @@ u.getE("apply_coef").onclick = (e) => {
 	// Reload settings
 	loadSettings();
 }
+
+// Apply MICS calibration
+u.getE("apply_mics").onclick = (e) => {
+	console.log("applying mics");
+
+	settings.system.mics_a0 = u.getE("mics_a0").value;
+	settings.system.mics_a1 = u.getE("mics_a1").value;
+	settings.system.mics_a2 = u.getE("mics_a2").value;
+
+	// Save settings
+	if (u.saveSettings(settings))
+	{
+		showMessage(e.srcElement, "Applied!");
+	}
+	else
+	{
+		showMessage(e.srcElement, "Error!", /* error: */ true);
+	}
+}
+
+u.getLiveData(updateValues, "last");
+
+function isCoefForSensor(c, s, t, u)
+{
+	return (c.sensor == s && c.type == t && c.unit == u);
+}
+
+function round(v, digits = 2)
+{
+	var m = Math.pow(10, digits);
+	return Math.round(v * m) / m;
+}
+
+function updateValues(json)
+{
+	var values_data = { };
+
+	try {
+		values_data = JSON.parse(json);
+	} catch {
+		console.error("ERROR: Value JSON parsing!");
+		return;
+	}
+
+	var values = values_data.variables;
+
+	// Set MICS values
+	var nh3_i = values.findIndex(e => { return isCoefForSensor(e, "MICS-6814", "nh3", "ppm"); });
+	var co_i = values.findIndex(e => { return isCoefForSensor(e, "MICS-6814", "co", "ppm");});
+	var no2_i = values.findIndex(e => { return isCoefForSensor(e, "MICS-6814", "no2", "ppm");});
+
+	if (nh3_i >= 0) u.getE("value_nh3").innerText = round(values[nh3_i].value * 1000);
+	if (co_i >= 0) u.getE("value_co").innerText = round(values[co_i].value * 1000);
+	if (no2_i >= 0) u.getE("value_no2").innerText = round(values[no2_i].value * 1000);
+
+	// Set coefficient value
+	var sensor = u.getE("sensor").value;
+	var type = u.getE("type").value;
+	var unit = u.getE("unit").value;
+
+	var i = values.findIndex(e => { return isCoefForSensor(e, sensor, type, unit); });
+
+	if (i >= 0)
+	{
+		u.getE("val_after").innerText = values[i].value;
+		u.getE("val_unit").innerText = values[i].unit;
+	}
+	else
+	{
+		u.getE("val_after").innerText = "-";
+		u.getE("val_unit").innerText = "-";
+	}
+}
+
+setInterval(() => {u.getLiveData(updateValues, "last")}, 1000);
