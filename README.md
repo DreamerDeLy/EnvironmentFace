@@ -17,6 +17,10 @@ Pages become dynamic thanks to JS scripts that download data via XMLHttpRequest.
 * Service pages for configuration 
 * Flexible design
 
+## Used resources 
+* [Material Icons](https://fonts.google.com/icons) by Google
+* Some icons from [FontAwesome](https://fontawesome.com/)
+
 ## Licensing 
 
 Copyright © 2023 Dmytro Obukhov (DeLy Dreamer)
