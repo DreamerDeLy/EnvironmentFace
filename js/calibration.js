@@ -31,6 +31,7 @@ var settings = { };
 
 function parseSettings(json) {
 	settings = JSON.parse(json);
+	console.log("parsing settings");
 	console.log(settings);
 
 	// Table with coefficients
@@ -43,7 +44,7 @@ function parseSettings(json) {
         child = t.lastElementChild;
     }
 
-	// List of coefficirnts
+	// List of coefficients
 	var coefficients = settings.system.coefficients;
 
 	for (let c of coefficients)
@@ -54,6 +55,7 @@ function parseSettings(json) {
 
 		var tr = document.createElement("tr");
 
+		// Edit button
 		var b_edit = document.createElement("button");
 		b_edit.innerText = "Edit";
 
@@ -66,7 +68,7 @@ function parseSettings(json) {
 			var sensor_select = u.getE("sensor");
 
 			// If option doesn't exist
-			if (Array.from(sensor_select.options).findIndex(e => {return e.innerText==c.sensor}) == -1)
+			if (Array.from(sensor_select.options).findIndex(e => { e.innerText == c.sensor }) == -1)
 			{
 				// Add new option
 				createSensorOption(c.sensor, /* selected: */ true);
@@ -83,23 +85,37 @@ function parseSettings(json) {
 			u.getE("coef_formula").innerHTML = coefToString(c.coef_type, c.a, c.b);
 		}
 
+		// Remove button
 		var b_remove = document.createElement("button");
 		b_remove.innerText = "Remove";
 
 		b_remove.onclick = (e) => {
+			// Find index of coefficient
 			var i = coefficients.findIndex(e => {
 				return (e.sensor == c.sensor && 
 					e.type == c.type && 
 					e.unit == c.unit);
 			});
 
+			// Print log
 			console.log("removing coef");
 			console.log(coefficients[i]);
+
+			// Remove coefficient
 			coefficients.splice(i, 1);
+
+			// Save settings
+			if (u.saveSettings(settings)) {
+				window.alert("Successfully removed!");
+			}
+			else {
+				window.alert("ERROR: settings saving error!");
+			}
 		}
 
 		td_label.innerHTML = c.sensor + " " + c.type + " " + c.unit + " | " + coefToString(c.coef_type, c.a, c.b);
 		td_label.style = "font-family: monospace; width: 100%;"
+
 		td_edit.appendChild(b_edit);
 		td_remove.appendChild(b_remove);
 
