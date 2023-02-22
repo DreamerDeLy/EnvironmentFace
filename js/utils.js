@@ -79,14 +79,7 @@ export function saveSettings(json)
 		if (xhr.readyState === 4) {
 			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"");
 			
-			if (xhr.status >= 200 && xhr.status < 300)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return (xhr.status >= 200 && xhr.status < 300);
 		}
 	};
 
@@ -112,15 +105,17 @@ export function getLiveData(event_handler, file_name) {
 	// for not to use the cached version
 	var url = 'data/' + file_name + '.json?' + now.getTime();
 
-	console.log("getting live data from: " + url);
+	console.log("getting live data from " + file_name);
 
 	xhr = getXmlHttpRequestObject();
 	xhr.onreadystatechange = () => {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			event_handler(xhr.responseText);
-		} else {
-			console.error("ERROR: request failed");
-			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\n");
+		if (xhr.readyState == 4) {
+			if (xhr.status == 200) {
+				event_handler(xhr.responseText);
+			} else {
+				console.error("ERROR: request failed");
+				console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"\n");
+			}
 		}
 	};
 
