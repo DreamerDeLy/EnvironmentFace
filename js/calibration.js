@@ -206,7 +206,7 @@ function showMessage(button, msg, error = false) {
 	setTimeout(()=>{
 		m.style = "";
 		m.innerText = "...";
-	}, 3000);
+	}, 1000);
 }
 
 // Apply coefficient 
@@ -225,8 +225,8 @@ u.getE("apply_coef").onclick = (e) => {
 	console.log("coef applying")
 	console.log(c);
 
-	// Check if coefficient valid (doesn't have empty fields)
-	if (Object.values(c).findIndex(v => v == ""))
+	// Check if coefficient valid
+	if (c.sensor == "" || c.type == "" || c.unit == "" || Number.isNaN(c.a) || c.a == 0 || Number.isNaN(c.b))
 	{
 		showMessage(e.srcElement, "Invalid coefficient!", /* error: */ true);
 		return;
