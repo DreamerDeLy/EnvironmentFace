@@ -125,6 +125,7 @@
 						<div>Version: <code data-replace="software-version">-</code></div>
 						<div>ID: <code data-replace="id">-</code></div>
 						<div>MAC: <code data-replace="mac">-</code></div>
+						<div>IP: <code data-replace="local-ip">-</code></div>
 					</div>
 				</div>
 
@@ -148,7 +149,7 @@
 					<input class="text-box" type="password" name="wlan_pass" id="wlan_pass" placeholder="Password" value="" maxlength="64" />
 				</div>
 				<div class="box-panel panel">
-					<div class="h">Access Point</div>
+					<div class="h">Authentication</div>
 
 					<label class="checkbox">
 						<input type="checkbox" name="www_basicauth_enabled" master="master" />
@@ -194,7 +195,7 @@
 						<tr class="fw-table">
 							<td>Port&nbsp;</td>
 							<td>
-								<input class="text-box" type="text" name="port_custom" id="port_custom" placeholder="Port" maxlength="5" /><br/>
+								<input class="text-box" type="number" name="port_custom" id="port_custom" placeholder="Port" maxlength="5" /><br/>
 							</td>
 						</tr>
 						<tr class="fw-table">
@@ -229,7 +230,7 @@
 						<tr class="fw-table">
 							<td>Port&nbsp;</td>
 							<td>
-								<input class="text-box" type="text" name="port_mqtt" id="port_mqtt" placeholder="Port" maxlength="5" /><br/>
+								<input class="text-box" type="number" name="port_mqtt" id="port_mqtt" placeholder="Port" maxlength="5" /><br/>
 							</td>
 						</tr>
 						<tr class="fw-table">

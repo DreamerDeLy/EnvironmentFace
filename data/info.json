@@ -1,6 +1,7 @@
 {
 	"id": "30AEA496A718",
 	"mac": "BB:A0:A1:CC:FF:FF",
+	"local-ip": "192.168.1.23",
 	"software-version": "1.0.0",
 	"wifi-status": "3",
 	"ethernet-status": "on",
