@@ -31,7 +31,7 @@
 					<td style="width: 5em;"><input type="number" name="id" id="id" placeholder="ID"></td>
 					<td style="width: 5em;"><input type="number" name="rx" id="rx" placeholder="RX"></td>
 					<td style="width: 5em;"><input type="number" name="tx" id="tx" placeholder="TX"></td>
-					<td><button style="float: right;">Apply</button></td>
+					<td><button id="apply_port" style="float: right;">Apply</button></td>
 				</tr>
 			</table>
 		</div>
@@ -46,12 +46,11 @@
 		</div>
 
 		<div class="block">
-			<h3>Edit sensor</h3>
+			<h3>Create/edit sensor</h3>
 			<table class="table">
 				<tr>
 					<td>
-						<select name="name" id="name">
-							<option>SDS011</option>
+						<select name="sensor" id="sensor">
 							<!--  -->
 						</select>
 					</td>
@@ -62,7 +61,7 @@
 						</select>
 					</td>
 					<td>
-						<button style="float: right;">Apply</button>
+						<button id="apply_sensor" style="float: right;">Apply</button>
 					</td>
 				</tr>
 			</table>

@@ -1,13 +1,5 @@
 import * as u from "./utils.js";
 
-function parseInfo(json) {
-	var data = JSON.parse(json);
-
-	// Fill info 
-	u.getE("id").innerText = data["id"];
-	u.getE("version").innerText = data["software-version"];
-}
-
 // Load info data
 u.getFile("/data/info.json",
 	parseInfo,
@@ -34,6 +26,41 @@ function loadSettings() {
 	);
 }
 
+function createNewOption(name, parent, text = "")
+{
+	var o = document.createElement("option");
+	o.value = name;
+
+	if (text != "") { 
+		o.innerText = text
+	} else {
+		o.innerText = name;
+	}
+
+	parent.appendChild(o);
+}
+
+function parseInfo(json) {
+	var data = JSON.parse(json);
+
+	// Fill info 
+	u.getE("id").innerText = data["id"];
+	u.getE("version").innerText = data["software-version"];
+
+	// Sensor select in "Edit sensor"
+	var sensor_select = u.getE("sensor");
+
+	// Add options in sensor select in "Edit sensor"
+	for (const [name, value] of Object.entries(data["sensors-status"]))
+	{
+		// Add sensor to "Edit sensor" if isn't exist
+		if (Array.from(sensor_select.options).findIndex(e => { return e.value == name; }) == -1) {
+			// Add new option
+			createNewOption(name, sensor_select);
+		}
+	}
+}
+
 var settings = { }
 
 function parseSettings(json) {
@@ -52,18 +79,17 @@ function parseSettings(json) {
 
 	// Table with ports
 	var t_ports = u.getE("ports_table");
-
-	// Clear table
-	var child = t_ports.lastElementChild; 
-    while (child) {
-        t_ports.removeChild(child);
-        child = t_ports.lastElementChild;
-    }
+	u.clearTable(t_ports);
 
 	var ports = settings.system.serial_ports;
 	var sensors = settings.system.sensors;
 
+	// Sort by port id
 	ports.sort((a,b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
+
+	// Sensor port select 
+	var port_select = u.getE("value");
+	var sensor_select = u.getE("sensor");
 
 	for (let p of ports)
 	{
@@ -92,10 +118,17 @@ function parseSettings(json) {
 		tr.appendChild(td_remove);
 
 		t_ports.appendChild(tr);
+
+		// Add port to "Edit sensor" if isn't exist
+		if (Array.from(port_select.options).findIndex(e => { return e.value == p.id; }) == -1) {
+			// Add new option
+			createNewOption(p.id, port_select, p.name);
+		}
 	}
 
 	// Table with ports
 	var t_sensors = u.getE("sensors_table");
+	u.clearTable(t_sensors);
 
 	for (const [name, value] of Object.entries(sensors))
 	{
@@ -109,12 +142,38 @@ function parseSettings(json) {
 		var b_edit = document.createElement("button");
 		b_edit.innerText = "Edit";
 
+		b_edit.onclick = e => {
+			console.log("edit sensor");
+
+			sensor_select.value = name;
+			port_select.value = value.toString();
+		}
+
 		// Remove button
 		var b_remove = document.createElement("button");
 		b_remove.innerText = "Remove";
 
+		b_remove.onclick = e => {
+			console.log("remove sensor");
+
+			// Remove sensor
+			delete sensors[name];
+
+			// Save settings
+			if (u.saveSettings(settings)) {
+				window.alert("Successfully removed!");
+			}
+			else {
+				window.alert("ERROR: settings saving error!");
+			}
+
+			// Reload settings
+			loadSettings();
+		}
+
 		var status = null;
 
+		// If value is port id
 		if (Number.isInteger(value))
 		{
 			var i = ports.findIndex(p => p.id == value);
@@ -149,4 +208,24 @@ function isValidJSON(str)
 
 u.getE("settings_json").oninput = e => {
 	e.srcElement.style = "background-color: " + (isValidJSON(e.srcElement.value) ? "#3a6d3e" : "#6d3a3a");
+}
+
+u.getE("apply_sensor").onclick = e => {
+	var name = u.getE("sensor").value;
+	var value = u.getE("value").value;
+
+	console.log("apply sensor: " + name + " / " + value);
+
+	settings.system.sensors[name] = value;
+
+	// Save settings
+	if (u.saveSettings(settings)) {
+		window.alert("Saved!");
+	}
+	else {
+		window.alert("ERROR: settings saving error!");
+	}
+
+	// Reload settings
+	loadSettings();
 }
