@@ -160,11 +160,14 @@ function parseSettings(json) {
 	u.getE("mics_a2").value = settings.system.mics_a2;
 }
 
-function createSensorOption(n, selected = false)
+function createSensorOption(n, selected = false, disabled = false)
 {
 	var o = document.createElement("option");
 	o.innerText = n;
+
+	if (disabled) o.style = "background-color: #BBBBBB;"
 	if (selected) o.setAttribute("selected", "selected");
+
 	u.getE("sensor").appendChild(o);
 }
 
@@ -174,7 +177,7 @@ function parseInfo(json) {
 	// Create sensors select options
 	for (const [key, value] of Object.entries(data["sensors-status"]))
 	{
-		createSensorOption(key);
+		createSensorOption(key, /* selected: */ false, /* disabled: */ (value == -1));
 	}
 
 	// Fill info 

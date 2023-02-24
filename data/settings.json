@@ -28,7 +28,23 @@
 	"token_influx": "",
 	"org_influx": "",
 	"bucket_influx": "",
+
 	"system": {
+		"serial_ports": [
+			{ "name": "P0", "id": 0, "tx": 20, "rx": 21},
+			{ "name": "A1", "id": 11, "tx": -1, "rx": 14},
+			{ "name": "P1", "id": 1, "tx": 22, "rx": 23},
+			{ "name": "A2", "id": 12, "tx": -1, "rx": 15}
+		],
+		"pinout": {
+			"i2c_sda": 10,
+			"i2c_scl": 11
+		},
+		"sensors": {
+			"SDS011": 0,
+			"BME280": true,
+			"ZE08-CH2O": 11
+		},
 		"mics_a0": 1234,
 		"mics_a1": 12345,
 		"mics_a2": 123456,

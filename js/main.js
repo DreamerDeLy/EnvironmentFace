@@ -57,12 +57,15 @@ function parseData(fileStr)
 	console.log(dataJson["sensors-status"]);
 
 	for (const [key, value] of Object.entries(dataJson["sensors-status"])) {
+		// Skip disabled sensors
+		if (value == -1) continue;
+
 		var s = document.createElement("span");
 
 		var status_colors = {
-			"0": "level-4",
-			"1": "level-1",
-			"2": "level-3",
+			"0": "level-3", // Error
+			"1": "level-1", // OK
+			"2": "level-2", // Warning
 		}
 
 		s.classList.add(status_colors[value]);
