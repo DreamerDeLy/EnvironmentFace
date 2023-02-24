@@ -169,6 +169,9 @@ function parseSettings(json) {
 
 			// Reload settings
 			loadSettings();
+
+			// Debug
+			// parseSettings(JSON.stringify(settings));
 		}
 
 		var status = null;
@@ -210,13 +213,40 @@ u.getE("settings_json").oninput = e => {
 	e.srcElement.style = "background-color: " + (isValidJSON(e.srcElement.value) ? "#3a6d3e" : "#6d3a3a");
 }
 
+function isNumber(value) {
+    if (typeof value === "string") {
+        return !isNaN(value);
+    }
+}
+
 u.getE("apply_sensor").onclick = e => {
+	var sensors = settings.system.sensors;
+
 	var name = u.getE("sensor").value;
 	var value = u.getE("value").value;
 
+	if (isNumber(value)) {
+		// Convert to number
+		value = parseInt(value);
+
+		// Check if there is another sensor on same port 
+		var i = Object.values(sensors).indexOf(value);
+		if (i > -1 && Object.keys(sensors)[i] == name)
+		{
+			window.alert("Already exist!");
+			return;
+		} else if (i > -1) {
+			window.alert("WARNING: there is another sensor on this port!");
+		}
+		
+	} else {
+		// Convert to boolean
+		value = (value == true);
+	}
+
 	console.log("apply sensor: " + name + " / " + value);
 
-	settings.system.sensors[name] = value;
+	sensors[name] = value;
 
 	// Save settings
 	if (u.saveSettings(settings)) {
