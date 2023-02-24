@@ -18,6 +18,10 @@ body {
 	margin-right: auto;
 
 	width: 100%;
+	box-sizing: border-box;
+
+	padding-left: 1em;
+	padding-right: 1em;
 }
 
 .block {
@@ -51,6 +55,16 @@ body {
 
 .table-f > tbody > tr > td > span {
 	font-family: monospace;
+}
+
+.table-ports {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.table-ports > tbody > tr > td > input {
+	box-sizing: border-box;
+	width: 4em;
 }
 
 .settings-text {

@@ -19,18 +19,12 @@
 		<br/><br/>
 		
 		<div class="block">
-			<h3>Edit serial port</h3>
-			<table class="table">
+			<h3>Create/edit serial port</h3>
+			<table class="table-ports">
 				<tr>
-					<td>
-						<select name="port_type" id="port_type">
-							<option>Active</option>
-							<option>Passive</option>
-						</select>
-					</td>
-					<td style="width: 5em;"><input type="number" name="id" id="id" placeholder="ID"></td>
-					<td style="width: 5em;"><input type="number" name="rx" id="rx" placeholder="RX"></td>
-					<td style="width: 5em;"><input type="number" name="tx" id="tx" placeholder="TX"></td>
+					<td>ID: <input type="number" name="port_id" id="port_id" placeholder="ID"></td>
+					<td>RX: <input type="number" name="rx" id="rx" placeholder="RX"></td>
+					<td>TX: <input type="number" name="tx" id="tx" placeholder="TX"></td>
 					<td><button id="apply_port" style="float: right;">Apply</button></td>
 				</tr>
 			</table>
@@ -92,6 +86,8 @@
 				Replace - повністю заміняє вміст файлу на новий.
 			</div>
 		</div>
+
+		<div class="mono" style="width: 100%; text-align: center;">C++ для богів, JS для лохів!</div><br/>
 	</div>
 
 	<script type="module" src="js/utils.js"></script>
