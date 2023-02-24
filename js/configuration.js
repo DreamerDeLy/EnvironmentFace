@@ -113,7 +113,45 @@ function parseSettings(json) {
 		var b_remove = document.createElement("button");
 		b_remove.innerText = "Remove";
 
-		td_label.innerHTML = p.name + " / " + p.id + " | RX: " + p.rx + (p.tx == -1 ? "" : ", TX: " + p.tx);
+		b_remove.onclick = e => {
+			var i = ports.findIndex(e => { return e.id == p.id});
+
+			if (i > -1) {
+				console.log("removing port " + ports[i].id);
+				ports.splice(i, 1);
+
+				// Save settings
+				if (u.saveSettings(settings)) {
+					window.alert("Successfully removed!");
+				}
+				else {
+					window.alert("ERROR: settings saving error!");
+				}
+
+				// Reload settings
+				loadSettings();
+
+				// Debug
+				// parseSettings(JSON.stringify(settings));
+			}
+		}
+		
+		// Check if this pin used in other port
+		var rx_duplicated = (ports.findIndex(e => { return (e.id != p.id && (e.rx == p.rx || e.tx == p.rx)); }) != -1);
+		var tx_duplicated = (ports.findIndex(e => { return (e.id != p.id && (e.rx == p.tx || e.tx == p.tx)); }) != -1);
+		
+		// Port label
+		var text = "";
+
+		text += `${p.name} / ${p.id}`;
+		text += ` | RX: <b style="${rx_duplicated ? "color: red" : ""}">${p.rx}</b>` //, TX: <b style='tx_s'>{tx}</b>"
+		
+		if (p.tx != -1)
+		{
+			text += `, TX: <b style="${tx_duplicated ? "color: red" : ""}">${p.tx}</b>` //, TX: <b style='tx_s'>{tx}</b>"
+		}
+
+		td_label.innerHTML = text;
 		td_label.style = "font-family: monospace; width: 100%;"
 
 		td_edit.appendChild(b_edit);
