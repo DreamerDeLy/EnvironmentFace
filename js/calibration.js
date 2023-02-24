@@ -64,13 +64,7 @@ function parseSettings(json) {
 
 	// Table with coefficients
 	var t = u.getE("current_coefs");
-
-	// Clear table
-	var child = t.lastElementChild; 
-    while (child) {
-        t.removeChild(child);
-        child = t.lastElementChild;
-    }
+	u.clearTable(t);
 
 	// List of coefficients
 	var coefficients = settings.system.coefficients;
@@ -96,7 +90,7 @@ function parseSettings(json) {
 			var sensor_select = u.getE("sensor");
 
 			// If option doesn't exist
-			if (Array.from(sensor_select.options).findIndex(e => { e.innerText == c.sensor }) == -1)
+			if (Array.from(sensor_select.options).findIndex(e => { return e.innerText == c.sensor; }) == -1)
 			{
 				// Add new option
 				createSensorOption(c.sensor, /* selected: */ true);
@@ -139,6 +133,9 @@ function parseSettings(json) {
 			else {
 				window.alert("ERROR: settings saving error!");
 			}
+
+			// Reload settings
+			loadSettings();
 		}
 
 		td_label.innerHTML = c.sensor + " " + c.type + " " + c.unit + " | " + coefToString(c.coef_type, c.a, c.b);
@@ -239,14 +236,14 @@ u.getE("apply_coef").onclick = (e) => {
 	var coefs = settings.system.coefficients;
 
 	// Check if same coefficient already exist
-	if (coefs.findIndex(e => { JSON.stringify(e) === JSON.stringify(c) }) >= 0)
+	if (coefs.findIndex(e => { return JSON.stringify(e) === JSON.stringify(c); }) >= 0)
 	{
 		showMessage(e.srcElement, "Coefficient already exist!");
 		return;
 	}
 
 	// Check if contains same coefficient with different settings
-	var i = coefs.findIndex(e => { e.sensor == c.sensor && e.type == c.type && e.unit == c.unit });
+	var i = coefs.findIndex(e => { return (e.sensor == c.sensor && e.type == c.type && e.unit == c.unit); });
 
 	// Delete existing coefficient
 	if (i >= 0) coefs.splice(i, 1); 
@@ -285,6 +282,9 @@ u.getE("apply_mics").onclick = (e) => {
 	{
 		showMessage(e.srcElement, "Error!", /* error: */ true);
 	}
+
+	// Reload settings
+	loadSettings();
 }
 
 u.getLiveData(updateValues, "last");
@@ -315,8 +315,8 @@ function updateValues(json)
 
 	// Set MICS values
 	var nh3_i = values.findIndex(e => { return isCoefForSensor(e, "MICS-6814", "nh3", "ppm"); });
-	var co_i = values.findIndex(e => { return isCoefForSensor(e, "MICS-6814", "co", "ppm");});
-	var no2_i = values.findIndex(e => { return isCoefForSensor(e, "MICS-6814", "no2", "ppm");});
+	var co_i = values.findIndex(e => { return isCoefForSensor(e, "MICS-6814", "co", "ppm"); });
+	var no2_i = values.findIndex(e => { return isCoefForSensor(e, "MICS-6814", "no2", "ppm"); });
 
 	if (nh3_i >= 0) u.getE("value_nh3").innerText = round(values[nh3_i].value * 1000);
 	if (co_i >= 0) u.getE("value_co").innerText = round(values[co_i].value * 1000);

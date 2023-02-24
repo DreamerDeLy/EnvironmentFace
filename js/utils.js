@@ -122,3 +122,11 @@ export function getLiveData(event_handler, file_name) {
 	xhr.open("GET", url, true);
 	xhr.send(null);
 };
+
+export function clearTable(table) {
+	var child = table.lastElementChild; 
+    while (child) {
+        table.removeChild(child);
+        child = table.lastElementChild;
+    }
+}
