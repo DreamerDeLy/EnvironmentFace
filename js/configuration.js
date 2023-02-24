@@ -103,6 +103,12 @@ function parseSettings(json) {
 		var b_edit = document.createElement("button");
 		b_edit.innerText = "Edit";
 
+		b_edit.onclick = e => {
+			u.getE("port_id").value = p.id;
+			u.getE("rx").value = p.rx;
+			u.getE("tx").value = p.tx;
+		}
+
 		// Remove button
 		var b_remove = document.createElement("button");
 		b_remove.innerText = "Remove";
@@ -258,4 +264,64 @@ u.getE("apply_sensor").onclick = e => {
 
 	// Reload settings
 	loadSettings();
+
+	// Debug
+	// parseSettings(JSON.stringify(settings));
+}
+
+u.getE("apply_port").onclick = e => {
+	var ports = settings.system.serial_ports;
+
+	var port_id = Number(u.getE("port_id").value);
+	var port_rx = Number(u.getE("rx").value);
+	var port_tx = Number(u.getE("tx").value);
+
+	// If input field is empty
+	if (port_tx == "") port_tx = -1;
+
+	var is_active = (port_tx == -1);
+	
+	var is_id_valid = false;
+
+	if (is_active) {
+		is_id_valid = (port_id >= 10 && port_id < 20);
+	} else {
+		is_id_valid = (port_id >= 0 && port_id < 10);
+	}
+
+	if (!is_id_valid) {
+		window.alert("Invalid ID!\nFor Passive: 0 <= id < 10\nFor Active: 10 <= id < 20");
+		return;
+	}
+
+	if (port_rx <= 0) {
+		window.alert("Invalid RX pin!");
+		return;
+	}
+
+	var port_name = (is_active ? "A" : "P") + (is_active ? (port_id - 10) : port_id);
+
+	console.log("apply port: " + port_id + "/" + port_name + " [rx: " + port_rx + ", tx: " + port_tx + "]");
+
+	// Check if same port already exist
+	var i = ports.findIndex(e => { return e.id == port_id; });
+
+	// Delete existing coefficient
+	if (i >= 0) ports.splice(i, 1); 
+
+	ports.push({name: port_name, id: port_id, rx: port_rx, tx: port_tx});
+
+	// Save settings
+	if (u.saveSettings(settings)) {
+		window.alert("Saved!");
+	}
+	else {
+		window.alert("ERROR: settings saving error!");
+	}
+	
+	// Reload settings
+	loadSettings();
+
+	// Debug
+	// parseSettings(JSON.stringify(settings));
 }
