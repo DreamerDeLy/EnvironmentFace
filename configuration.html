@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="images/logo-white.svg" type="image/svg">
+
+	<title>Configuration | EnvOS</title>
+	
+	<link rel="stylesheet" href="css/service_pages.css">
+</head>
+
+<body>
+	<div class="content"> 
+		<h1 style="margin-bottom: 0em;">Configuration menu</h1>
+		<span id="id" class="mono">id</span> / 
+		<span id="version" class="mono">version</span>
+		<br/><br/>
+		
+		<div class="block">
+			<h3>Edit serial port</h3>
+			<table class="table">
+				<tr>
+					<td>
+						<select name="port_type" id="port_type">
+							<option>Active</option>
+							<option>Passive</option>
+						</select>
+					</td>
+					<td style="width: 5em;"><input type="number" name="id" id="id" placeholder="ID"></td>
+					<td style="width: 5em;"><input type="number" name="rx" id="rx" placeholder="RX"></td>
+					<td style="width: 5em;"><input type="number" name="tx" id="tx" placeholder="TX"></td>
+					<td><button style="float: right;">Apply</button></td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="block">
+			<h3>Serial ports</h3>
+			<table class="table-f">
+				<tbody id="ports_table">
+					<!--  -->
+				</tbody>
+			</table>
+		</div>
+
+		<div class="block">
+			<h3>Edit sensor</h3>
+			<table class="table">
+				<tr>
+					<td>
+						<select name="name" id="name">
+							<option>SDS011</option>
+							<!--  -->
+						</select>
+					</td>
+					<td>
+						<select name="value" id="value">
+							<option value="true">Enabled</option>
+							<!--  -->
+						</select>
+					</td>
+					<td>
+						<button style="float: right;">Apply</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="block">
+			<h3>Enabled sensors</h3>
+			<table class="table-f">
+				<tbody id="sensors_table">
+					<!--  -->
+				</tbody>
+			</table>
+		</div>
+
+		<div class="block">
+			<h3>Current settings</h3>
+			<div style="margin-bottom: 0.5em;">
+				<button id="b_format">Format</button>
+				<button id="b_copy">Copy</button>
+			</div>
+			<textarea class="settings-text" id="settings_json"></textarea>
+			<div style="margin-top: 0.3em;">
+				<button id="b_save_append">Append</button>
+				<button id="b_save_replace">Replace</button>
+			</div>
+			<div style="margin-top: 0.3em;" class="mono">
+				Append - залишає поля, яких нема в новій конфігурації.<br/>
+				Replace - повністю заміняє вміст файлу на новий.
+			</div>
+		</div>
+	</div>
+
+	<script type="module" src="js/utils.js"></script>
+	<script type="module" src="js/configuration.js"></script>
+</body>
