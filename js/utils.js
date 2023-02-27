@@ -68,7 +68,7 @@ export function getFile(adr, callback, timeout, method, onTimeout, onError){
 
 export function saveSettings(json) 
 {
-	var url = window.location.origin + "/settings";
+	var url = "/settings";
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url);
@@ -103,7 +103,7 @@ export function getLiveData(event_handler, file_name) {
 
 	// Date string is appended as a query with live data 
 	// for not to use the cached version
-	var url = 'data/' + file_name + '.json?' + now.getTime();
+	var url = "data/" + file_name + ".json?" + now.getTime();
 
 	console.log("getting live data from " + file_name);
 

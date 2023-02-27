@@ -34,22 +34,25 @@
 <body>
 	<div class="content">
 		<h1 style="margin-bottom: 0.5em;">Configuration menu</h1>
-		<div class="block center">
+		<div id="password_box" class="block center">
 			<div class="mono" style="margin-bottom: 0.5em;">Enter the service password to log in</div>
 			<table class="width-100">
 				<tr>
 					<td class="width-100"><input class="width-100" type="password" name="password" id="password" placeholder="Password"></td>
-					<td><button >Paste</button></td>
+					<td><button id="b_paste">Paste</button></td>
 				</tr>
 			</table>
 
-			<button style="margin-top: 0.5em;">Login</button>
+			<button id="b_login" style="margin-top: 0.5em;">Login</button>
 		</div>
 
-		<div class="block">
-			<h3>Welcome to service menu!</h3>
+		<div id="welcome_box" class="block hide">
+			<h3>Welcome to the jungle!</h3>
 			<a href="/calibration.html">Calibration</a> / 
 			<a href="/configuration.html">Configuration</a>
 		</div>
 	</div>
+
+	<script type="module" src="js/utils.js"></script>
+	<script type="module" src="js/service_login.js"></script>
 </body>
