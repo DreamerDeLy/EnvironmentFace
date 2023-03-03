@@ -255,7 +255,7 @@ u.getE("save_settings").onclick = (e) => {
 	console.log("New settings");
 	console.log(new_settings);
 
-	if (u.saveSettings(new_settings))
+	if (u.saveSettings(new_settings, "user"))
 	{
 		window.alert("Settings saved successfully!");
 		settings_unsaved = false;
@@ -269,14 +269,14 @@ u.getE("save_settings").onclick = (e) => {
 // Load current settings and setup inputs
 function loadSettings()
 {
-	u.getFile("/data/settings.json",
+	u.getFile("/data/settings_user.json",
 		loadSettingsFromJSON,
 		2000,
 		"GET",
 		function () {
-			u.getFile("/data/settings.json", loadSettingsFromJSON);
+			u.getFile("/data/settings_user.json", loadSettingsFromJSON);
 		}, function () {
-			u.getFile("/data/settings.json", loadSettingsFromJSON);
+			u.getFile("/data/settings_user.json", loadSettingsFromJSON);
 		}
 	);
 }

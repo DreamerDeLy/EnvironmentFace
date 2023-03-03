@@ -1,0 +1,49 @@
+{
+	"pinout": {
+		"i2c_sda": 22,
+		"i2c_scl": 23,
+		"spi_mosi": 17,
+		"spi_miso": 16,
+		"spi_clk": 4,
+		"spi_ss": 0,
+		"lcd_rs": 14,
+		"lcd_en": 27,
+		"lcd_d4": 0,
+		"lcd_d5": 4,
+		"lcd_d6": 16,
+		"lcd_d7": 17,
+		"lcd_lt": 26,
+		"heater": 13,
+		"vent": 15,
+		"buzzer": 15,
+		"accumulator_voltage": 35
+	},
+	"sending_interval_ms": 60000,
+	"mics_a0": 1234,
+	"mics_a1": 12345,
+	"mics_a2": 123456,
+	"mh_zx_abc": false,
+	"mics6814_compensation": true,
+	"pm_heater": true,
+	"lcd1602_3f": false,
+	"lcd1602_27": false,
+	"lcd2004_27": false,
+	"lcd1602": false,
+	"ethernet_enc28j60": false,
+	"sd": false,
+	"serial_ports": [
+		{ "id": 0, "name": "P0", "rx": 18, "tx": 19 },
+		{ "id": 1, "name": "P1", "rx": 33, "tx": 32 },
+		{ "id": 2, "name": "P2", "rx": 14, "tx": 27 },
+		{ "id": 10, "name": "A0", "rx": 5 },
+		{ "id": 11, "name": "A1", "rx": 34 },
+		{ "id": 12, "name": "A2", "rx": 35 },
+		{ "id": 13, "name": "A3", "rx": 25 },
+		{ "id": 14, "name": "A4", "rx": 26 }
+	],
+	"sensors": [
+		{ "name": "SDS011", "port": 0 },
+		{ "name": "AHTx0" },
+		{ "name": "BMP280" }
+	]
+}

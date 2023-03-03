@@ -11,13 +11,15 @@
 	"station-details": "Outdoor air-monitoring station",
 
 	"sensors-status": {
-		"SDS011": "1",
-		"BME280": "0",
-		"MICS-6814": "1",
-		"ZE08-CH2O": "2",
-		"ZE12A-NO2": "0",
-		"MICS-VZ-89-TE": "1",
-		"ZE12A-O3": "-1",
-		"ZE12A-CO": "-1"
+		"SDS011": 1,
+		"BME280": 0,
+		"MICS-6814": 1,
+		"AHTx0": 1,
+		"BMP280": 1,
+		"ZE08-CH2O": 2,
+		"ZE12A-NO2": 0,
+		"MICS-VZ-89-TE": 1,
+		"ZE12A-O3": -1,
+		"ZE12A-CO": -1
 	}
 }

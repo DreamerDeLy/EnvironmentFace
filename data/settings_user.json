@@ -1,0 +1,35 @@
+{
+	"wifi_connect": true,
+	"wlan_ssid": "DIR-300",
+	"wlan_pass": "12345678",
+
+	"ethernet_connect": false,
+
+	"www_basicauth": false,
+	"www_user": "",
+	"www_pass": "",
+
+	"overage_alerts": false,
+	"lcd_backlight": true,
+	"lcd_auto_backlight": false,
+
+	"send2custom": false,
+	"send2mqtt": true,
+	"send2influx": false,
+
+	"host_custom": "192.168.1.10",
+	"url_custom": "/input.php",
+	"port_custom": 80,
+	"user_custom": "",
+	"pass_custom": "",
+
+	"host_mqtt": "192.168.1.10",
+	"port_mqtt": 1883,
+	"user_mqtt": "",
+	"pass_mqtt": "",
+	
+	"url_influx": "",
+	"token_influx": "",
+	"org_influx": "",
+	"bucket_influx": ""
+}

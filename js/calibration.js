@@ -127,7 +127,7 @@ function parseSettings(json) {
 			coefficients.splice(i, 1);
 
 			// Save settings
-			if (u.saveSettings(settings)) {
+			if (u.saveSettings(settings, "system")) {
 				window.alert("Successfully removed!");
 			}
 			else {
@@ -252,7 +252,7 @@ u.getE("apply_coef").onclick = (e) => {
 	coefs.push(c);
 
 	// Save settings
-	if (u.saveSettings(settings))
+	if (u.saveSettings(settings, "system"))
 	{
 		showMessage(e.srcElement, "Applied!");
 	}
@@ -274,7 +274,7 @@ u.getE("apply_mics").onclick = (e) => {
 	settings.system.mics_a2 = u.getE("mics_a2").value;
 
 	// Save settings
-	if (u.saveSettings(settings))
+	if (u.saveSettings(settings, "system"))
 	{
 		showMessage(e.srcElement, "Applied!");
 	}

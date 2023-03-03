@@ -66,9 +66,9 @@ export function getFile(adr, callback, timeout, method, onTimeout, onError){
 	console.log("getFile: " + adr);
 }
 
-export function saveSettings(json) 
+export function saveSettings(json, type) 
 {
-	var url = "/settings";
+	var url = "/settings_" + type + ".json";
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url);
