@@ -75,7 +75,7 @@ function parseSettings(json) {
 	console.log(settings);
 
 	// Fill settings JSON
-	u.getE("settings_json").value = JSON.stringify(settings, null, "    ");
+	u.getE("settings_json").value = JSON.stringify(settings, null, "\t");
 
 	// Table with ports
 	var t_ports = u.getE("ports_table");

@@ -78,6 +78,8 @@ body {
 	background-color: #202020;
 	color: white;
 	border: 1px solid #303030;
+
+	tab-size: 4;
 }
 
 .value-valid {
