@@ -31,16 +31,6 @@ function parseData(fileStr)
 		
 		status_icons.appendChild(i);
 	}
-	
-	if (dataJson["ap-status"] != null)
-	{
-		const i = document.createElement('img');
-		i.src = "images/ap.svg";
-		
-		if (dataJson["ap-status"] == "off") i.classList.add("off");
-		
-		status_icons.appendChild(i);
-	}
 
 	if (dataJson["ethernet-status"] != null)
 	{

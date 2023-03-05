@@ -68,24 +68,19 @@ export function getFile(adr, callback, timeout, method, onTimeout, onError){
 
 export function saveSettings(json, type) 
 {
-	var url = "/settings_" + type + ".json";
+	var url = "/data/settings_" + type + ".json";
 
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url);
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.setRequestHeader("Content-Type", "application/json");
-
-	xhr.onreadystatechange = () => {
-		if (xhr.readyState === 4) {
-			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"");
-			
-			return (xhr.status >= 200 && xhr.status < 300);
-		}
-	};
+	xhr.open("POST", url, /*async: */ false); // TODO: synchronous requests are deprecated and this approach can cause problems
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	console.log("Sending new settings to " + url);
 
-	xhr.send(json);
+	xhr.send("data="+encodeURIComponent(JSON.stringify(json)));
+
+	console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"");
+			
+	return (xhr.status >= 200 && xhr.status < 300);
 }
 
 var xhr = null;
