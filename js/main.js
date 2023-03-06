@@ -1,14 +1,14 @@
 import * as u from "./utils.js";
 
-function parseData(fileStr)
+function parseInfo(fileStr)
 {
-	console.log("parse data");
+	console.log("parse info");
 
 	try {
 		var dataJson = JSON.parse(fileStr);
 	} catch (error) {
 		console.error("info parse");
-		window.alert("ERROR: Failed to load data!");
+		window.alert("ERROR: Failed to load info!");
 		return;
 	}
 	
@@ -21,6 +21,9 @@ function parseData(fileStr)
 	}
 
 	var status_icons = u.getE("status-icons");
+
+	// Clear 
+	status_icons.innerHTML = "";
 
 	if (dataJson["wifi-status"] != null)
 	{
@@ -44,6 +47,9 @@ function parseData(fileStr)
 
 	var sensors_list = u.getE("sensors_list");
 
+	// Clear 
+	sensors_list.innerHTML = "";
+
 	console.log(dataJson["sensors-status"]);
 
 	for (const [key, value] of Object.entries(dataJson["sensors-status"])) {
@@ -65,17 +71,23 @@ function parseData(fileStr)
 	}
 }
 
-// Load data
-u.getFile("/data/info.json",
-	parseData,
-	2000,
-	"GET",
-	function () {
-		u.getFile("/data/info.json", parseData);
-	}, function () {
-		u.getFile("/data/info.json", parseData);
-	}
-);
+// Load info
+function loadInfo() {
+	u.getFile("/data/info.json",
+		parseInfo,
+		2000,
+		"GET",
+		function () {
+			u.getFile("/data/info.json", parseInfo);
+		}, function () {
+			u.getFile("/data/info.json", parseInfo);
+		}
+	);
+}
+
+setTimeout(() => { loadInfo() }, 500);
+
+setInterval(() => { loadInfo() }, 5000);
 
 // Menu buttons
 var menu_items = [
