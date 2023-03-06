@@ -152,8 +152,8 @@ var sensors_descriptions = {
 var units_replace = {
 	// "C": "°C", // Looks not centred
 	"Rh": "%",
-	"ug/m3": "µg/m³",
-	"uR/h": "μR/h"
+	"ug/m3": "&#181;g/m&#179;",
+	"uR/h": "&#181;R/h"
 }
 
 var types_replace = {
@@ -263,6 +263,8 @@ function updateValues(json) {
 
 		// console.log(by_sensor[e]);
 		by_sensor[e].forEach(e => {
+			// Skip raw values
+			if (e["type"].endsWith("-raw")) return;
 
 			var v = createE("div");
 
@@ -285,9 +287,13 @@ function updateValues(json) {
 			t.innerHTML = type;
 			v.appendChild(t);
 
+			// Check value 
+			var value = e["value"];
+			value = ((value == "null") ? "-" : value);
+
 			// Value
 			var t = createE("div");
-			t.innerHTML = e["value"];
+			t.innerHTML = value;
 			v.appendChild(t);
 
 			// Type
