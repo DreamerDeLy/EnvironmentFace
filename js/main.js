@@ -111,9 +111,9 @@ menuSetOnClick();
 u.getE("station_info").childNodes.forEach(n => {
 	if (n.lastChild != null)
 	{
-		n.lastChild.onclick = (e) => {
+		n.lastChild.onclick = () => {
 			// Copy the text inside the text field
-			navigator.clipboard.writeText(e.srcElement.innerText);
+			navigator.clipboard.writeText(n.lastChild.innerText);
 			window.alert("Copied to clipboard!");
 		}
 	}
@@ -350,8 +350,9 @@ function setAllDependents(e, state)
 
 // Hide loading screen
 function hideLoading() {
-	setTimeout(() => { u.getE("loading").style.opacity = "0"; }, 1000)
-	setTimeout(() => { u.getE("loading").style.display = "none"; }, 1500)
+	var delay_time = 1500;
+	setTimeout(() => { u.getE("loading").style.opacity = "0"; }, delay_time)
+	setTimeout(() => { u.getE("loading").style.display = "none"; }, delay_time + 500)
 }
 
 // Hide loading screen when DOM processing by JS finished
