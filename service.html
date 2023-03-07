@@ -46,10 +46,21 @@
 			<button id="b_login" style="margin-top: 0.5em;">Login</button>
 		</div>
 
-		<div id="welcome_box" class="block hide">
-			<h3>Welcome to the jungle!</h3>
-			<a href="/calibration.html">Calibration</a> / 
-			<a href="/configuration.html">Configuration</a>
+		<div id="welcome_box" class="hide">
+			<div class="block">
+				<h3>Welcome to the jungle!</h3>
+				<a href="/calibration">Calibration</a> / 
+				<a href="/configuration">Configuration</a> / 
+				<a href="/update">OTA update</a>
+			</div>
+			<div class="block">
+				<a href="/data/info.json">Info</a> / 
+				<a href="/data/settings_system.json">System Settings</a> / 
+				<a href="/data/settings_user.json">User Settings</a>
+				<div style="margin-bottom: 0.3em;"></div>
+				<a href="/data/send.json">Last sended data</a> /
+				<a href="/data/weather_and_aqi.json">Data from EcoCity</a>
+			</div>
 		</div>
 	</div>
 
