@@ -2,14 +2,14 @@ import * as u from "./utils.js";
 
 // Load settings
 function loadSettings() {
-	u.getFile("/data/settings.json",
+	u.getFile("/data/settings_system.json",
 		parseSettings,
 		2000,
 		"GET",
 		function () {
-			u.getFile("/data/settings.json", parseSettings);
+			u.getFile("/data/settings_system.json", parseSettings);
 		}, function () {
-			u.getFile("/data/settings.json", parseSettings);
+			u.getFile("/data/settings_system.json", parseSettings);
 		}
 	);
 }
@@ -67,7 +67,7 @@ function parseSettings(json) {
 	u.clearTable(t);
 
 	// List of coefficients
-	var coefficients = settings.system.coefficients;
+	var coefficients = settings.coefficients;
 
 	for (let c of coefficients)
 	{
@@ -152,9 +152,9 @@ function parseSettings(json) {
 	}
 
 	// MICS calibration values
-	u.getE("mics_a0").value = settings.system.mics_a0;
-	u.getE("mics_a1").value = settings.system.mics_a1;
-	u.getE("mics_a2").value = settings.system.mics_a2;
+	u.getE("mics_a0").value = settings.mics_a0;
+	u.getE("mics_a1").value = settings.mics_a1;
+	u.getE("mics_a2").value = settings.mics_a2;
 }
 
 function createSensorOption(n, selected = false, disabled = false)
@@ -233,7 +233,7 @@ u.getE("apply_coef").onclick = (e) => {
 	}
 
 	// Reference to coefficients list
-	var coefs = settings.system.coefficients;
+	var coefs = settings.coefficients;
 
 	// Check if same coefficient already exist
 	if (coefs.findIndex(e => { return JSON.stringify(e) === JSON.stringify(c); }) >= 0)
@@ -269,9 +269,9 @@ u.getE("apply_coef").onclick = (e) => {
 u.getE("apply_mics").onclick = (e) => {
 	console.log("applying mics");
 
-	settings.system.mics_a0 = u.getE("mics_a0").value;
-	settings.system.mics_a1 = u.getE("mics_a1").value;
-	settings.system.mics_a2 = u.getE("mics_a2").value;
+	settings.mics_a0 = u.getE("mics_a0").value;
+	settings.mics_a1 = u.getE("mics_a1").value;
+	settings.mics_a2 = u.getE("mics_a2").value;
 
 	// Save settings
 	if (u.saveSettings(settings, "system"))
