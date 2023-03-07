@@ -68,9 +68,14 @@ function loadWeatherData()
 				}
 			}
 		} 
+		else
+		{
+			console.error("Loading weather and aqi failed");
+			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"");
+		}
 	}; 
 	x.send(); 
 }
 
-window.setTimeout(loadWeatherData, 1000)
-window.setInterval(loadWeatherData, 60 * 1000);
+window.setTimeout(() => { loadWeatherData() }, 1000)
+window.setInterval(() => { loadWeatherData() }, 60 * 1000);
