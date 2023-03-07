@@ -66,6 +66,9 @@ function parseSettings(json) {
 	var t = u.getE("current_coefs");
 	u.clearTable(t);
 
+	// Create coefficients array if not exist
+	if (settings.coefficients == null) settings.coefficients = [ ];
+
 	// List of coefficients
 	var coefficients = settings.coefficients;
 
@@ -129,13 +132,13 @@ function parseSettings(json) {
 			// Save settings
 			if (u.saveSettings(settings, "system")) {
 				window.alert("Successfully removed!");
+
+				// Reload settings
+				loadSettings();
 			}
 			else {
 				window.alert("ERROR: settings saving error!");
 			}
-
-			// Reload settings
-			loadSettings();
 		}
 
 		td_label.innerHTML = c.sensor + " " + c.type + " " + c.unit + " | " + coefToString(c.coef_type, c.a, c.b);
@@ -231,6 +234,9 @@ u.getE("apply_coef").onclick = (e) => {
 		showMessage(e.srcElement, "Invalid coefficient!", /* error: */ true);
 		return;
 	}
+	
+	// Create coefficients array if not exist
+	if (settings.coefficients == null) settings.coefficients = [ ];
 
 	// Reference to coefficients list
 	var coefs = settings.coefficients;
@@ -255,14 +261,14 @@ u.getE("apply_coef").onclick = (e) => {
 	if (u.saveSettings(settings, "system"))
 	{
 		showMessage(e.srcElement, "Applied!");
+
+		// Reload settings
+		loadSettings();
 	}
 	else
 	{
 		showMessage(e.srcElement, "Error!", /* error: */ true);
 	}
-
-	// Reload settings
-	loadSettings();
 }
 
 // Apply MICS calibration
@@ -277,14 +283,14 @@ u.getE("apply_mics").onclick = (e) => {
 	if (u.saveSettings(settings, "system"))
 	{
 		showMessage(e.srcElement, "Applied!");
+
+		// Reload settings
+		loadSettings();
 	}
 	else
 	{
 		showMessage(e.srcElement, "Error!", /* error: */ true);
 	}
-
-	// Reload settings
-	loadSettings();
 }
 
 u.getLiveData(updateValues, "last");
