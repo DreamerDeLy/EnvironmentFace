@@ -250,6 +250,7 @@ function parseSettings(json) {
 
 loadSettings();
 
+// Is string a valid JSON object
 function isValidJSON(str)
 {
 	try {
@@ -260,8 +261,38 @@ function isValidJSON(str)
 	}
 }
 
+// Change color of settings JSON textarea 
 u.getE("settings_json").oninput = e => {
 	e.srcElement.style = "background-color: " + (isValidJSON(e.srcElement.value) ? "#3a6d3e" : "#6d3a3a");
+}
+
+// Format text in settings JSON textarea
+u.getE("b_format").onclick = e => {
+	try {
+		u.getE("settings_json").value = JSON.stringify(JSON.parse(u.getE("settings_json").value), null, "\t");
+	} catch (error) {
+		window.alert("ERROR: JSON is invalid!");
+	}
+}
+
+// Save settings JSON from textarea
+u.getE("b_save").onclick = e => {
+	try {
+		settings = JSON.parse(u.getE("settings_json").value);
+	} catch (error) {
+		window.alert("ERROR: JSON is invalid!");
+		return;
+	}	
+
+	// Save settings
+	if (u.saveSettings(settings, "system")) {
+		window.alert("Saved!");
+
+		loadSettings();
+	}
+	else {
+		window.alert("ERROR: settings saving error!");
+	}
 }
 
 function isNumber(value) {
