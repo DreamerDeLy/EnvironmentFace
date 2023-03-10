@@ -78,7 +78,7 @@ function parseInfo(fileStr)
 function loadInfo() {
 	u.getFile("/data/info.json",
 		parseInfo,
-		1000,
+		2000,
 		"GET",
 		function () {
 			// Show message that station is offline
