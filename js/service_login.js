@@ -29,6 +29,7 @@ b_login.onclick = e => {
 			if (xhr.status == 200)
 			{
 				logged();
+				window.location.assign("/service?logged");
 			}
 			else if (xhr.status == 401)
 			{

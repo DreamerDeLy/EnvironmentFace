@@ -124,6 +124,10 @@ function parseSettings(json) {
 
 				// Save settings
 				if (u.saveSettings(settings, "system")) {
+					// Restart system
+					u.sendCommand("restart_module system");
+					u.sendCommand("restart_module sensors");
+					
 					window.alert("Successfully removed!");
 				}
 				else {
@@ -212,6 +216,9 @@ function parseSettings(json) {
 
 			// Save settings
 			if (u.saveSettings(settings, "system")) {
+				// Restart sensors
+				u.sendCommand("restart_module sensors");
+				
 				window.alert("Successfully removed!");
 			}
 			else {
@@ -286,6 +293,10 @@ u.getE("b_save").onclick = e => {
 
 	// Save settings
 	if (u.saveSettings(settings, "system")) {
+		// Restart modules
+		u.sendCommand("restart_module system");
+		u.sendCommand("restart_module sensors");
+
 		window.alert("Saved!");
 
 		loadSettings();
@@ -344,6 +355,9 @@ u.getE("apply_sensor").onclick = e => {
 
 	// Save settings
 	if (u.saveSettings(settings, "system")) {
+		// Restart sensors
+		u.sendCommand("restart_module sensors");
+		
 		window.alert("Saved!");
 	}
 	else {
@@ -401,6 +415,10 @@ u.getE("apply_port").onclick = e => {
 
 	// Save settings
 	if (u.saveSettings(settings, "system")) {
+		// Restart system
+		u.sendCommand("restart_module system");
+		u.sendCommand("restart_module sensors");
+		
 		window.alert("Saved!");
 	}
 	else {
