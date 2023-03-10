@@ -431,3 +431,21 @@ u.getE("apply_port").onclick = e => {
 	// Debug
 	// parseSettings(JSON.stringify(settings));
 }
+
+u.getE("b_reboot").onclick = () => {
+	u.sendCommand("reboot");
+	window.alert("Station was rebooted");
+
+	window.location.assign("/service");
+}
+
+u.getE("b_reset").onclick = () => {
+	if (window.confirm("Are you really want to reset settings?"))
+	{
+		u.sendCommand("settings_reset");
+		u.sendCommand("reboot");
+		window.alert("Station was rebooted");
+
+		window.location.assign("/service");
+	}
+}
