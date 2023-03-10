@@ -41,6 +41,7 @@ body {
 
 .table {
 	width: 100%;
+	border-collapse: collapse;
 }
 
 .table > tbody > tr > td > input {
@@ -92,4 +93,9 @@ body {
 
 .mono {
 	font-family: monospace;
+}
+
+hr {
+	margin-top: 1em; 
+	margin-bottom: 1em;
 }

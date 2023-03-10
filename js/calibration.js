@@ -286,6 +286,9 @@ u.getE("apply_mics").onclick = (e) => {
 
 		// Reload settings
 		loadSettings();
+
+		// Restart sensors
+		u.sendCommand("restart_module sensors");
 	}
 	else
 	{
@@ -348,3 +351,64 @@ function updateValues(json)
 }
 
 setInterval(() => {u.getLiveData(updateValues, "last")}, 1000);
+
+var mics_boxes = [
+	u.getE("mics_a0"),
+	u.getE("mics_a1"),
+	u.getE("mics_a2")
+]
+
+mics_boxes.forEach(e => e.onchange = () => {
+	e.style = "";
+})
+
+u.getE("calculate_mics").onclick = e => {
+	u.getLiveData(calculateMics, "send");
+}
+
+function calculateMics(json)
+{
+	try {
+		var data = JSON.parse(json);
+	} catch (error) {
+		window.alert("ERROR: Failed to load data!");
+		return;
+	}
+
+	var isValid = e => {
+		return (e != null && e > 0);
+	};
+
+	try {
+		var raw_nh3 = data["variables"].find(e => e.type == "nh3-raw")["value"];
+		var raw_co = data["variables"].find(e => e.type == "co-raw")["value"];
+		var raw_no2 = data["variables"].find(e => e.type == "no2-raw")["value"];
+	} catch {
+		window.alert("WARNING: Failed to load some MICS values!");
+	}
+
+	var avg_nh3 = u.getE("ref_nh3").value;
+	var avg_co = u.getE("ref_co").value;
+	var avg_no2 = u.getE("ref_no2").value;
+
+	if (isValid(raw_nh3)) {
+		var ratio_nh3 = (10 * Math.pow(10/7, 33/167)) / (Math.pow(7*3, 100/167) * Math.pow(avg_nh3, 100/167));
+		var r0_nh3 = raw_nh3 / ratio_nh3;
+		mics_boxes[0].value = Math.round(r0_nh3 * 100);
+		mics_boxes[0].style = "background-color: #FFEB3B;"
+	}
+
+	if (isValid(raw_co)) {
+		var ratio_co = Math.pow(877, 1000/1179) / (20 * Math.pow(2, 214/393) * Math.pow(5, 821/1179) * Math.pow(avg_co, 1000/1179));
+		var r0_co = raw_co / ratio_co;
+		mics_boxes[1].value = Math.round(r0_co * 100);
+		mics_boxes[1].style = "background-color: #FFEB3B;"
+	}
+	
+	if (isValid(raw_no2)) {
+		var ratio_no2 = (Math.pow(1371, 1000/1007) * Math.pow(avg_no2, 1000/1007)) / (20 * Math.pow(2, 986/1007) * Math.pow(5, 993/1007));
+		var r0_no2 = raw_no2 / ratio_no2;
+		mics_boxes[2].value = Math.round(r0_no2 * 100);
+		mics_boxes[2].style = "background-color: #FFEB3B;"
+	}
+}

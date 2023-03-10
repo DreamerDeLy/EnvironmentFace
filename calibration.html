@@ -20,28 +20,60 @@
 		<div class="block">
 			<h3>MICS</h3>
 
+			<div style="margin-bottom: 0.5em;"><b>Automatic MICS calibration calculation</b></div>
+
+			<table class="table">
+				<tr>
+					<td style="font-size: small;">Ref NH3 (ppm)</td>
+					<td style="font-size: small;">Ref CO (ppm)</td>
+					<td style="font-size: small;">Ref NO2 (ppm)</td>
+				</tr>
+				<tr>
+					<td>
+						<input class="text-box" type="number" id="ref_nh3" maxlength="5" value="0.050"/>
+					</td>
+					<td>
+						<input class="text-box" type="number" id="ref_co" maxlength="5" value="0.300"/>
+					</td>
+					<td>
+						<input class="text-box" type="number" id="ref_no2" maxlength="5" value="0.020"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						
+					</td>
+				</tr>
+			</table><br/>
+
+			<button id="calculate_mics">Calculate</button><br/>
+
+			<hr>
+
 			<table class="table">
 				<tr>
 					<td>A0 (NH3)</td>
 					<td>
-						<input class="text-box" type="number" name="mics_a0" id="mics_a0" maxlength="5" />
+						<input class="text-box" type="number" name="mics_a0" id="mics_a0" maxlength="5" placeholder="a0" />
 					</td>
 				</tr>
 				<tr>
 					<td>A1 (CO)</td>
 					<td>
-						<input class="text-box" type="number" name="mics_a1" id="mics_a1" maxlength="5" />
+						<input class="text-box" type="number" name="mics_a1" id="mics_a1" maxlength="5" placeholder="a1" />
 					</td>
 				</tr>
 				<tr>
 					<td>A2 (NO2)</td>
 					<td>
-						<input class="text-box" type="number" name="mics_a2" id="mics_a2" maxlength="5" />
+						<input class="text-box" type="number" name="mics_a2" id="mics_a2" maxlength="5" placeholder="a2" />
 					</td>
 				</tr>
 			</table><br/>
+
+			<button id="apply_mics">Apply</button>&nbsp;<span>...</span><br/>
 			
-			<button id="apply_mics">Apply</button>&nbsp;<span>...</span><br/><br/>
+			<hr>
 
 			<span><b>Current values:</b></span>
 			<div style="margin-top: 0.5em;">
@@ -88,7 +120,9 @@
 			
 			<span id="coef_formula" class="mono">formula</span><br/><br/>
 			
-			<button id="apply_coef">Apply</button>&nbsp;<span>...</span><br/><br/>
+			<button id="apply_coef">Apply</button>&nbsp;<span>...</span><br/>
+
+			<hr>
 			
 			<span><b>Value:</b></span>
 			<div style="margin-top: 0.5em;">
