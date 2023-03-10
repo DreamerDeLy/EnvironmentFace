@@ -69,18 +69,23 @@ function parseInfo(fileStr)
 		s.innerHTML = key;
 		sensors_list.appendChild(s)	
 	}
+
+	// If station was offline, hide banner
+	hideLoading();
 }
 
 // Load info
 function loadInfo() {
 	u.getFile("/data/info.json",
 		parseInfo,
-		2000,
+		1000,
 		"GET",
 		function () {
-			u.getFile("/data/info.json", parseInfo);
+			// Show message that station is offline
+			showOfflineLoading();
 		}, function () {
-			u.getFile("/data/info.json", parseInfo);
+			// Show message that station is offline
+			showOfflineLoading();
 		}
 	);
 }
@@ -347,16 +352,25 @@ function setAllDependents(e, state)
 	}
 }
 
-
 // Hide loading screen
 function hideLoading() {
-	var delay_time = 1500;
+	var delay_time = 2000;
 	setTimeout(() => { u.getE("loading").style.opacity = "0"; }, delay_time)
-	setTimeout(() => { u.getE("loading").style.display = "none"; }, delay_time + 500)
+	setTimeout(() => { 
+		u.getE("loading").style.display = "none"; 
+		u.getE("offline_text").style = "display: block";
+	}, delay_time + 500)
+}
+
+// Show loading screen with offline text
+function showOfflineLoading() {
+	u.getE("offline_text").style = "";
+	u.getE("loading").style.display = "flex";
+	setTimeout(() => { u.getE("loading").style.opacity = "1"; }, 100)
 }
 
 // Hide loading screen when DOM processing by JS finished
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('DOMContentLoaded', () => {
 	console.log('DOM fully loaded and parsed');
 	hideLoading();
 });

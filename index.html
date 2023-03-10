@@ -35,6 +35,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			flex-direction: column;
 
 			transition: opacity 0.5s ease-in-out;
 		}
@@ -60,11 +61,17 @@
 			0% { transform: rotate(0deg); }
 			100% { transform: rotate(360deg); }
 		}
+
+		#offline_text {
+			color: white; 
+			margin-top: 2em;
+		}
 	</style>
 </head>
 <body>
 	<div id="loading">
 		<div class="lds-dual-ring"></div>
+		<div id="offline_text" style="display: none;">Your station is offline...</div>
 	</div>
 	<div class="wrapper">
 		<div class="header">
