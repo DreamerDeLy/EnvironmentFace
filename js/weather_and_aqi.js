@@ -77,5 +77,5 @@ function loadWeatherData()
 	x.send(); 
 }
 
-window.setTimeout(() => { loadWeatherData() }, 1000)
+window.setTimeout(() => { loadWeatherData() }, 100)
 window.setInterval(() => { loadWeatherData() }, 60 * 1000);
