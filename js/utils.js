@@ -125,3 +125,22 @@ export function clearTable(table) {
         child = table.lastElementChild;
     }
 }
+
+export function sendCommand(cmd) {
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", "/run");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			console.log("HTTP status: " + xhr.status + "\nResponse: \"" + xhr.responseText + "\"");
+			
+			if (xhr.status == 200)
+			{
+				console.log("Command send successfully");
+			}
+		}
+	};
+
+	xhr.send("command="+encodeURIComponent(cmd));
+}
