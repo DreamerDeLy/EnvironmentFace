@@ -348,11 +348,11 @@ body {
 }
 
 .level-4 {
-	background-color: #632323 !important; 
+	background-color: #4b1c1c !important; 
 }
 
 .level-5 {
-	background-color: #502f69 !important; 
+	background-color: #4c3061 !important; 
 }
 
 #city {
@@ -471,6 +471,7 @@ body {
 
 /* Full width table */
 .fw-table {
+	border-collapse: collapse;
 	width: 100%;
 	border: 0px solid white;
 	padding: 0px;
