@@ -1,6 +1,6 @@
 {
 	"wifi_connect": true,
-	"wlan_ssid": "DIR-300",
+	"wlan_ssid": "Beegreen",
 	"wlan_pass": "12345678",
 
 	"ethernet_connect": false,

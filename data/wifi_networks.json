@@ -1,0 +1,22 @@
+[
+	{
+		"ssid": "BeeGreen+",
+		"encryption": 4,
+		"quality": 100
+	},
+	{
+		"ssid": "Beegreen",
+		"encryption": 4,
+		"quality": 64
+	},
+	{
+		"ssid": "TP-Link",
+		"encryption": 0,
+		"quality": 40
+	},
+	{
+		"ssid": "Xiaomi_SH1T",
+		"encryption": 4,
+		"quality": 32
+	}
+]

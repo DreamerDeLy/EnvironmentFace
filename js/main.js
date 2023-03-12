@@ -229,7 +229,7 @@ function detectPage()
 detectPage();
 
 var settings_unsaved = false;
-var settings_inputs = document.getElementsByTagName("input");
+var settings_inputs = document.querySelectorAll("input, select");
 
 // Check id there is unsaved changes in inputs
 function addSettingsUnsavedCheck() {
@@ -253,7 +253,7 @@ u.getE("save_settings").onclick = (e) => {
 		{
 			new_settings[i.name] = i.checked;
 		}
-		else if (i.type == "text" || i.type == "password")
+		else if (i.type == "text" || i.type == "password" || i.type == "select-one")
 		{
 			new_settings[i.name] = i.value;
 		}
@@ -277,19 +277,19 @@ u.getE("save_settings").onclick = (e) => {
 function loadSettings()
 {
 	u.getFile("/data/settings_user.json",
-		loadSettingsFromJSON,
+		parseSettings,
 		2000,
 		"GET",
 		function () {
-			u.getFile("/data/settings_user.json", loadSettingsFromJSON);
+			u.getFile("/data/settings_user.json", parseSettings);
 		}, function () {
-			u.getFile("/data/settings_user.json", loadSettingsFromJSON);
+			u.getFile("/data/settings_user.json", parseSettings);
 		}
 	);
 }
 
 // Load settings from JSON and setup inputs
-function loadSettingsFromJSON(settings_json)
+function parseSettings(settings_json)
 {
 	try {
 		var settings = JSON.parse(settings_json);
@@ -320,6 +320,25 @@ function loadSettingsFromJSON(settings_json)
 				// Set `disable` status of all dependent inputs
 				if (i.getAttribute("master") != null) setAllDependents(i, i.checked);
 			}
+			else if (i.name == "wlan_ssid")
+			{
+				// If networks not loaded
+				if (i.innerHTML == "")
+				{
+					// Create default option
+					var o = document.createElement("option");
+					o.value = s;
+					o.innerText = (s == "" ? "not selected" : s);
+					o.id = "wlan_ssid_current";
+					i.appendChild(o);
+
+					// Load WiFi networks
+					setTimeout(() => { loadWiFiNetworks(); }, 200); 
+				} 
+
+				// Set value
+				i.value = s;
+			}
 			else
 			{
 				// Set text
@@ -337,11 +356,65 @@ function loadSettingsFromJSON(settings_json)
 // Load settings first time
 loadSettings();
 
+// Load WiFi networks
+function parseWiFiNetworks(json)
+{
+	try {
+		var networks = JSON.parse(json);
+	} catch (error) {
+		console.error("wifi networks parse");
+		return;
+	}
+
+	console.log(networks);
+
+	// Get WiFi select box
+	var select = u.getE("wlan_ssid");
+
+	// If current network exist in list
+	if (networks.findIndex((e)=>{ return e.ssid == select.value; }) > -1)
+	{
+		// Delete all options
+		select.innerHTML = "";
+	}
+	else 
+	{
+		// Delete only loaded options
+		var options = select.querySelectorAll("option:not(#wlan_ssid_current)");
+		for (var o of options) select.removeChild(o);
+	}
+
+	for (var n of networks)
+	{
+		// Create option
+		var o = document.createElement("option");
+		o.innerHTML = "<b>" + n.ssid + "</b> " + (n.encryption > 0 ? "&#128274;" : "") + " (" + n.quality + "%)";
+		o.value = n.ssid;
+
+		select.appendChild(o);
+	}
+}
+
+// Load WiFi networks for settings page
+function loadWiFiNetworks()
+{
+	u.getFile("/data/wifi_networks.json",
+		parseWiFiNetworks,
+		2000,
+		"GET",
+		function () {
+			u.getFile("/data/wifi_networks.json", parseWiFiNetworks);
+		}, function () {
+			u.getFile("/data/wifi_networks.json", parseWiFiNetworks);
+		}
+	);
+}
+
 // Setup all inputs that depends on `e`
 function setAllDependents(e, state)
 {
 	var p = e.parentNode.parentNode;
-	var matches = document.querySelectorAll("input");
+	var matches = document.querySelectorAll("input, select");
 
 	for (let m of matches)
 	{
