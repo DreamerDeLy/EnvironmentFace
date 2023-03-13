@@ -72,14 +72,37 @@
 			</table><br/>
 
 			<button id="apply_mics">Apply</button>&nbsp;<span>...</span><br/>
-			
-			<hr>
+
+			<br/>
 
 			<span><b>Current values:</b></span>
 			<div style="margin-top: 0.5em;">
-				<div>NH3: <span id="value_nh3">-</span> ppb</div>
-				<div>CO: <span id="value_co">-</span> ppb</div>
-				<div>NO2: <span id="value_no2">-</span> ppb</div>
+				<table>
+					<tr>
+						<td style="width: 3em;"></td>
+						<td style="font-size: small;">Last (ppb)</td>
+						<td style="width: 1em;"></td>
+						<td style="font-size: small;">AVG (ppb)</td>
+					</tr>
+					<tr>
+						<td>NH3</td>
+						<td><b id="value_nh3">-</b></td>
+						<td></td>
+						<td><b id="value_nh3_avg">-</b></td>
+					</tr>
+					<tr>
+						<td>CO</td>
+						<td><b id="value_co">-</b></td>
+						<td></td>
+						<td><b id="value_co_avg">-</b></td>
+					</tr>
+					<tr>
+						<td>NO2</td>
+						<td><b id="value_no2">-</b></td>
+						<td></td>
+						<td><b id="value_no2_avg">-</b></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 
@@ -94,10 +117,16 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" name="type" id="type" placeholder="type">
+						<!-- <input type="text" name="type" id="type" placeholder="type"> -->
+						<select name="type" id="type">
+							<!--  -->
+						</select>
 					</td>
 					<td>
-						<input type="text" name="unit" id="unit" placeholder="unit">
+						<!-- <input type="text" name="unit" id="unit" placeholder="unit"> -->
+						<select name="unit" id="unit">
+							<!--  -->
+						</select>
 					</td>
 				</tr>
 				<tr>
@@ -122,15 +151,26 @@
 			
 			<button id="apply_coef">Apply</button>&nbsp;<span>...</span><br/>
 
-			<hr>
+			<br/>
 			
 			<span><b>Value:</b></span>
 			<div style="margin-top: 0.5em;">
-				Current: <b id="val_after">-</b> <span id="val_unit">-</span>
+				<table>
+					<tr>
+						<td style="font-size: small;">Last (<span id="val_unit"></span>)</td>
+						<td style="width: 1em;"></td>
+						<td style="font-size: small;">AVG (<span id="val_unit_avg"></span>)</td>
+					</tr>
+					<tr>
+						<td><b id="val_after">-</b></td>
+						<td></td>
+						<td><b id="val_after_avg">-</b></td>
+					</tr>
+				</table>
 			</div>
-		</div>
-		
-		<div class="block">
+
+			<hr>
+
 			<h3>Current coefficients</h3>
 			<table class="table-f">
 				<tbody id="current_coefs">
