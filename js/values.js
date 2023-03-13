@@ -6,11 +6,11 @@ var values_palette = [
 		unit: "ug/m3",
 		palette: [
 			0,
-			12,
-			35.5,
-			55.5,
-			150.5,
-			250.5
+			10,
+			20,
+			25,
+			50,
+			75
 		]
 	},
 	{
@@ -18,11 +18,11 @@ var values_palette = [
 		unit: "ug/m3",
 		palette: [
 			0,
-			55,
-			155,
-			255,
-			355,
-			425
+			20,
+			40,
+			50,
+			100,
+			150
 		]
 	},
 	{
@@ -66,11 +66,11 @@ var values_palette = [
 		unit: "ppb",
 		palette: [
 			0,
-			70,
-			125,
-			165,
-			205,
-			405
+			25,
+			50,
+			65,
+			120,
+			190
 		]
 	},
 	{
@@ -78,11 +78,11 @@ var values_palette = [
 		unit: "ppb",
 		palette: [
 			0,
-			4500,
-			9500,
-			12500,
-			15500,
-			30500
+			450,
+			860,
+			2576,
+			4295,
+			6872
 		]
 	},
 	{
@@ -90,11 +90,11 @@ var values_palette = [
 		unit: "ppb",
 		palette: [
 			0,
-			55,
-			100,
-			360,
-			650,
-			1250
+			20,
+			47,
+			62,
+			120,
+			178
 		]
 	},
 	{
@@ -102,11 +102,11 @@ var values_palette = [
 		unit: "ppb",
 		palette: [
 			0,
-			35,
-			75,
-			185,
-			305,
-			605
+			38,
+			76,
+			134,
+			190,
+			286
 		]
 	},
 	{
@@ -114,11 +114,11 @@ var values_palette = [
 		unit: "uR/h",
 		palette: [
 			0,
+			10,
 			20,
 			30,
 			50,
-			100,
-			200
+			100
 		]
 	},
 	// {
@@ -142,7 +142,7 @@ var sensors_descriptions = {
 	"ZE12-": "High-precision electrochemical sensor",
 	"ZE25-O3": "Electrochemical O3 sensor",
 	"AHT": "Meteorological sensor",
-	"BMP": "BOSCH meteorological sensor",
+	"BMP": "BOSCH barometer",
 	"BME": "BOSCH meteorological sensor",
 	"MICS-VZ-89TE": "Metal-oxide VOCs sensor",
 	"MICS-6814": "Metal-oxide CO, NO2, NH3 sensor",
