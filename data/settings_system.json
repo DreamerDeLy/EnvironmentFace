@@ -31,6 +31,16 @@
 	"lcd1602": false,
 	"ethernet_enc28j60": false,
 	"sd": false,
+	"coefficients": [
+		{
+			"sensor": "SDS011",
+			"type": "pm10",
+			"unit": "ug/m3",
+			"coef_type": "lin",
+			"a": 1,
+			"b": 10
+		}
+	],
 	"serial_ports": [
 		{ "id": 0, "name": "P0", "rx": 18, "tx": 19 },
 		{ "id": 1, "name": "P1", "rx": 33, "tx": 32 },
