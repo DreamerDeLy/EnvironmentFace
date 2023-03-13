@@ -83,16 +83,6 @@ export function saveSettings(json, type)
 	return (xhr.status >= 200 && xhr.status < 300);
 }
 
-var xhr = null;
-
-function getXmlHttpRequestObject() {
-	if (!xhr) {
-		// Create a new XMLHttpRequest object 
-		xhr = new XMLHttpRequest();
-	}
-	return xhr;
-};
-
 export function getLiveData(event_handler, file_name) {
 	var now = new Date();
 
@@ -102,7 +92,7 @@ export function getLiveData(event_handler, file_name) {
 
 	console.log("getting live data from " + file_name);
 
-	xhr = getXmlHttpRequestObject();
+	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4) {
 			if (xhr.status == 200) {
