@@ -364,6 +364,8 @@ function updateValues(json, is_avg)
 			// Skip if already exist
 			if (Array.from(type_select.options).findIndex(e => { return e.innerText == t; }) != -1) continue;
 
+			if (t == "") continue;
+
 			var o = document.createElement("option");
 			o.innerText = t;
 			type_select.appendChild(o);
@@ -383,6 +385,8 @@ function updateValues(json, is_avg)
 		{
 			// Skip if already exist
 			if (Array.from(unit_select.options).findIndex(e => { return e.innerText == t; }) != -1) continue;
+
+			if (t == "") continue;
 
 			var o = document.createElement("option");
 			o.innerText = t;
