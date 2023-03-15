@@ -9,6 +9,7 @@
 	"working-time": 721,
 	"station-name": "AirFresh Max",
 	"station-details": "Outdoor air-monitoring station",
+	"user-logged": true,
 
 	"sensors-status": {
 		"SDS011": 1,

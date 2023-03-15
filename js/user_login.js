@@ -15,13 +15,7 @@ user.addEventListener("keypress", e => {
 
 b_login.onclick = e => {
 	console.log("login");
-
-	if (user.value == "")
-	{
-		window.alert("User field is empty!");
-		return;
-	}
-
+	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", "/user_login");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -36,7 +30,7 @@ b_login.onclick = e => {
 			}
 			else if (xhr.status == 401)
 			{
-				window.alert("Incorrect password!");
+				window.alert("Incorrect password or username!");
 			}
 			else
 			{

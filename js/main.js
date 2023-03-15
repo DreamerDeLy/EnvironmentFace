@@ -70,6 +70,13 @@ function parseInfo(fileStr)
 		sensors_list.appendChild(s)	
 	}
 
+	// If user have to login
+	if (dataJson["user-logged"] == false)
+	{
+		// Redirect
+		window.location.assign("/login");
+	}
+
 	// If station was offline, hide banner
 	hideLoading();
 }
