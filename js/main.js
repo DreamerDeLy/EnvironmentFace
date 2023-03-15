@@ -229,7 +229,7 @@ function detectPage()
 detectPage();
 
 var settings_unsaved = false;
-var settings_inputs = document.querySelectorAll("input, select");
+var settings_inputs = u.getE("settings_page").querySelectorAll("input, select");
 
 // Check id there is unsaved changes in inputs
 function addSettingsUnsavedCheck() {

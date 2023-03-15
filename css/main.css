@@ -586,6 +586,11 @@ input[type="checkbox"]:checked::before {
 	font-family: inherit;
 }
 
+.text-box:focus {
+	outline: none;
+	background-color: var(--color-a-3);
+}
+
 .text-box:disabled {
 	border: 1px solid gray;
 	color: gray;
@@ -620,7 +625,7 @@ button {
 
 	padding: 0.5em 2em 0.5em;
 
-	transition: background-color 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 
 button:hover {
@@ -632,4 +637,9 @@ button:hover {
 button:active {
 	color: black;
 	background-color: white;
+}
+
+button:focus {
+	outline: none;
+}
 }

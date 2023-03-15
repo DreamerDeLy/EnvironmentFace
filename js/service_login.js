@@ -9,6 +9,15 @@ b_paste.onclick = e => {
 	}
 }
 
+password.addEventListener("keypress", e => {
+	if (e.key === "Enter") {
+		// Cancel the default action, if needed
+		e.preventDefault();
+
+		b_login.click();
+	}
+});
+
 b_login.onclick = e => {
 	console.log("login");
 
