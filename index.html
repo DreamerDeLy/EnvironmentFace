@@ -166,13 +166,16 @@
 					<input class="text-box" type="text" name="www_user" placeholder="User" value="" maxlength="34" /><br/>
 					<input class="text-box" type="password" name="www_pass" placeholder="Password" value="" maxlength="64" />
 				</div>
-				<div class="box-panel panel">
-					<div class="h">System</div>
+				<div class="box-panel panel" hardware="ethernet">
+					<div class="h">Ethernet</div>
 
 					<label class="checkbox">
-						<input type="checkbox" name="overage_alerts" />
-						Overage alerts 
+						<input type="checkbox" name="ethernet_connect" />
+						Use Ethernet for data sending
 					</label>
+				</div>
+				<div class="box-panel panel" hardware="lcd">
+					<div class="h">LCD</div>
 
 					<label class="checkbox">
 						<input type="checkbox" name="lcd_backlight" />
@@ -182,6 +185,13 @@
 					<label class="checkbox">
 						<input type="checkbox" name="lcd_auto_backlight" />
 						Turn off LCD backlight at night
+					</label>
+				</div>
+				<div class="box-panel panel" hardware="buzzer">
+					<div class="h">Overage alerts</div>
+					<label class="checkbox">
+						<input type="checkbox" name="overage_alerts" />
+						Sound alerts
 					</label>
 				</div>
 
@@ -294,7 +304,7 @@
 				</div>
 
 				<div id="private_apis_blocked" class="box-panel panel">
-					<div class="h">Custom API's</div>
+					<div class="h">Custom APIs</div>
 					<span style="color: gray">
 						To access the functionality of sending data to MQTT, InfluxDB and other APIs, please contact the developers.
 					</span>

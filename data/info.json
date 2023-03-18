@@ -11,6 +11,11 @@
 	"station-details": "Outdoor air-monitoring station",
 	"user-logged": true,
 	"private-apis-allowed": false,
+	"hardware" : [
+		"ethernet", 
+		"lcd",
+		"buzzer"
+	],
 
 	"sensors-status": {
 		"SDS011": 1,

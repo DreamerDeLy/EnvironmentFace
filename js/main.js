@@ -20,6 +20,20 @@ function parseInfo(fileStr)
 		e.innerHTML = u.convertLineBreaks(u.esc(dataJson[e.getAttribute("data-replace")]));
 	}
 
+	var depends_on_hardware = document.querySelectorAll("[hardware]");
+
+	for (let e of depends_on_hardware)
+	{
+		if (dataJson["hardware"].includes(e.getAttribute("hardware")) == false)
+		{
+			e.classList.add("hide");
+		}
+		else
+		{
+			e.classList.remove("hide");
+		}
+	}
+
 	var status_icons = u.getE("status-icons");
 
 	// Clear 
