@@ -184,112 +184,122 @@
 						Turn off LCD backlight at night
 					</label>
 				</div>
-				<div class="box-panel panel">
-					<div class="h">Custom server</div>
 
-					<label class="checkbox">
-						<input type="checkbox" name="send2custom" master="master" />
-						Send data to custom server
-					</label>
-
-					<table class="fw-table">
-						<tr class="fw-table">
-							<td>Host&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="host_custom" placeholder="Host" maxlength="99" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>Port&nbsp;</td>
-							<td>
-								<input class="text-box" type="number" name="port_custom" placeholder="Port" maxlength="5" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>User&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="user_custom" placeholder="User" maxlength="64" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>Pass&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="pass_custom" placeholder="Pass" maxlength="64" /><br/>
-							</td>
-						</tr>
-					</table>
+				<div id="private_apis" class="hide">
+					<div class="box-panel panel">
+						<div class="h">Custom server</div>
+	
+						<label class="checkbox">
+							<input type="checkbox" name="send2custom" master="master" />
+							Send data to custom server
+						</label>
+	
+						<table class="fw-table">
+							<tr class="fw-table">
+								<td>Host&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="host_custom" placeholder="Host" maxlength="99" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>Port&nbsp;</td>
+								<td>
+									<input class="text-box" type="number" name="port_custom" placeholder="Port" maxlength="5" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>User&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="user_custom" placeholder="User" maxlength="64" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>Pass&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="pass_custom" placeholder="Pass" maxlength="64" /><br/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box-panel panel">
+						<div class="h">MQTT</div>
+	
+						<label class="checkbox">
+							<input type="checkbox" name="send2mqtt" master="master" />
+							Send data to MQTT
+						</label>
+	
+						<table class="fw-table">
+							<tr class="fw-table">
+								<td>Host&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="host_mqtt" placeholder="Host" maxlength="99" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>Port&nbsp;</td>
+								<td>
+									<input class="text-box" type="number" name="port_mqtt" placeholder="Port" maxlength="5" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>User&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="user_mqtt" placeholder="User" maxlength="64" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>Pass&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="pass_mqtt" placeholder="Pass" maxlength="64" /><br/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box-panel panel">
+						<div class="h">InfluxDB</div>
+	
+						<label class="checkbox">
+							<input type="checkbox" name="send2influx" master="master" />
+							Send data to InfluxDB
+						</label>
+	
+						<table class="fw-table">
+							<tr class="fw-table">
+								<td>URL&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="url_influx" placeholder="URL" maxlength="99" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>Token&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="token_influx" placeholder="Token" maxlength="99" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>ORG&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="org_influx" placeholder="ORG" maxlength="99" /><br/>
+								</td>
+							</tr>
+							<tr class="fw-table">
+								<td>Bucket&nbsp;</td>
+								<td>
+									<input class="text-box" type="text" name="bucket_influx" placeholder="Bucket" maxlength="99" /><br/>
+								</td>
+							</tr>
+						</table>
+					</div>	
 				</div>
-				<div class="box-panel panel">
-					<div class="h">MQTT</div>
 
-					<label class="checkbox">
-						<input type="checkbox" name="send2mqtt" master="master" />
-						Send data to MQTT
-					</label>
-
-					<table class="fw-table">
-						<tr class="fw-table">
-							<td>Host&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="host_mqtt" placeholder="Host" maxlength="99" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>Port&nbsp;</td>
-							<td>
-								<input class="text-box" type="number" name="port_mqtt" placeholder="Port" maxlength="5" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>User&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="user_mqtt" placeholder="User" maxlength="64" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>Pass&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="pass_mqtt" placeholder="Pass" maxlength="64" /><br/>
-							</td>
-						</tr>
-					</table>
+				<div id="private_apis_blocked" class="box-panel panel">
+					<div class="h">Custom API's</div>
+					<span style="color: gray">
+						To access the functionality of sending data to MQTT, InfluxDB and other APIs, please contact the developers.
+					</span>
 				</div>
-				<div class="box-panel panel">
-					<div class="h">InfluxDB</div>
-
-					<label class="checkbox">
-						<input type="checkbox" name="send2influx" master="master" />
-						Send data to InfluxDB
-					</label>
-
-					<table class="fw-table">
-						<tr class="fw-table">
-							<td>URL&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="url_influx" placeholder="URL" maxlength="99" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>Token&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="token_influx" placeholder="Token" maxlength="99" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>ORG&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="org_influx" placeholder="ORG" maxlength="99" /><br/>
-							</td>
-						</tr>
-						<tr class="fw-table">
-							<td>Bucket&nbsp;</td>
-							<td>
-								<input class="text-box" type="text" name="bucket_influx" placeholder="Bucket" maxlength="99" /><br/>
-							</td>
-						</tr>
-					</table>
-				</div>
-
+				
 				<div class="save-panel box-panel panel">
 					<div>
 						<span>Save settings</span>

@@ -10,6 +10,7 @@
 	"station-name": "AirFresh Max",
 	"station-details": "Outdoor air-monitoring station",
 	"user-logged": true,
+	"private-apis-allowed": false,
 
 	"sensors-status": {
 		"SDS011": 1,

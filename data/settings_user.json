@@ -5,7 +5,7 @@
 
 	"ethernet_connect": false,
 
-	"www_basicauth": false,
+	"www_auth": false,
 	"www_user": "",
 	"www_pass": "",
 

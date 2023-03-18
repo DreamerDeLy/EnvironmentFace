@@ -70,6 +70,13 @@ function parseInfo(fileStr)
 		sensors_list.appendChild(s)	
 	}
 
+	// Show Custom API's settings
+	if (dataJson["private-apis-allowed"] == true)
+	{
+		u.getE("private_apis_blocked").classList.add("hide");
+		u.getE("private_apis").classList.remove("hide");
+	}
+
 	// If user have to login
 	if (dataJson["user-logged"] == false)
 	{
