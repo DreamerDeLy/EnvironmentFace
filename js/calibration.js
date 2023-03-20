@@ -370,6 +370,9 @@ function round(v, digits = 2)
 	return Math.round(v * m) / m;
 }
 
+var last_data_realtime = { };
+var last_data_average = { };
+
 function updateValues(json, is_avg)
 {
 	var data = { };
@@ -380,6 +383,10 @@ function updateValues(json, is_avg)
 		console.error("ERROR: Value JSON parsing!");
 		return;
 	}
+
+	let last_data = (is_avg ? last_data_average : last_data_realtime);
+
+	var updated = (JSON.stringify(data.variables) != JSON.stringify(last_data.variables));
 
 	var t = u.getE("values");
 
@@ -411,11 +418,13 @@ function updateValues(json, is_avg)
 			}
 		}
 
+		let td_value = (is_avg ? td_avg : td_last);
+
 		tr.setAttribute("data", value_id);
 
 		td_sensor.innerText = v.sensor;
 		td_type.innerText = v.type;
-		(is_avg ? td_avg : td_last).innerText = v.value + " " + v.unit;
+		td_value.innerText = v.value + " " + v.unit;
 
 		// Create default coefficient for value
 		let c = {
@@ -430,7 +439,7 @@ function updateValues(json, is_avg)
 		if (i >= 0)
 		{
 			// Highlight values with coefficient applied 
-			tr.style = "color: gold;"
+			tr.style = "background-color: #503020;"
 
 			// Set actual coefficient
 			c = settings.coefficients[i];
@@ -459,6 +468,12 @@ function updateValues(json, is_avg)
 			}
 		};
 
+		if (updated)
+		{
+			td_value.classList.add("updated");
+			setTimeout(() => { td_value.classList.remove("updated"); }, 3000);
+		}
+
 		if (append) 
 		{
 			tr.appendChild(td_sensor);
@@ -469,6 +484,11 @@ function updateValues(json, is_avg)
 			t.appendChild(tr);
 		}
 	}
+
+	if (is_avg) 
+		last_data_average = data;
+	else 
+		last_data_realtime = data;
 }
 
 setInterval(() => { u.getLiveData( (e) => { updateValues(e, false); }, "last")}, 1000);

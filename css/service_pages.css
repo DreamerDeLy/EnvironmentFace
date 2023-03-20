@@ -121,3 +121,12 @@ hr {
 .table-values > tbody > tr:hover:not(:first-child) {
 	background-color: #303030;
 }
+
+.updated {
+    animation: target-fade 3s 1;
+}
+
+@keyframes target-fade {
+    0% { color: rgba(48, 209, 238); }
+    100% { color: white; }
+}
