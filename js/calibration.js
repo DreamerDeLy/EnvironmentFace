@@ -48,6 +48,72 @@ function updateFormula() {
 
 updateFormula();
 
+function editCoef(c)
+{
+	u.getE("box_coef").classList.remove("hide");
+
+	console.log("edit coef");
+	console.log(c);
+
+	u.getE("coef_type").value = c.coef_type;
+
+	var sensor_select = u.getE("sensor");
+
+	// If option doesn't exist
+	if (Array.from(sensor_select.options).findIndex(e => { return e.innerText == c.sensor; }) == -1)
+	{
+		// Add new option
+		createSensorOption(c.sensor, /* selected: */ true);
+	}
+
+	sensor_select.value = c.sensor;
+	
+	u.getE("type").value = c.type;
+	u.getE("unit").value = c.unit;
+
+	u.getE("a").value = c.a;
+	u.getE("b").value = c.b;
+
+	u.getE("coef_formula").innerHTML = coefToString(c.coef_type, c.a, c.b);
+}
+
+function removeCoef(c)
+{
+	var coefficients = settings.coefficients;
+
+	// Find index of coefficient
+	var i = coefficients.findIndex(e => {
+		return (e.sensor == c.sensor && 
+			e.type == c.type && 
+			e.unit == c.unit);
+	});
+
+	// Print log
+	console.log("removing coef");
+	console.log(coefficients[i]);
+
+	// Remove coefficient
+	coefficients.splice(i, 1);
+
+	// Save settings
+	if (u.saveSettings(settings, "system")) {
+		window.alert("Successfully removed!");
+	}
+	else {
+		window.alert("ERROR: settings saving error!");
+		return;
+	}
+
+	// If currently edited, hide edit box
+	if (isForSensor(c, u.getE("sensor").value, u.getE("type").value, u.getE("unit").value))
+	{
+		u.getE("box_coef").classList.add("hide");
+	}
+
+	// Reload settings
+	loadSettings();
+}
+
 function parseSettings(json) {
 	try {
 		settings = JSON.parse(json);
@@ -83,63 +149,12 @@ function parseSettings(json) {
 		// Edit button
 		var b_edit = document.createElement("button");
 		b_edit.innerText = "Edit";
-
-		b_edit.onclick = (e) => {
-			console.log("edit coef");
-			console.log(c);
-
-			u.getE("coef_type").value = c.coef_type;
-
-			var sensor_select = u.getE("sensor");
-
-			// If option doesn't exist
-			if (Array.from(sensor_select.options).findIndex(e => { return e.innerText == c.sensor; }) == -1)
-			{
-				// Add new option
-				createSensorOption(c.sensor, /* selected: */ true);
-			}
-
-			sensor_select.value = c.sensor;
-			
-			u.getE("type").value = c.type;
-			u.getE("unit").value = c.unit;
-
-			u.getE("a").value = c.a;
-			u.getE("b").value = c.b;
-
-			u.getE("coef_formula").innerHTML = coefToString(c.coef_type, c.a, c.b);
-		}
+		b_edit.onclick = () => { editCoef(c); }
 
 		// Remove button
 		var b_remove = document.createElement("button");
 		b_remove.innerText = "Remove";
-
-		b_remove.onclick = (e) => {
-			// Find index of coefficient
-			var i = coefficients.findIndex(e => {
-				return (e.sensor == c.sensor && 
-					e.type == c.type && 
-					e.unit == c.unit);
-			});
-
-			// Print log
-			console.log("removing coef");
-			console.log(coefficients[i]);
-
-			// Remove coefficient
-			coefficients.splice(i, 1);
-
-			// Save settings
-			if (u.saveSettings(settings, "system")) {
-				window.alert("Successfully removed!");
-
-				// Reload settings
-				loadSettings();
-			}
-			else {
-				window.alert("ERROR: settings saving error!");
-			}
-		}
+		b_remove.onclick = () => { removeCoef(c, settings); }
 
 		td_label.innerHTML = c.sensor + " " + c.type + " " + c.unit + " | " + coefToString(c.coef_type, c.a, c.b);
 		td_label.style = "font-family: monospace; width: 100%;"

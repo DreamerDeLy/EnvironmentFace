@@ -95,6 +95,10 @@ body {
 	font-family: monospace;
 }
 
+.hide {
+	display: none;
+}
+
 hr {
 	margin-top: 1em; 
 	margin-bottom: 1em;
