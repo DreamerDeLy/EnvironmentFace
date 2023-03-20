@@ -50,10 +50,13 @@ updateFormula();
 
 function editCoef(c)
 {
-	u.getE("box_coef").classList.remove("hide");
-
 	console.log("edit coef");
 	console.log(c);
+
+	// Set not required 
+	c.coef_type = (c.coef_type == null ? "lin" : c.coef_type);
+	c.a = (c.a == null ? "" : c.a);
+	c.b = (c.b == null ? "" : c.b);
 
 	u.getE("coef_type").value = c.coef_type;
 
@@ -75,6 +78,9 @@ function editCoef(c)
 	u.getE("b").value = c.b;
 
 	u.getE("coef_formula").innerHTML = coefToString(c.coef_type, c.a, c.b);
+
+	// Show edit box
+	u.getE("box_coef").classList.remove("hide");
 }
 
 function removeCoef(c)
@@ -96,13 +102,13 @@ function removeCoef(c)
 	coefficients.splice(i, 1);
 
 	// Save settings
-	if (u.saveSettings(settings, "system")) {
-		window.alert("Successfully removed!");
-	}
-	else {
-		window.alert("ERROR: settings saving error!");
-		return;
-	}
+	// if (u.saveSettings(settings, "system")) {
+	// 	window.alert("Successfully removed!");
+	// }
+	// else {
+	// 	window.alert("ERROR: settings saving error!");
+	// 	return;
+	// }
 
 	// If currently edited, hide edit box
 	if (isForSensor(c, u.getE("sensor").value, u.getE("type").value, u.getE("unit").value))
@@ -110,8 +116,11 @@ function removeCoef(c)
 		u.getE("box_coef").classList.add("hide");
 	}
 
-	// Reload settings
-	loadSettings();
+	// // Reload settings
+	// loadSettings();
+
+	// Debug
+	parseSettings(JSON.stringify(settings));
 }
 
 function parseSettings(json) {
@@ -139,6 +148,7 @@ function parseSettings(json) {
 	var coefficients = settings.coefficients;
 
 	if (coefficients.length == 0) t.innerHTML = "-";
+	else t.innerHTML = "";
 
 	for (let c of coefficients)
 	{
@@ -245,7 +255,6 @@ u.getE("apply_coef").onclick = (e) => {
 		"a": parseFloat(u.getE("a").value),
 		"b": parseFloat(u.getE("b").value)
 	};
-
 	
 	console.log("coef applying")
 	console.log(c);
@@ -279,18 +288,25 @@ u.getE("apply_coef").onclick = (e) => {
 	// Add coefficient to settings
 	coefs.push(c);
 
-	// Save settings
-	if (u.saveSettings(settings, "system"))
-	{
-		showMessage(e.srcElement, "Applied!");
+	// // Save settings
+	// if (u.saveSettings(settings, "system"))
+	// {
+	// 	showMessage(e.srcElement, "Applied!");
+	// }
+	// else
+	// {
+	// 	showMessage(e.srcElement, "Error!", /* error: */ true);
+	// 	return;
+	// }
 
-		// Reload settings
-		loadSettings();
-	}
-	else
-	{
-		showMessage(e.srcElement, "Error!", /* error: */ true);
-	}
+	// // Reload settings
+	// loadSettings();
+
+	// Hide edit box
+	u.getE("box_coef").classList.add("hide");
+
+	// Debug
+	parseSettings(JSON.stringify(settings));
 }
 
 // Remove coefficient
@@ -306,6 +322,12 @@ u.getE("remove_coef").onclick = () => {
 	};
 
 	removeCoef(c);
+
+	// Hide edit box
+	u.getE("box_coef").classList.add("hide");
+
+	// Debug
+	parseSettings(JSON.stringify(settings));
 }
 
 // Apply MICS calibration
@@ -356,7 +378,82 @@ function updateValues(json, is_avg)
 		return;
 	}
 
-	
+	var t = u.getE("values");
+
+	if (is_avg) return;
+
+	for (let v of data.variables)
+	{
+		if (v.sensor == "system" || v.type.endsWith("-raw")) continue;
+
+		var value_id = v.sensor + "/" + v.type + "/" + v.unit;
+
+		var tr = document.createElement("tr");
+
+		var td_sensor = document.createElement("td");
+		var td_type = document.createElement("td");
+		var td_last = document.createElement("td");
+		var td_avg = document.createElement("td");
+
+		var append = true;
+
+		for (var i of t.rows) {
+			if (i.getAttribute("data") == value_id) 
+			{
+				tr = i;
+
+				td_sensor = i.cells[0];
+				td_type = i.cells[1];
+				td_last = i.cells[2];
+				td_avg = i.cells[3];
+				append = false;
+			}
+		}
+
+		tr.setAttribute("data", value_id);
+
+		td_sensor.innerText = v.sensor;
+		td_type.innerText = v.type;
+		td_last.innerText = v.value + " " + v.unit;
+
+		// Create default coefficient for value
+		let c = {
+			"sensor": v.sensor,
+			"type": v.type,
+			"unit": v.unit
+		};
+
+		// Find coefficient for value
+		var i = settings.coefficients.findIndex(e => { return isForSensor(e, v.sensor, v.type, v.unit); });
+		
+		if (i >= 0)
+		{
+			// Highlight values with coefficient applied 
+			tr.style = "color: gold;"
+
+			// Set actual coefficient
+			c = settings.coefficients[i];
+		}	
+		else
+		{
+			// Reset style
+			tr.style = "";
+		}
+			
+		tr.onclick = () => { 
+			editCoef(c); 
+		};
+
+		if (append) 
+		{
+			tr.appendChild(td_sensor);
+			tr.appendChild(td_type);
+			tr.appendChild(td_last);
+			tr.appendChild(td_avg);
+
+			t.appendChild(tr);
+		}
+	}
 }
 
 setInterval(() => { u.getLiveData( (e) => { updateValues(e, false); }, "last")}, 1000);
