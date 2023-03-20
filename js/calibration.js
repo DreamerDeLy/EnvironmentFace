@@ -293,6 +293,21 @@ u.getE("apply_coef").onclick = (e) => {
 	}
 }
 
+// Remove coefficient
+u.getE("remove_coef").onclick = () => {
+	// Create coefficient 
+	var c = {
+		"sensor": u.getE("sensor").value,
+		"type": u.getE("type").value,
+		"unit": u.getE("unit").value,
+		"coef_type": u.getE("coef_type").value,
+		"a": parseFloat(u.getE("a").value),
+		"b": parseFloat(u.getE("b").value)
+	};
+
+	removeCoef(c);
+}
+
 // Apply MICS calibration
 u.getE("apply_mics").onclick = (e) => {
 	console.log("applying mics");
@@ -332,89 +347,16 @@ function round(v, digits = 2)
 
 function updateValues(json, is_avg)
 {
-	var values_data = { };
+	var data = { };
 
 	try {
-		values_data = JSON.parse(json);
+		data = JSON.parse(json);
 	} catch {
 		console.error("ERROR: Value JSON parsing!");
 		return;
 	}
 
-	var values = values_data.variables;
-
-	// Set MICS values
-	var nh3_i = values.findIndex(e => { return isForSensor(e, "MICS-6814", "nh3", "ppm"); });
-	var co_i = values.findIndex(e => { return isForSensor(e, "MICS-6814", "co", "ppm"); });
-	var no2_i = values.findIndex(e => { return isForSensor(e, "MICS-6814", "no2", "ppm"); });
-
-	var id_postfix = (is_avg == true ? "_avg" : "");
-
-	if (nh3_i >= 0) u.getE("value_nh3" + id_postfix).innerText = round(values[nh3_i].value * 1000);
-	if (co_i >= 0) u.getE("value_co" + id_postfix).innerText = round(values[co_i].value * 1000);
-	if (no2_i >= 0) u.getE("value_no2" + id_postfix).innerText = round(values[no2_i].value * 1000);
-
-	// Set coefficient value
-	var sensor = u.getE("sensor").value;
-	var type = u.getE("type").value;
-	var unit = u.getE("unit").value;
-
-	var i = values.findIndex(e => { return isForSensor(e, sensor, type, unit); });
-
-	if (i >= 0)
-	{
-		u.getE("val_after" + id_postfix).innerText = values[i].value;
-		u.getE("val_unit" + id_postfix).innerText = values[i].unit;
-	}
-	else
-	{
-		u.getE("val_after" + id_postfix).innerText = "-";
-		u.getE("val_unit" + id_postfix).innerText = "-";
-	}
-
-	var type_select = u.getE("type");
-
-	if (type_select.options.length == 0 || is_avg == true)
-	{
-		var types = Array.from(new Set(values.map((v) => { 
-			if (v.sensor != "system" && !v.type.endsWith("-raw")) return v.type; 
-			else return "";
-		} )));
-		
-		for (var t of types)
-		{
-			// Skip if already exist
-			if (Array.from(type_select.options).findIndex(e => { return e.innerText == t; }) != -1) continue;
-
-			if (t == "") continue;
-
-			var o = document.createElement("option");
-			o.innerText = t;
-			type_select.appendChild(o);
-		}
-	}
-
-	var unit_select = u.getE("unit");
-
-	if (unit_select.options.length == 0 || is_avg == true)
-	{
-		var units = Array.from(new Set(values.map((v) => { 
-			if (v.sensor != "system" && !v.type.endsWith("-raw")) return v.unit; 
-			else return "";
-		} )));
-		
-		for (var t of units)
-		{
-			// Skip if already exist
-			if (Array.from(unit_select.options).findIndex(e => { return e.innerText == t; }) != -1) continue;
-
-			if (t == "") continue;
-
-			var o = document.createElement("option");
-			o.innerText = t;
-			unit_select.appendChild(o);
-		}
-	}
+	
 }
 
 setInterval(() => { u.getLiveData( (e) => { updateValues(e, false); }, "last")}, 1000);
