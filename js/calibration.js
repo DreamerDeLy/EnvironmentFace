@@ -94,6 +94,12 @@ function removeCoef(c)
 			e.unit == c.unit);
 	});
 
+	if (i == -1) 
+	{
+		console.warn("coef doesn't exist");
+		return;
+	}
+
 	// Print log
 	console.log("removing coef");
 	console.log(coefficients[i]);
@@ -102,13 +108,13 @@ function removeCoef(c)
 	coefficients.splice(i, 1);
 
 	// Save settings
-	// if (u.saveSettings(settings, "system")) {
-	// 	window.alert("Successfully removed!");
-	// }
-	// else {
-	// 	window.alert("ERROR: settings saving error!");
-	// 	return;
-	// }
+	if (u.saveSettings(settings, "system")) {
+		window.alert("Successfully removed!");
+	}
+	else {
+		window.alert("ERROR: settings saving error!");
+		return;
+	}
 
 	// If currently edited, hide edit box
 	if (isForSensor(c, u.getE("sensor").value, u.getE("type").value, u.getE("unit").value))
@@ -116,11 +122,11 @@ function removeCoef(c)
 		u.getE("box_coef").classList.add("hide");
 	}
 
-	// // Reload settings
-	// loadSettings();
+	// Reload settings
+	loadSettings();
 
-	// Debug
-	parseSettings(JSON.stringify(settings));
+	// // Debug
+	// parseSettings(JSON.stringify(settings));
 }
 
 function parseSettings(json) {
@@ -272,13 +278,6 @@ u.getE("apply_coef").onclick = (e) => {
 	// Reference to coefficients list
 	var coefs = settings.coefficients;
 
-	// Check if same coefficient already exist
-	if (coefs.findIndex(e => { return JSON.stringify(e) === JSON.stringify(c); }) >= 0)
-	{
-		showMessage(e.srcElement, "Coefficient already exist!");
-		return;
-	}
-
 	// Check if contains same coefficient with different settings
 	var i = coefs.findIndex(e => { return (e.sensor == c.sensor && e.type == c.type && e.unit == c.unit); });
 
@@ -288,25 +287,25 @@ u.getE("apply_coef").onclick = (e) => {
 	// Add coefficient to settings
 	coefs.push(c);
 
-	// // Save settings
-	// if (u.saveSettings(settings, "system"))
-	// {
-	// 	showMessage(e.srcElement, "Applied!");
-	// }
-	// else
-	// {
-	// 	showMessage(e.srcElement, "Error!", /* error: */ true);
-	// 	return;
-	// }
+	// Save settings
+	if (u.saveSettings(settings, "system"))
+	{
+		showMessage(e.srcElement, "Applied!");
+	}
+	else
+	{
+		showMessage(e.srcElement, "Error!", /* error: */ true);
+		return;
+	}
 
-	// // Reload settings
-	// loadSettings();
+	// Reload settings
+	loadSettings();
 
 	// Hide edit box
 	u.getE("box_coef").classList.add("hide");
 
-	// Debug
-	parseSettings(JSON.stringify(settings));
+	// // Debug
+	// parseSettings(JSON.stringify(settings));
 }
 
 // Remove coefficient
@@ -342,17 +341,21 @@ u.getE("apply_mics").onclick = (e) => {
 	if (u.saveSettings(settings, "system"))
 	{
 		showMessage(e.srcElement, "Applied!");
-
-		// Reload settings
-		loadSettings();
-
-		// Restart sensors
-		u.sendCommand("restart_module sensors");
 	}
 	else
 	{
 		showMessage(e.srcElement, "Error!", /* error: */ true);
+		return;
 	}
+
+	// Hide editing box
+	u.getE("box_mics").classList.add("hide");
+
+	// Reload settings
+	loadSettings();
+
+	// Restart sensors
+	u.sendCommand("restart_module sensors");
 }
 
 // Is value/coefficient for sensor
@@ -379,8 +382,6 @@ function updateValues(json, is_avg)
 	}
 
 	var t = u.getE("values");
-
-	if (is_avg) return;
 
 	for (let v of data.variables)
 	{
@@ -414,7 +415,7 @@ function updateValues(json, is_avg)
 
 		td_sensor.innerText = v.sensor;
 		td_type.innerText = v.type;
-		td_last.innerText = v.value + " " + v.unit;
+		(is_avg ? td_avg : td_last).innerText = v.value + " " + v.unit;
 
 		// Create default coefficient for value
 		let c = {
@@ -441,7 +442,21 @@ function updateValues(json, is_avg)
 		}
 			
 		tr.onclick = () => { 
-			editCoef(c); 
+			if (v.sensor.toLowerCase() != "mics-6814")
+			{
+				editCoef(c); 
+
+				// Hide MICS calibration box
+				u.getE("box_mics").classList.add("hide");
+			}
+			else
+			{
+				// Hide coefficient edit box
+				u.getE("box_coef").classList.add("hide");
+
+				// Show MICS calibration box
+				u.getE("box_mics").classList.remove("hide");
+			}
 		};
 
 		if (append) 
