@@ -42,6 +42,8 @@ body {
 .table {
 	width: 100%;
 	border-collapse: collapse;
+
+	user-select: none;
 }
 
 .table > tbody > tr > td > input {

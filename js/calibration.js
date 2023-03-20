@@ -138,6 +138,8 @@ function parseSettings(json) {
 	// List of coefficients
 	var coefficients = settings.coefficients;
 
+	if (coefficients.length == 0) t.innerHTML = "-";
+
 	for (let c of coefficients)
 	{
 		var td_label = document.createElement("td");
@@ -215,6 +217,11 @@ u.getFile("/data/info.json",
 // Show button message
 function showMessage(button, msg, error = false) {
 	var m = button.nextElementSibling;
+
+	while (m.nodeName.toLowerCase() != "span")
+	{
+		var m = m.nextElementSibling;
+	}
 
 	// Set mesage
 	m.style = error ? "color: red;" : "";
