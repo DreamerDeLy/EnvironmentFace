@@ -110,6 +110,7 @@ hr {
 	padding: 0.5em 0;
 	font-family: monospace;
 	cursor: pointer;
+	padding-right: 0.6em;
 }
 
 .table-values > tbody > tr > th {

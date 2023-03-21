@@ -34,11 +34,19 @@
 	"coefficients": [
 		{
 			"sensor": "SDS011",
-			"type": "pm10",
+			"type": "pm25",
 			"unit": "ug/m3",
 			"coef_type": "lin",
 			"a": 1,
 			"b": 10
+		},
+		{
+			"sensor": "SDS011",
+			"type": "pm10",
+			"unit": "ug/m3",
+			"coef_type": "lin",
+			"a": 1,
+			"b": 0
 		}
 	],
 	"serial_ports": [

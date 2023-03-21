@@ -18,8 +18,8 @@ loadSettings();
 
 // Coefficient formula to string
 function coefToString(t, a, b) {
-	if (a == "") a = "a";
-	if (b == "") b = "b";
+	if (a === "" || a == null) a = "a";
+	if (b === "" || a == null) b = "b";
 
 	switch (t) 
 	{
@@ -55,7 +55,7 @@ function editCoef(c)
 
 	// Set not required 
 	c.coef_type = (c.coef_type == null ? "lin" : c.coef_type);
-	c.a = (c.a == null ? "" : c.a);
+	c.a = (c.a == null ? "1" : c.a);
 	c.b = (c.b == null ? "" : c.b);
 
 	u.getE("coef_type").value = c.coef_type;
