@@ -81,6 +81,7 @@ function editCoef(c)
 
 	// Show edit box
 	u.getE("box_coef").classList.remove("hide");
+	u.getE("b").focus();
 }
 
 function removeCoef(c)
@@ -198,7 +199,7 @@ function createSensorOption(n, selected = false, disabled = false)
 	var o = document.createElement("option");
 	o.innerText = n;
 
-	if (disabled) o.style = "background-color: #BBBBBB;"
+	if (disabled) o.style = "color: #AAAAAA;"
 	if (selected) o.setAttribute("selected", "selected");
 
 	u.getE("sensor").appendChild(o);
@@ -465,6 +466,7 @@ function updateValues(json, is_avg)
 
 				// Show MICS calibration box
 				u.getE("box_mics").classList.remove("hide");
+				u.getE("apply_mics").focus();
 			}
 		};
 
