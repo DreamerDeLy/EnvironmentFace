@@ -295,6 +295,12 @@ u.getE("save_settings").onclick = (e) => {
 	console.log("New settings");
 	console.log(new_settings);
 
+	if (new_settings["www_auth"] == true && new_settings["www_user"] == "") 
+	{
+		window.alert("User field have to be filled!");
+		return;
+	}
+
 	if (u.saveSettings(new_settings, "user"))
 	{
 		window.alert("Settings saved successfully!");
