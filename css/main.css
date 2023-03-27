@@ -618,6 +618,7 @@ input[type="checkbox"]:checked::before {
 .text-box:disabled {
 	color: dimgray;
 	background-color: var(--color-a-2);
+	opacity: 1;
 }
 
 .text-box:disabled::placeholder {
