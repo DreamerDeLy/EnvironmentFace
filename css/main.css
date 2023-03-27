@@ -134,21 +134,21 @@ body {
 	padding-top: 0.15em;
 }
 
-.header > #status-icons {
+.header #status-icons {
 	margin-right: 1.4em;
 
 	display: flex;
 	flex-direction: row;
 }
 
-.header > #status-icons > img {
+.header #status-icons > img {
 	width: 1.2em;
 	filter: invert(100%);
 
 	margin-left: 0.5em;
 }
 
-.header > #status-icons > .off {
+.header #status-icons > .off {
 	opacity: 0.4;
 }
 
