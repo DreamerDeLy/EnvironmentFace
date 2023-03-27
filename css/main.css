@@ -39,6 +39,43 @@ body {
 	align-items: center;
 }
 
+.box-panel {
+	padding: 1em;
+	margin-bottom: 1em;
+
+	user-select: none;
+
+	transition: max-height 0.15s ease-out;
+}
+
+.box-panel > .h {
+	/* font-weight: bold; */
+	font-size: larger;
+	margin-bottom: 0.5em;
+}
+
+.content {
+	flex: 1 0 auto;
+	box-sizing: border-box;
+
+	width: 100%;
+	max-width: 40em;
+	
+	padding: 1em;
+	
+	color: white;
+}
+
+.panel {
+	background-color: black;
+	border-radius: 0.5em;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* HEADER                                                                     */
+/* -------------------------------------------------------------------------- */
+
 .header {
 	/* font-size: 0.8em; */
 	/* box-sizing: border-box; */
@@ -68,7 +105,7 @@ body {
 	user-select: none;
 }
 
-.header > div > .header-text {
+.header .header-text {
 	box-sizing: border-box;
 	width: 100%;
 
@@ -78,7 +115,7 @@ body {
 	margin-bottom: 1em;
 }
 
-.header > div > .header-text > span {
+.header .header-text > span {
 	font-weight: bolder;
 	font-size: 1.5em;
 
@@ -95,40 +132,27 @@ body {
 	padding-top: 0.15em;
 }
 
-.header > div > #status-icons {
+.header > #status-icons {
 	margin-right: 1.4em;
 
 	display: flex;
 	flex-direction: row;
 }
 
-.header > div > #status-icons > img {
+.header > #status-icons > img {
 	width: 1.2em;
 	filter: invert(100%);
 
 	margin-left: 0.5em;
 }
 
-.header > div > #status-icons > .off {
+.header > #status-icons > .off {
 	opacity: 0.4;
 }
 
-.content {
-	flex: 1 0 auto;
-	box-sizing: border-box;
-
-	width: 100%;
-	max-width: 40em;
-	
-	padding: 1em;
-	
-	color: white;
-}
-
-.panel {
-	background-color: black;
-	border-radius: 0.5em;
-}
+/* -------------------------------------------------------------------------- */
+/* PAGE SELECT MENU                                                           */
+/* -------------------------------------------------------------------------- */
 
 .menu {
 	box-sizing: border-box;
@@ -217,11 +241,11 @@ body {
 	transition: height 0.15s ease-out;
 }
 
-.menu > span > .selected {
+.menu .selected {
 	background-color: var(--color-a-2);
 }
 
-.menu > span > .selected > img {
+.menu .selected > img {
 	width: 2em;
     height: 2em;
 
@@ -229,21 +253,9 @@ body {
 	transition: height 0.15s ease-in;
 }
 
-
-/* .values-panel {
-	background-color: rgb(25, 25, 25);
-
-	border-radius: 0.5em;
-	border: 1px solid;
-	border-color: gray;
-}
-
-.values-panel > .values-table {
-	padding: 0.5em;
-	border-radius: inherit;
-} */
-
-
+/* -------------------------------------------------------------------------- */
+/* VALUES MODE TABS                                                           */
+/* -------------------------------------------------------------------------- */
 
 .tabs {
 	margin-bottom: 0.5em;
@@ -285,7 +297,9 @@ body {
 	background-color: var(--color-a-2);
 }
 
-
+/* -------------------------------------------------------------------------- */
+/* VALUES TABLE                                                               */
+/* -------------------------------------------------------------------------- */
 
 .sensor {
 	/* padding: 0.5em; */
@@ -361,6 +375,10 @@ body {
 	background-color: #4a2e5f !important; 
 }
 
+/* -------------------------------------------------------------------------- */
+/* WEATHER PANEL                                                              */
+/* -------------------------------------------------------------------------- */
+
 #city {
 	/* padding: 1em; */
 	margin-bottom: 1em;
@@ -417,11 +435,9 @@ body {
 	font-weight: bold;
 }
 
-#settings_content > div {
-	background-color: black;
-	border-radius: 0.5em;
-	padding: 0.5em;
-}
+/* -------------------------------------------------------------------------- */
+/* STATION INFO PAGE                                                          */
+/* -------------------------------------------------------------------------- */
 
 .station {
 	box-sizing: border-box;
@@ -460,33 +476,6 @@ body {
 	/* margin-left: 1.5em; */
 }
 
-.box-panel {
-	padding: 1em;
-	margin-bottom: 1em;
-
-	user-select: none;
-
-	transition: max-height 0.15s ease-out;
-}
-
-.box-panel > .h {
-	/* font-weight: bold; */
-	font-size: larger;
-	margin-bottom: 0.5em;
-}
-
-/* Full width table */
-.fw-table {
-	border-collapse: collapse;
-	width: 100%;
-	border: 0px solid white;
-	padding: 0px;
-}
-
-.fw-table > td > input {
-	margin: 0px;
-}
-
 .sensors-panel {
 	padding-bottom: 0.75em;
 }
@@ -515,7 +504,7 @@ body {
 	flex-direction: row;
 }
 
-#station_info > div > code {
+#station_info code {
 	padding: 0.2em;
 	border-radius: 0.5em;
 
@@ -527,8 +516,30 @@ body {
 	cursor: pointer;
 }
 
-#station_info > div > code:hover {
+#station_info code:hover {
 	background-color: var(--color-a-3);
+}
+
+/* -------------------------------------------------------------------------- */
+/* SETTINGS PAGE                                                              */
+/* -------------------------------------------------------------------------- */
+
+#settings_content > div {
+	background-color: black;
+	border-radius: 0.5em;
+	padding: 0.5em;
+}
+
+/* Full width table */
+.fw-table {
+	border-collapse: collapse;
+	width: 100%;
+	border: 0px solid white;
+	padding: 0px;
+}
+
+.fw-table > td > input {
+	margin: 0px;
 }
 
 .checkbox {
@@ -648,6 +659,10 @@ button:active {
 button:focus {
 	outline: none;
 }
+
+/* -------------------------------------------------------------------------- */
+/* LOGIN PAGE                                                                 */
+/* -------------------------------------------------------------------------- */
 
 #login {
 	box-sizing: border-box;
