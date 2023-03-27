@@ -541,7 +541,7 @@ body {
 }
 
 .fw-table > td > input {
-	margin: 0px;
+	margin-bottom: 0.15em;
 }
 
 .checkbox {
@@ -553,13 +553,17 @@ body {
 
 input[type="checkbox"] {
 	appearance: none;
-	background-color: rgb(50, 50, 50);
+	background-color: var(--color-a-3);
+	
 	margin: 0;
+	
 	font: inherit;
+	
 	width: 1.15em;
 	height: 1.15em;
-	border: 0.11em solid white;
-	border-radius: 0.15em;
+
+	border: none;
+	border-radius: 0.2em;
 	transform: translateY(-0.06em);
 
 	margin-right: 0.3em;
@@ -578,7 +582,7 @@ input[type="checkbox"]::before {
 	opacity: 0%;
 	transition: 100ms transform ease-in-out;
 	transition: 100ms opacity ease-in-out;
-	/* box-shadow: inset 1em 1em red; */
+	border-radius: 0.2em;
 
 	background-color: white;
 }
@@ -595,14 +599,15 @@ input[type="checkbox"]:checked::before {
 	background-color: var(--color-a-2);
 
 	width: 100%;
-	padding: 0.25em;
-
+	padding: 0.5em;
 	margin: 0.25em 0em 0.25em;
 
-	border: 1px solid white;
-	border-radius: 0.15em;
+	border: none;
+	border-radius: 0.3em;
 
 	font-family: inherit;
+
+	transition: all 0.2s ease-in-out;
 }
 
 .text-box:focus {
@@ -611,12 +616,12 @@ input[type="checkbox"]:checked::before {
 }
 
 .text-box:disabled {
-	border: 1px solid gray;
-	color: gray;
+	color: dimgray;
+	background-color: var(--color-a-2);
 }
 
 .text-box:disabled::placeholder {
-	color: dimgray;
+	color: rgb(80, 80, 80);
 }
 
 .save-panel {
@@ -635,12 +640,12 @@ input[type="checkbox"]:checked::before {
 }
 
 button {
-	background-color: var(--color-a-1);
+	background-color: var(--color-a-2);
 	font-size: medium;
 	padding: 0.5em;
-	border-radius: 0.5em;
+	border-radius: 0.3em;
 	color: white;
-	border: 1px solid white;
+	border: none;
 
 	padding: 0.5em 2em 0.5em;
 
@@ -660,6 +665,10 @@ button:active {
 
 button:focus {
 	outline: none;
+}
+
+select {
+	padding-left: 0.2em !important;
 }
 
 /* -------------------------------------------------------------------------- */
