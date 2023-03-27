@@ -171,6 +171,9 @@ body {
 	max-width: 40em;
 
 	height: 100%;
+
+	/* Remove highlight on tap on mobile devices */
+	-webkit-tap-highlight-color: transparent;
 }
 
 .menu > span > div {
@@ -265,6 +268,9 @@ body {
 	transition: background-color 0.2s ease-in-out;
 
 	cursor: pointer;
+
+	/* Remove highlight on tap on mobile devices */
+	-webkit-tap-highlight-color: transparent;
 }
 
 .tabs > span + span {
