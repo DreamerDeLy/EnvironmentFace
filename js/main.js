@@ -208,6 +208,11 @@ function changePage(page) {
 			// Cancel page change
 			return;
 		}
+		else
+		{
+			// Load settings to avoid loading when user on page next time
+			loadSettings();
+		}
 	}
 
 	// Load settings to settings inputs

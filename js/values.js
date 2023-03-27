@@ -171,10 +171,15 @@ var display_mode = "last"; // or "send"
 var button_last = u.getE("v_last");
 var button_send = u.getE("v_send");
 
+var table_last = u.getE("values_table_last");
+var table_send = u.getE("values_table_send");
+
 button_last.onclick = () => {
 	display_mode = "last";
 	button_last.classList.add("selected");
 	button_send.classList.remove("selected");
+	table_send.classList.add("hide");
+	table_last.classList.remove("hide");
 	u.getLiveData(updateValues, display_mode);
 }
 
@@ -182,6 +187,8 @@ button_send.onclick = () => {
 	display_mode = "send";
 	button_send.classList.add("selected");
 	button_last.classList.remove("selected");
+	table_last.classList.add("hide");
+	table_send.classList.remove("hide");
 	u.getLiveData(updateValues, display_mode);
 }
 
@@ -224,7 +231,7 @@ function updateValues(json) {
 	}, {});
 
 	// Clear values container
-	var table = u.getE("values_table");
+	var table = (display_mode == "last" ? table_last : table_send);
 	var child = table.lastElementChild; 
 	while (child) {
 		table.removeChild(child);
