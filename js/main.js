@@ -1,5 +1,7 @@
 import * as u from "./utils.js";
 
+var info_loaded = false;
+
 function parseInfo(fileStr)
 {
 	console.log("parse info");
@@ -11,6 +13,14 @@ function parseInfo(fileStr)
 		window.alert("ERROR: Failed to load info!");
 		return;
 	}
+
+	if (dataJson == null)
+	{
+		console.error("info parse null");
+		return;
+	}
+
+	info_loaded = true;
 	
 	var elements = document.querySelectorAll("[data-replace]");
 
@@ -118,10 +128,6 @@ function loadInfo() {
 	);
 }
 
-setTimeout(() => { loadInfo() }, 500);
-
-setInterval(() => { loadInfo() }, 5000);
-
 // Menu buttons
 var menu_items = [
 	u.getE("m_station"),
@@ -137,8 +143,6 @@ function menuSetOnClick() {
 		}
 	})
 }
-
-menuSetOnClick();
 
 // Add copying to clipboard for station info elements
 u.getE("station_info").childNodes.forEach(n => {
@@ -254,8 +258,6 @@ function detectPage()
 	}
 }
 
-detectPage();
-
 var settings_unsaved = false;
 var settings_inputs = u.getE("settings_page").querySelectorAll("input, select");
 
@@ -268,8 +270,6 @@ function addSettingsUnsavedCheck() {
 		}
 	}
 }
-
-addSettingsUnsavedCheck();
 
 // Save settings
 u.getE("save_settings").onclick = (e) => {
@@ -381,9 +381,6 @@ function parseSettings(settings_json)
 	}
 }
 
-// Load settings first time
-loadSettings();
-
 // Load WiFi networks
 function parseWiFiNetworks(json)
 {
@@ -470,8 +467,43 @@ function showOfflineLoading() {
 	setTimeout(() => { u.getE("loading").style.opacity = "1"; }, 100)
 }
 
+var dom_loaded = false;
+
 // Hide loading screen when DOM processing by JS finished
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('DOM fully loaded and parsed');
-	hideLoading();
+	dom_loaded = true;
 });
+
+
+// Set menu buttons
+menuSetOnClick();
+
+// Add settings check 
+addSettingsUnsavedCheck();
+
+// Load settings first time
+loadSettings();
+
+// Detect page and switch to 
+detectPage();
+
+// Loading info
+setTimeout(() => { 
+	
+	// Load info first time
+	loadInfo() 
+
+	// Add continuous loading of info
+	setInterval(() => { loadInfo() }, 5000);
+
+}, 500);
+
+// Hide loading when DOM loaded and info parsed
+var start_check_timer = setTimeout(() => {
+	if (dom_loaded && info_loaded)
+	{
+		clearInterval(start_check_timer);
+		hideLoading();
+	}
+}, 1000);
