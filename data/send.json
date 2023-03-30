@@ -7,7 +7,7 @@
 		{ "type": "dg", "unit": "ppm", "sensor": "ZE03-DG", "value": "0.02" },
 		{ "type": "o3", "unit": "ppb", "sensor": "ZE25-O3", "value": "20.00" },
 		{ "type": "no2", "unit": "ppb", "sensor": "ZE12-NO2", "value": "33.50" },
-		{ "type": "pm25", "unit": "ug/m3", "sensor": "SDS011", "value": "62.6" },
+		{ "type": "pm25", "unit": "ug/m3", "sensor": "SDS011", "value": "42.6" },
 		{ "type": "pm10", "unit": "ug/m3", "sensor": "SDS011", "value": "106.9" },
 		{ "type": "temperature", "unit": "C", "sensor": "AHTx0", "value": "20.09" },
 		{ "type": "humidity", "unit": "Rh", "sensor": "AHTx0", "value": "43.21" },

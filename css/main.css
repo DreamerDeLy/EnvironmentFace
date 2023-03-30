@@ -370,7 +370,7 @@ body {
 }
 
 .level-4 {
-	background-color: #632e2e !important; 
+	background-color: #612424 !important; 
 }
 
 .level-5 {
@@ -619,6 +619,7 @@ input[type="checkbox"]:checked::before {
 	color: dimgray;
 	background-color: var(--color-a-2);
 	opacity: 1;
+	filter: grayscale(100%);
 }
 
 .text-box:disabled::placeholder {
