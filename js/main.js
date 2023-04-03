@@ -485,13 +485,23 @@ function setInputsEnter()
 function addKeyboardShortcuts()
 {
 	document.addEventListener('keyup', e => {
-		var direction;
+		let user_edits_input = false;
 
+		if (current_page == "settings")
+		{
+			// Check is user edits some text field
+			var inputs = document.querySelectorAll("input[type='text'], input[type='password']");
+			for (let i of inputs) { 
+				if (i === document.activeElement) user_edits_input = true;
+			}
+		}
+
+		var direction;
 		if (e.key == "ArrowLeft") direction = -1;
 		else if (e.key == "ArrowRight") direction = 1;
 
 		let page = pages[pages.findIndex(e => e.id == current_page + "_page") + direction];
-		if (page != null)
+		if (page != null && user_edits_input == false)
 		{
 			changePage(page.id.substring(0, page.id.length - 5));
 		}
