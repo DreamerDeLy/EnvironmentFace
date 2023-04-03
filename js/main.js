@@ -461,6 +461,26 @@ function setAllDependents(e, state)
 	}
 }
 
+// Set keypress events for inputs
+function setInputsEnter()
+{
+	var panels = document.querySelectorAll(".panel");
+
+	for (let p of panels)
+	{
+		let inputs = p.querySelectorAll("input[type='text'], input[type='password'], input[type='number']");
+
+		for (let i = 0; i < inputs.length; i++)
+		{
+			inputs[i].addEventListener("keypress", e => {
+				if (e.key === "Enter") {
+					if (inputs[i+1] != null) inputs[i+1].focus();
+				}
+			});
+		}
+	}
+}
+
 // Hide loading screen
 function hideLoading() {
 	var delay_time = 2000;
@@ -492,6 +512,9 @@ menuSetOnClick();
 
 // Add settings check 
 addSettingsUnsavedCheck();
+
+// Add enter key press handlers
+setInputsEnter();
 
 // Load settings first time
 loadSettings();
