@@ -179,13 +179,13 @@ function firstLetterHigh(string)
 
 var current_page;
 
-function changePage(page) {
-	var pages = [
-		u.getE("home_page"),
-		u.getE("station_page"),
-		u.getE("settings_page")
-	]
+var pages = [
+	u.getE("station_page"),
+	u.getE("home_page"),
+	u.getE("settings_page")
+]
 
+function changePage(page) {
 	// No need in changing page
 	if (current_page == page) return;
 
@@ -481,6 +481,23 @@ function setInputsEnter()
 	}
 }
 
+// Set keyboard shortcuts
+function addKeyboardShortcuts()
+{
+	document.addEventListener('keyup', e => {
+		var direction;
+
+		if (e.key == "ArrowLeft") direction = -1;
+		else if (e.key == "ArrowRight") direction = 1;
+
+		let page = pages[pages.findIndex(e => e.id == current_page + "_page") + direction];
+		if (page != null)
+		{
+			changePage(page.id.substring(0, page.id.length - 5));
+		}
+	});
+}
+
 // Hide loading screen
 function hideLoading() {
 	var delay_time = 2000;
@@ -515,6 +532,9 @@ addSettingsUnsavedCheck();
 
 // Add enter key press handlers
 setInputsEnter();
+
+// Add keyboard shortcuts
+addKeyboardShortcuts();
 
 // Load settings first time
 loadSettings();
