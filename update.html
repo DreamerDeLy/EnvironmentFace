@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="images/logo-white.svg" type="image/svg">
+
+	<title>Update | EnvOS</title>
+	
+	<link rel="stylesheet" href="css/service_pages.css">
+</head>
+<body>
+	<div class="content">
+		<h1 style="margin-bottom: 0em;">OTA Update</h1>
+		<span id="id" class="mono">id</span> / 
+		<span id="version" class="mono">version</span>
+		<br/><br/>
+
+		<form method='POST' action='/update' enctype='multipart/form-data'><input type='file' name='update'><input type='submit' value='Update'></form>
+	</div>
+
+	<script type="module" src="js/utils.js"></script>
+	<script type="module" src="js/update.js"></script>
+</body>
